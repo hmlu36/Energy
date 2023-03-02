@@ -1,0 +1,31 @@
+﻿@using JamZoo.Project.WebSite.ViewModels;
+@using Newtonsoft.Json;
+@model ChartViewModel
+@{
+    string strCategories = JsonConvert.SerializeObject(Model.CategoriesOfColumnData);
+    Model.Title = Model.Title.Replace("(圓餅圖)", string.Empty);
+    Model.Title = Model.Title.Replace("(長條圖)", string.Empty);
+    Model.Title = Model.Title.Replace("(折線圖)", string.Empty);
+}
+<script>
+    Highcharts.chart('@Model.Id',{chart:{type:'column',height:400},"credits":{"enabled":false},title:{text:'@Model.Title',style:{fontFamily:'"\5Fae\8Edf\6B63\9ed1\9ad4","Gulim",sans-serif'}},subtitle:{text:'@Model.SubTitle'},xAxis:{categories:@(Html.Raw(strCategories))},yAxis:{min:0,title:{text:''},labels:{style:{color:Highcharts.getOptions().colors[1]},formatter:function (){if (this.value==0)return 0;else return this.value/*/10000 + '萬'*/;},},stackLabels:{enabled:true,style:{fontWeight:'bold',color:(Highcharts.theme && Highcharts.theme.textColor) || 'gray'}}},tooltip:{formatter:function (){var tip = "<b>" + this.x + "</b>";tip += "<br/><span>" + this.series.name + "</span>: " + this.y + "<br/>";tip += "合計 : " + this.point.stackTotal;return tip;},},plotOptions:{series:{states:{inactive:{opacity:1,},},},column:{stacking:'normal',dataLabels:{enabled:false,color:(Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'}}}
+,series:[
+  @{ 
+      int i = 0;
+foreach (var r in Model.ColumnData)
+{
+    string strData = JsonConvert.SerializeObject(r.Value);
+    <text>
+    {
+        name:'@r.Key',
+        data:@Html.Raw(strData),color:'@(ChartViewModel.GetColor(r.Key))'
+    },
+
+    </text>
+    i++;
+}
+}
+
+  ]});
+
+</script>

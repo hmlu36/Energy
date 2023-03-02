@@ -1,0 +1,59 @@
+﻿@using JamZoo.Project.WebSite.ViewModels;
+@using System.Globalization;
+@model DatabaseSearchPage
+@{ 
+    string iconBaseUrl = ViewContext.RouteData.Route.GetVirtualPath(ViewContext.RequestContext,
+        new RouteValueDictionary(new { I = Model.DetailI, CacheKey = Model.GetCacheKey() })
+   ).VirtualPath;
+}
+<ul class="chart_nav">
+    @if (Model.PageId != 5)
+    {
+        <li @(Model.ChartType == "1" ? "class=current" : "")>
+            <a href="@Url.Content("~/" + iconBaseUrl + "&ChartType=1")">
+                <figure class="con icon1">線型</figure>
+            </a>
+        </li>
+        <li @(Model.ChartType == "2" ? "class=current" : "")>
+            <a href="@Url.Content("~/" + iconBaseUrl + "&ChartType=2")">
+                <figure class="con icon2">縱向柱型</figure>
+            </a>
+        </li>
+        <li @(Model.ChartType == "3" ? "class=current" : "")>
+            <a href="@Url.Content("~/" + iconBaseUrl + "&ChartType=3")">
+                <figure class="con icon3">堆積柱形</figure>
+            </a>
+        </li>
+        <li @(Model.ChartType == "4" ? "class=current" : "")>
+            <a href="@Url.Content("~/" + iconBaseUrl + "&ChartType=4")">
+                <figure class="con icon4">區域型</figure>
+            </a>
+        </li>
+        <li @(Model.ChartType == "5" ? "class=current" : "")>
+            <a href="@Url.Content("~/" + iconBaseUrl + "&ChartType=5")">
+                <figure class="con icon5">縱向柱型</figure>
+            </a>
+        </li>
+        <li @(Model.ChartType == "6" ? "class=current" : "")>
+            <a href="@Url.Content("~/" + iconBaseUrl + "&ChartType=6")">
+                <figure class="con icon6">派型</figure>
+            </a>
+        </li>
+    }
+   
+    <li>
+        <a href="javascript:;">
+            <figure class="con icon7">下載此圖</figure>
+        </a>
+    </li>
+    <li>
+        <a href="javascript:;">
+            <figure class="con icon8">下載此pdf</figure>
+        </a>
+    </li>
+    <li>
+        <a href="javascript:;">
+            <figure class="con icon9">列印此圖</figure>
+        </a>
+    </li>
+</ul>

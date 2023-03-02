@@ -1,0 +1,66 @@
+﻿@using JamZoo.Project.WebSite.ViewModels;
+@using System.Globalization;
+@model DatabaseSearchPage
+
+@{
+    bool onlyOnePanel = false;
+
+    if (string.IsNullOrEmpty(Model.PageInfo.Left)
+        || string.IsNullOrEmpty(Model.PageInfo.Right))
+    {
+        onlyOnePanel = true;
+    }
+}
+@if (Model.PageInfo.ReverseLeftRight)
+{
+    <div class="@(onlyOnePanel ? "display_flex justify-content-center" : "")">
+        @if (!string.IsNullOrEmpty(Model.PageInfo.Left))
+        {
+            <fieldset id="leftBox" class="data_two_select lbox">
+                <legend class="legend">@Model.PageInfo.Right</legend>
+                @for (int i = 0; i < Model.FlowDropDownList.Count(); i++)
+                {
+                    @Html.Partial("_DropItem", Model.FlowDropDownList[i])
+                }
+            </fieldset>
+        }
+        @if (!string.IsNullOrEmpty(Model.PageInfo.Right))
+        {
+            <fieldset id="rightBox" class="data_two_select rbox">
+                <legend class="legend">@Model.PageInfo.Left</legend>
+                @for (int i = 0; i < Model.EnergyDropDownList.Count(); i++)
+                {
+                    @Html.Partial("_DropItem", Model.EnergyDropDownList[i])
+                }
+            </fieldset>
+        }
+    </div>
+
+}
+else
+{
+
+    <div class="@(onlyOnePanel ? "display_flex justify-content-center" : "")">
+        @if (!string.IsNullOrEmpty(Model.PageInfo.Left))
+        {
+            <fieldset id="leftBox" class="data_two_select lbox">
+                <legend class="legend">@Model.PageInfo.Left</legend>
+                @for (int i = 0; i < Model.EnergyDropDownList.Count(); i++)
+                {
+                    @Html.Partial("_DropItem", Model.EnergyDropDownList[i])
+                }
+            </fieldset>
+        }
+        @if (!string.IsNullOrEmpty(Model.PageInfo.Right))
+        {
+            <fieldset id="rightBox" class="data_two_select rbox">
+                <legend class="legend">@Model.PageInfo.Right</legend>
+                @for (int i = 0; i < Model.FlowDropDownList.Count(); i++)
+                {
+                    @Html.Partial("_DropItem", Model.FlowDropDownList[i])
+                }
+            </fieldset>
+        }
+    </div>
+
+}

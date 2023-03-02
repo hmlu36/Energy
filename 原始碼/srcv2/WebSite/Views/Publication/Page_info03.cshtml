@@ -1,0 +1,757 @@
+﻿@using JamZoo.Project.WebSite.ViewModels
+@using System.Globalization;
+@model PublicListPage
+@{
+    Layout = "~/Views/Publication/_Master.cshtml";
+    var s = "";
+    var startsn =0;
+    var endsn = 0;
+    var flag1 = "current";
+    var flag2 = "show";
+}
+<style>
+
+    .pr-md-4, .px-md-4 {
+    padding-right: 1.5rem!important;
+}
+.content-inner ul li a {
+    padding: 102.5px 20px;
+    background: white;
+    border: 1px solid #72A418;
+    border-radius: 5px;
+    align-items: center;
+    cursor: pointer;
+   
+    transition: background .3s,box-shadow .3s;
+}
+.content-inner  ul {
+    flex-wrap: wrap;
+   
+}
+
+i.icon-right-open::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    -webkit-transition: color .3s;
+    transition: color .3s;
+}
+.content-inner ul li a h3 {
+    transition: color 0s;
+    color: #FFF;
+    margin-bottom: 0;
+}
+.content-inner ul li a i:nth-of-type(2) {
+    font-size: 25px;
+    color: #72A418;
+    background: #E3EDD1;
+    border-radius: 50%;
+    height: 37.5px;
+    width: 37.5px;
+    margin-right: 0;
+    transition: color .3s,background .3s;
+}
+.icon-right-open:before {
+    content: '>';
+}
+i.icon-right-open {
+    display: inline-block;
+    color: #1E1E1E;
+    font-size: 12px;
+    margin-right: 10px;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    position: relative;
+    -webkit-transition: background .3s;
+    transition: background .3s;
+}
+
+h3{
+    text-align:center;
+}
+.date_l{
+    width:100%;
+    display:block !important;
+
+}
+.date_l .datebox {
+    float:right;
+    padding-right:0.7em;
+  
+}
+
+    [class^="icon-"]:before, [class*=" icon-"]:before {
+        font-family: "fontello";
+        font-style: normal;
+        font-weight: normal;
+        speak: none;
+        display: inline-block;
+        text-decoration: inherit;
+        width: 1em;
+        margin-right: 0.2em;
+        text-align: center;
+        /* opacity: .8; */
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1em;
+        margin-left: 0.2em;
+        /* font-size: 120%; */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        /* text-shadow: 1px 1px 1px rgb(127 127 127 / 30%); */
+    }
+.iconbtn{
+    width:45px;
+    padding-right:10px;
+}
+
+
+.content-inner ul li a:hover {
+   
+    box-shadow: 1px 1px 10px rgb(0 0 0 / 50%);
+}
+.content-inner ul li a:hover i:nth-of-type(1),
+.content-inner ul li a:hover h3,
+.content-inner ul li a:hover svg
+{
+    color: white;
+}
+
+.d-flex .a1{
+    border: 2px solid cadetblue;
+    border-left: 40px solid cadetblue;
+    background: url(/Upload/總體能源_1.jpg);
+    background-size: cover;
+}
+    .d-flex .a2 {
+        border: 2px solid cadetblue;
+        border-left: 40px solid cadetblue;
+        background: url(/Upload/電力_1.jpg);
+        background-position: 5% 45%;
+        background-size: cover;
+    }
+    .d-flex .a3 {
+        border: 2px solid cadetblue;
+        border-left: 40px solid cadetblue;
+        background: url(/Upload/化石能源_1.jpg);
+        background-position: 5% 60%;
+        background-size: cover;
+    }
+
+    .d-flex .a4 {
+        border: 2px solid cadetblue;
+        border-left: 40px solid cadetblue;
+        background: url(/Upload/其他報表_1.jpg);
+        background-position: 25% 75%;
+        background-size: cover;
+    }
+
+    .row .item{
+        margin:2px;
+        padding-left:45px;
+        width:100%;
+    }
+    .row .item a{
+        color:#000;
+        font-size:12pt;
+    }
+    .mbottom{
+        margin-bottom:20px;
+    }
+
+table { 
+  border:1px solid #000; 
+  font-family: 微軟正黑體; 
+  border:1px solid #000;
+  text-align:center;
+  border-collapse:collapse;
+} 
+th { 
+  background-color: #FFF2CC;
+  
+  border:1px solid #000;
+  color:#000;
+} 
+td { 
+  border:1px solid #000;
+  padding:5px;
+} 
+</style>
+    <link href="~/css/tabs.css" rel="stylesheet">
+
+
+    <div class="publishing_rbox">
+        <nav class="publishing_hgroup">
+            <div class="date_l">
+                @*<dl class="datebox coffee">
+                    <dt>發布日</dt>
+                    <dd>110-12-30</dd>
+                </dl>*@
+                <dl class="datebox gray">
+                    <dt>更新日</dt>
+                    <dd>@ViewBag.LASTUPDATE</dd>
+                </dl>
+            </div>
+            <figure class="download_btn">
+                @*  <a href="#">
+                    <svg viewBox="0 0 95 40">
+                        <path d="m24 9.7v-0.7h-2.9v0.8h2.8c0.1 0 0.1 0 0.1-0.1zm0-2.7c0-0.1 0-0.1-0.1-0.1h-2.8v0.9h2.9v-0.8zm21.8 6.7-1.3-0.1v0.9h1.3v-0.8zm-22.3 3.6h-6.3c-0.1 0-0.2 0.1-0.2 0.2v0.6h6.7v-0.6c0-0.1 0-0.2-0.2-0.2zm18.1-3.6v0.9h1.4v-0.9h-1.4zm28.4 17.8v-19h-2.6v19l-3.9-3.8-1.9 1.8 7 6.9 7-6.9-1.9-1.8-3.7 3.8zm-53-11.3h6.7v-0.8h-6.7v0.8zm24.6-3.6 1.4 0.1v-0.9h-1.4v0.8zm4.2 0v-0.9h-1.3v0.9h1.3zm35.3-6.4c-0.2-5.4-4.7-9.7-10.2-9.7-2.8 0-5.4 1.2-7.3 3.1h-58.7c-2.5 0-4.6 2.1-4.6 4.6v10.9c0 2.5 2.1 4.6 4.6 4.6h48.5c1.3 0.8 2.7 1.3 4.4 1.3h6.6v-2.6h-6.5c-3 0-5.5-2.4-5.5-5.4 0-2.2 1.4-4.2 3.7-5l1-0.4 0.2-1.1c0.3-1.5 1.6-2.6 3-2.7 1.6-0.1 3 1.2 3 1.2l0.7-1.7c1.3-2.6 4-4.3 6.9-4.3 4.2 0 7.6 3.3 7.6 7.4v1.6 0.6h1.9c2.7 0 4.8 2.2 4.8 4.8s-2.2 4.8-4.8 4.8h-7.3v2.6h7.3c4.1 0 7.4-3.3 7.4-7.4-0.1-3.7-2.9-6.8-6.7-7.2zm-30.9-5.4c0.5 0.4 1 0.9 1.6 1.6l-0.6 1.2c-0.6-0.7-1.2-1.2-1.6-1.6l0.6-1.2zm-36.6 16.6h-12.1v-1.6h5.3v-3h-3.9v-1.6h3.9v-3h-3.3v-1.6h8.2v1.6h-3.3v3h3.8v1.6h-3.8v3h5.3v1.6zm-0.5-10.1c-2.1-1.2-3.9-2.4-5.5-4.3-1.1 1.5-3 2.8-5.6 4.5l-0.7-1.5c3.1-1.5 5.1-3.3 6-5.1l1.1 0.3-0.1 0.3c1.5 1.8 3.4 3.3 5.5 4.3l-0.7 1.5zm12.1 10.7h-1.5v-0.5h-6.7v0.5h-1.5v-5.5c0-0.3 0.1-0.5 0.3-0.5h9c0.3 0 0.4 0.2 0.4 0.5v5.5zm1.3-6.6h-12.3v-1.4h5.4v-0.8h-4.6v-1.3h4.6v-0.8h-4.3v-1.3h4.3v-0.8h-5.3v-1.3h5.3v-0.9h-4.2v-1.3h4.2v-0.7h1.7l-0.2 0.7h3.7c0.4 0 0.5 0.1 0.5 0.4v1.7h1.1v1.4h-1.1v1.6c0 0.3-0.1 0.5-0.3 0.5h-3.9v0.8h4.6v1.3h-4.6v0.8h5.4v1.4zm12.6-8.2h-5.6v2.2c1.8 1.5 3.3 3.1 4.9 4.9l-0.8 1.5c-1.2-1.4-2.5-2.9-4.2-4.5v10.7h-1.4v-14.8h-4.9v-1.6h12.1v1.6zm11.8 15c-0.6 0-1.2-1.8-1.5-2.8-0.6 1.1-1.3 2-2.1 2.7l-0.8-1.1 1-0.9h-3v1.9h-1.5v-1.9h-3.1v-1.4h3.1v-0.9h-2.3c-0.3 0-0.3-0.1-0.3-0.2v-5c0-0.1 0-0.2 0.1-0.2h2.5v-0.7h-2.9v-1.3h2.9v-0.7h1.5v0.8h2.9v1.3h-2.9v0.7h2.5c0.1 0 0.1 0.1 0.1 0.2v5c0 0.1 0 0.2-0.3 0.2h-2.3v0.9h3.1v1.3c0.7-0.8 1.2-1.6 1.5-2.2-0.5-2.1-0.8-5-1-8.6h-8.3v-1.4h3.4v-1h-2.7v-1.3h2.7v-0.8h1.5v0.8h2.7v1.3h-2.7v1h3.4l-0.1-3.1 1.4 0.1v3h2.6v1.4h-2.6c0.1 2.9 0.4 5.9 0.4 5.9s0.3-2.5 0.3-4.7l1.2 0.1-0.1 2.3c-0.2 1.7-0.3 2.9-1 4.7 0 0 0.2 1.9 0.5 1.9 0.1 0 0.3 0 0.2-1.9l1.2 0.4c-0.1 2.1-0.4 4.2-1.2 4.2z"></path>
+                    </svg>
+                </a>*@
+            </figure>
+        </nav>
+
+        <section>
+            <div class="content-inner">
+                <div id="ctl00_div_Content" class="div-content">
+                    <noscript>
+                        <div style="clear: both;">
+                            您的瀏覽器不支援JavaScript功能，若部份網頁功能無法正常使用時，請開啟瀏覽器JavaScript狀態<br /><br />
+                            SCRIPT關閉時，字級大小選擇請參考：<br />
+                            IE6請利用鍵盤按住ALT鍵 + V → X → (G)最大(L)較大(M)中(S)較小(A)小，選擇適合您的文字大小，<br />
+                            而IE7以上或Firefox瀏覽器則可利用鍵盤 Ctrl + (+)放大 (-)縮小來改變<br />
+                        </div>
+                    </noscript>
+
+                    <p style="text-align:center"><strong>新舊版月報對照及調整說明</strong></p>
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <th>架構</th>
+                                <th>
+                                    報表名稱（含頁籤）
+                                </th>
+                                <th>
+                                    舊版報表對照
+                                </th>
+                                <th>
+                                    內涵調整說明
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td width="57">
+                                    <p>能源指標</p>
+                                </td>
+                                <td width="208">
+                                    <p>1-01能源指標(月/季)</p>
+                                </td>
+                                <td width="274">
+                                    <p>壹、主要能源指標</p>
+                                    <p>參、能源指標</p>
+                                    <p>能源指標季報（自110年起停刊）</p>
+                                </td>
+                                <td width="406">
+                                    <p>1.直接呈現<u>指標公式計算結果</u>，刪除計算用之相關統計數據。</p>
+                                    <p>2.依外界及政策關切重點進行<u>項目增刪</u>。</p>
+                                    <p>3.月、季指標以頁籤分別顯示。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="12" width="57">
+                                    <p>綜合能源</p>
+                                </td>
+                                <td width="208">
+                                    <p>2-01能源供需概況</p>
+                                </td>
+                                <td width="274">
+                                    <p>貳、能源供需概況分析</p>
+                                    <p>4-2能源供給(公秉油當量單位)(月)</p>
+                                    <p>5-2能源需要(公秉油當量單位)(月)</p>
+                                </td>
+                                <td width="406">
+                                    <p>1.簡化為外界常用之<u>能源供給與消費</u>項目，並以表格取代文字敘述。</p>
+                                    <p>2.羅列各能源別原始單位不具實用性，故刪除「4-1能源供給(原始單位)(月)」及「5-1能源需要(原始單位)(月)」。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" width="208">
+                                    <p>2-02能源供給(總供給/自產/進口/初級能源總供給)</p>
+                                </td>
+                                <td width="274">
+                                    <p>4-5能源總供給(歷年)</p>
+                                </td>
+                                <td rowspan="3" width="406">
+                                    <p>1.以頁籤整併為單一檔案。</p>
+                                    <p>2.能源別按常用順序排列，並整合「再生能源」項目。</p>
+                                    <p>3.單位統一為常用之「千公秉油當量」。</p>
+                                    <p>4.增列各項「占比」資料。</p>
+                                    <p>5.增列「初期能源總供給」歷史趨勢及計算公式。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="274">
+                                    <p>4-3自產能源(歷年)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="274">
+                                    <p>4-4進口能源(歷年)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" width="208">
+                                    <p>2-03國內能源消費(按部門別/按能源別)</p>
+                                </td>
+                                <td width="274">
+                                    <p>5-8國內能源消費(按部門區分) (歷年)</p>
+                                </td>
+                                <td rowspan="2" width="406">
+                                    <p>1.以頁籤整併為單一檔案，另「5-9國內能源消費(按用途區分) (歷年)」與部門別資訊重複故刪除。</p>
+                                    <p>2.部門別整合「最終消費」項目。</p>
+                                    <p>3.單位統一為常用之「千公秉油當量」。</p>
+                                    <p>4.增列各項「占比」資料。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="274">
+                                    <p>5-7國內能源消費(按產品區分) (歷年)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" width="208">
+                                    <p>2-04工業部門能源消費(按行業別/按能源別)</p>
+                                </td>
+                                <td width="274">
+                                    <p>5-10工業部門能源消費(按產業別)(歷年)</p>
+                                </td>
+                                <td rowspan="2" width="406">
+                                    <p>1.以頁籤整併為單一檔案。</p>
+                                    <p>2.單位統一為常用之「千公秉油當量」。</p>
+                                    <p>3.增列各項「占比」資料。</p>
+                                    <p>4.「5-4工業部門能源消費(月)」及「5-6工業部門能源消費(累計)」之呈現方式與平衡表資訊重複，且不同能源別之原始單位無法加總運用，故予以刪除。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="274">
+                                    <p>5-11工業部門能源消費(按能源別)(歷年)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" width="208">
+                                    <p>2-05運輸部門能源消費(按運輸型態別/按能源別)</p>
+                                </td>
+                                <td width="274">
+                                    <p>5-12運輸部門能源消費(按運輸型態別)(歷年)</p>
+                                </td>
+                                <td rowspan="2" width="406">
+                                    <p>1.以頁籤整併為單一檔案。</p>
+                                    <p>2.單位統一為常用之「千公秉油當量」。</p>
+                                    <p>3.增列各項「占比」資料。</p>
+                                    <p>4.「5-3運輸部門能源消費(月)」及「5-5運輸部門能源消費(累計)」之呈現方式與平衡表資訊重複，且不同能源別之原始單位無法加總運用，故予以刪除。。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="274">
+                                    <p>5-13運輸部門能源消費(按能源別)(歷年)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>2-06住商部門能源消費(按行業別/服務業部門按能源別/住宅部門按能源別)</p>
+                                </td>
+                                <td width="274">
+                                    <p>5-14住宅與服務業部門能源消費(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>1.新增常用之「服務業_按能源別」及「住宅_按能源別」，並以頁籤整併。</p>
+                                    <p>2.單位統一為常用之「千公秉油當量」。</p>
+                                    <p>3.增列各項「占比」資料。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>2-07能源總需要</p>
+                                </td>
+                                <td width="274">
+                                    <p>5-15能源總需要(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>「出口」與「轉變產出合計」依平衡表項目細分。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="6" width="57">
+                                    <p>電力供需</p>
+                                </td>
+                                <td width="208">
+                                    <p>3-01電力供需概況</p>
+                                </td>
+                                <td width="274">
+                                    <p>10-1電力供需(月)</p>
+                                </td>
+                                <td width="406">
+                                    <p>簡化為外界常用之<u>電力供給與消費</u>項目，以利使用者快速掌握重點。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>3-02發電量(全國/台電/民營電廠/自用發電設備)</p>
+                                </td>
+                                <td width="274">
+                                    <p>10-4發電量(歷年)</p>
+                                    <p>10-5發電結構(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>1.刪除淨發／廠用／銷售／自用電量，單純呈現外界常用之毛發電量（整合數量與占比）。</p>
+                                    <p>2.原「10-6台電供電結構」係台電各類毛發電及購電量占其總發電量之占比，宜由台電公司自行揭露，故刪除。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>3-03發電裝置容量(全國/台電/民營電廠/自用發電設備)</p>
+                                </td>
+                                <td width="274">
+                                    <p>10-7發電裝置容量(歷年)</p>
+                                    <p>10-8發電裝置容量結構</p>
+                                </td>
+                                <td width="406">
+                                    <p>保留原資料內涵（整合數量與占比）。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>3-04電力消費(按部門別/工業部門/運輸部門/住宅與服務業部門)</p>
+                                </td>
+                                <td width="274">
+                                    <p>10-11電力消費(歷年)</p>
+                                    <p>10-12工業部門電力消費(歷年)</p>
+                                    <p>10-13住商部門電力消費(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>1.因應電動運具納入統計範疇，新增「運輸用電」，並以頁籤將各部門用電整併為單一檔案。</p>
+                                    <p>2.單位宜與供給面的發電量統一，故由「千度」改為「百萬度」。</p>
+                                    <p>3.增列各項「占比」資料。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>3-05發電業燃料耗用(全國/台電/民營電廠)</p>
+                                </td>
+                                <td width="274">
+                                    <p>10-9台電火力發電燃料耗用量(歷年)</p>
+                                    <p>10-10民營電廠發電燃料耗用量(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>1.以頁籤整併為單一檔案，並增列「全國」發電業燃料耗用。</p>
+                                    <p>2.原「平均燃料耗用量」係為方便舊版平衡表計算火力發電係數而設，現已無需求，故刪除。</p>
+                                    <p>3.民營電廠歷年從未使用過「亞煙煤」，故刪除。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>3-06自用發電設備發電概況(當月/累計)</p>
+                                </td>
+                                <td width="274">
+                                    <p>10-2自用發電設備發電概況(月)</p>
+                                    <p>10-3自用發電設備發電概況(累計)</p>
+                                </td>
+                                <td width="406">
+                                    <p>保留原資料內涵（整合單月與累計）。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" width="57">
+                                    <p>再生能源</p>
+                                </td>
+                                <td width="208">
+                                    <p>4-01再生能源發電量</p>
+                                </td>
+                                <td width="274">
+                                    <p>11-1再生能源供給(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>增列各類再生能源「占比」資料。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>4-02再生能源裝(設)置容量</p>
+                                </td>
+                                <td width="274">
+                                    <p>11-2再生能源裝(設)置容量(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>增列發電裝置容量「占比」資料，並將「太陽熱能」改為「太陽能熱水器裝設面積（單位改為「千平方公尺」）」。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>4-03再生能源發電業直轉供及躉售</p>
+                                </td>
+                                <td width="274">
+                                    <p>-</p>
+                                </td>
+                                <td width="406">
+                                    <p>考量我國自109年5月起已納入再生能源轉供及售電資料，故新增報表。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="5" width="57">
+                                    <p>原油及</p>
+                                    <p>石油產品</p>
+                                </td>
+                                <td width="208">
+                                    <p>5-01原油供給與煉製</p>
+                                </td>
+                                <td width="274">
+                                    <p>8-1原油供給與煉製(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>-</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>5-02原油進口來源</p>
+                                </td>
+                                <td width="274">
+                                    <p>8-2原油進口來源(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>呈現109年前10大進口國，並增列「占比」資料。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>5-03石油產品供給與轉變</p>
+                                </td>
+                                <td width="274">
+                                    <p>8-3石油產品供給(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>簡化為供給大宗油品，並增列「轉變投入」。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>5-04石油產品消費(按部門別/按油品別/工業部門)</p>
+                                </td>
+                                <td width="274">
+                                    <p>8-4石油產品國內消費(按部門區分)(歷年)</p>
+                                    <p>8-5石油產品國內消費(按油品區分)(歷年)</p>
+                                    <p>8-6工業部門石油產品消費(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>以頁籤整併為單一檔案。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>5-05石油產品出口與國際航運</p>
+                                </td>
+                                <td width="274">
+                                    <p>8-7石油產品出口(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>1.簡化為出口大宗油品。</p>
+                                    <p>2.增列「國際航運（含海運與航空）」，並以頁籤整併。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" width="57">
+                                    <p>天然氣</p>
+                                </td>
+                                <td width="208">
+                                    <p>6-01天然氣供給與消費(自產/進口)</p>
+                                </td>
+                                <td width="274">
+                                    <p>9-1液化天然氣供給與消費表</p>
+                                    <p>9-3自產天然氣供給與消費表</p>
+                                </td>
+                                <td width="406">
+                                    <p>1.增列天然氣總量，並以頁籤整合自產與進口別。</p>
+                                    <p>2.供給面原本呈現自產與進口天然氣相互摻配量較不具意義，故改為呈現「可供市場銷售之NG1/NG2」，以利與消費資料連結。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>6-02液化天然氣進口來源</p>
+                                </td>
+                                <td width="274">
+                                    <p>9-2液化天然氣進口來源表</p>
+                                </td>
+                                <td width="406">
+                                    <p>1.單位改為外界常用的「千公噸」。</p>
+                                    <p>2.呈現109年前10大進口國，並增列占比。。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" width="57">
+                                    <p>煤及煤產品</p>
+                                </td>
+                                <td width="208">
+                                    <p>7-01煤及煤產品供給與消費(煤炭/焦炭/爐氣)</p>
+                                </td>
+                                <td width="274">
+                                    <p>7-1煤炭供給與消費(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>1.刪除國內消費階層，單位改為外界常用的「千公噸」。</p>
+                                    <p>2.考量範疇完整性，故增列「焦炭」及「爐氣」供需資料，並以頁籤整併。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>7-02煤炭進口來源(總量/煙煤-煉焦煤/煙煤-燃料煤/亞煙煤/無煙煤)</p>
+                                </td>
+                                <td width="274">
+                                    <p>7-2煙煤-煉焦煤進口來源(歷年)</p>
+                                    <p>7-3煙煤-燃料煤進口來源(歷年)</p>
+                                    <p>7-4亞煙煤進口來源(歷年)</p>
+                                </td>
+                                <td width="406">
+                                    <p>1.增列「煤炭總量」及「無煙煤 」進口來源與占比，並以頁籤整併煤品別。</p>
+                                    <p>2.單位改為外界常用的「千公噸」。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" width="57">
+                                    <p>能源</p>
+                                    <p>平衡表</p>
+                                </td>
+                                <td width="208">
+                                    <p>8-01能源平衡表(原始單位)(當月/累計)</p>
+                                </td>
+                                <td width="274">
+                                    <p>6-1能源平衡表-OECD能源統計格式(原始單位)(月)</p>
+                                    <p>6-4能源平衡表-OECD能源統計格式(原始單位)(累計)</p>
+                                </td>
+                                <td rowspan="3" width="406">
+                                    <p>1.相同資料頻率合併於同一頁籤，並以淺灰色塊凸顯各能源別合計項。</p>
+                                    <p>2.以頁籤整合「單月」及「累計」平衡表。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>8-02能源平衡表(公秉油當量單位) (當月/累計)</p>
+                                </td>
+                                <td width="274">
+                                    <p>6-3能源平衡表-OECD能源統計格式(公秉油當量單位)(月)</p>
+                                    <p>6-6能源平衡表-OECD能源統計格式(公秉油當量單位)(累計)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>8-03能源平衡表(公噸油當量單位) (當月/累計)</p>
+                                </td>
+                                <td width="274">
+                                    <p>6-2能源平衡表-OECD能源統計格式(公噸油當量單位)(月)</p>
+                                    <p>6-5能源平衡表-OECD能源統計格式(公噸油當量單位)(累計)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="5" width="57">
+                                    <p>能源價格</p>
+                                </td>
+                                <td width="208">
+                                    <p>9-01國內能源價格(油品/天然氣/電力)</p>
+                                </td>
+                                <td width="274">
+                                    <p>壹、主要能源指標</p>
+                                    <p>12-1國內油氣價格變動</p>
+                                </td>
+                                <td rowspan="3" width="406">
+                                    <p>原「12-2國內歷次調整電價」係由台電不定期調整，宜由台電公司自行公告，故刪除；改以「壹、主要能源指標」之常用價格取代，並提供時間序列資料。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>9-02進口能源價格</p>
+                                </td>
+                                <td width="274">
+                                    <p>壹、主要能源指標</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>9-03國際原油價格</p>
+                                </td>
+                                <td width="274">
+                                    <p>壹、主要能源指標</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>9-04主要國家油品價格及税率</p>
+                                </td>
+                                <td width="274">
+                                    <p>12-3世界主要國家石油產品價格及税率</p>
+                                </td>
+                                <td width="406">
+                                    <p>內容保留，僅將格式統一微調。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>9-05亞鄰國家電價表(電力用電/電燈用電/平均售價)</p>
+                                </td>
+                                <td width="274">
+                                    <p>12-4鄰近國家電力用電每度平均售價</p>
+                                    <p>12-5鄰近國家電燈用電每度平均售價</p>
+                                </td>
+                                <td width="406">
+                                    <p>1.以頁籤整合「電力用電」及「電燈用電」及「平均售價」。</p>
+                                    <p>2.依原始資料來源呈現各類電價細分方式。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" width="57">
+                                    <p>編製與</p>
+                                    <p>修訂</p>
+                                </td>
+                                <td width="208">
+                                    <p>月報編製說明</p>
+                                </td>
+                                <td rowspan="2" width="274">
+                                    <p>保留</p>
+                                </td>
+                                <td rowspan="2" width="406">
+                                    <p>-</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="208">
+                                    <p>當年度資料異動說明</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="57">
+                                    <p>附錄</p>
+                                </td>
+                                <td width="208">
+                                    <p>能源產品單位熱值表</p>
+                                </td>
+                                <td width="274">
+                                    <p>保留</p>
+                                </td>
+                                <td width="406">
+                                    <p>-</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>&nbsp;</strong></p>
+                    <br>
+                </div>
+                    
+                </div>
+        </section>
+        @*<div class="panel-content show">
+            <div class="row">
+                <div class="col-md-6">@parent.Title</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="~/Content/uploads/編製說明.odt" title="開啟 編製說明.odt"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/編製說明.pdf" title="開啟 編製說明.pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/編製說明.doc" title="開啟 編製說明.doc"><img src="/images/publication/doc_3.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>*@
+    </div>

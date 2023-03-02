@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="JamZoo.Project.WebSite.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="WebSite_tw_org_iedrp_SessionServicePortService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://iedrp.org.tw:443/wsdl</Value>
+    </Setting>
+    <Setting Name="WebSite_tw_org_iedrprpt_ReportServicePortService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://iedrp.org.tw:443/wsdl</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

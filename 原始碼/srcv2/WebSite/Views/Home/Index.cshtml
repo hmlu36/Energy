@@ -1,0 +1,159 @@
+﻿@using JamZoo.Project.WebSite.ViewModels;
+@model IndexPage
+@{
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@section js {
+}
+<script src="~/Content/aos.js"></script>
+<link rel="stylesheet" href="/css/aos.css">
+<link rel="stylesheet" href="/css/about.css">
+<div class="boe_bg">
+    <div class="maintop">
+        <div class="container">
+
+            <!-- SOLUTIONS -->
+            <div class="index-about">
+                <!-- PAGE-TITLE -->
+                <div class="page-title text-center aos-init aos-animate" data-aos="zoom-in">
+
+                    @*<h1 class="index-about-h1">能源統計專區簡介</h1>
+                    <hr>*@
+                    <span>
+                        本專區提供具時效性、準確性之能源統資料供各界使用者參考，並提<br>
+                        供統計視覺化資訊，方便使用者快速掌握我國能源況。
+                    </span>
+                </div>
+                <div class="index-about-list">
+                    <div class="index-about-item">
+                        <div class="line aos-init aos-animate" data-aos="fade-down" data-aos-once="false">
+                            <img src="/Content/images/index-line.png" alt="">
+                        </div>
+                        <div class="content">
+                            <span data-aos="flip-left" class="aos-init aos-animate"></span>
+                            <div class="circle">
+                                <a href="/thematic">
+                                    <div class="circle-icon">
+                                        <svg viewBox="0 0 24 24" data-aos="fade-up" data-aos-delay="1000" class="aos-init aos-animate">
+                                            <polygon points="1.2 22.8 1.2 0 0 0 0 24 24 24 24 22.8" />
+                                            <rect x="3.6" y="7.4" width="4.5" height="14.5" />
+                                            <rect x="10.2" y="2.4" width="4.5" height="19.5" />
+                                            <rect x="16.8" y="10.6" width="4.5" height="11.2" />
+                                        </svg>
+                                    </div>
+                                    <div class="circle-blue aos-init aos-animate" data-aos="zoom-out" data-aos-delay="500"></div>
+                                    <div class="circle-white aos-init aos-animate" data-aos="zoom-in"></div>
+                                </a>
+                            </div>
+                            <div class="text aos-init aos-animate" data-aos="fade-up">
+                                <h3>主題式圖資</h3>
+                                <p>列舉數項主題,方便快速瞭解我國能源概況。</p>
+                                <a href="/thematic" class="hbtn">
+                                    READ MORE
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index-about-item">
+                        <div class="line aos-init aos-animate" data-aos="fade-down" data-aos-once="false">
+                            <img src="/Content/images/index-line.png" alt="">
+                        </div>
+                        <div class="content">
+                            <span data-aos="flip-left" class="aos-init aos-animate"></span>
+                            <div class="circle">
+                                <a href="./Inquire/List?Id=1">
+                                    <div class="circle-icon">
+                                        <svg viewBox="0 0 24 24">
+                                            <path d="m23.5 19.5-2.5-2.5c0.4-0.9 0.7-1.9 0.7-3 0-3.5-2.8-6.4-6.4-6.4-3.4 0.1-6.3 2.9-6.3 6.4s2.8 6.4 6.4 6.4c1 0 2.1-0.3 3-0.7l2.5 2.5c0.7 0.7 1.9 0.7 2.6 0 0.7-0.8 0.7-1.9 0-2.7zm-8.1-0.6c-2.7 0-4.9-2.2-4.9-4.9s2.2-4.9 4.9-4.9 4.9 2.2 4.9 4.9-2.2 4.9-4.9 4.9zm0 2.4c-4 0-7.3-3.3-7.3-7.3s3.3-7.3 7.3-7.3c1.4 0 2.7 0.4 3.8 1.1v-7.7h-13.8l-5.4 5.4v18.4h19.2v-2.2l-1-1c-0.9 0.4-1.9 0.6-2.8 0.6zm-9.2-15.1h-5.1l5.1-5.1v5.1z"></path>
+                                        </svg>
+
+                                    </div>
+                                    <div class="circle-blue aos-init aos-animate" data-aos="zoom-out" data-aos-delay="500"></div>
+                                    <div class="circle-white aos-init aos-animate" data-aos="zoom-in"></div>
+                                </a>
+                            </div>
+                            <div class="text aos-init aos-animate" data-aos="fade-up">
+                                <h3>常用查詢</h3>
+                                <p>提供近五年各能源別資料及圖表。</p>
+                                <a href="./Inquire/List?Id=1" class="hbtn">
+                                    READ MORE
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index-about-item">
+                        <div class="line aos-init" data-aos="fade-down" data-aos-once="false">
+                            <img src="/Content/images/index-line.png" alt="">
+                        </div>
+
+                        <div class="content">
+                            <span data-aos="flip-left" class="aos-init aos-animate"></span>
+                            <div class="circle">
+                                <a href="/database">
+                                    <div class="circle-icon">
+                                        <svg viewBox="0 0 24 24" xml:space="preserve" data-aos="fade-up" data-aos-delay="1000" class="aos-init aos-animate">
+                                        <path d="m12 0c-5.7 0-10.1 2.1-10.1 4.8v14.4c0 2.7 4.4 4.8 10.1 4.8s10.1-2.1 10.1-4.8v-14.4c0-2.7-4.4-4.8-10.1-4.8zm0 7.7c-5 0-8.2-1.7-8.2-2.9s3.2-2.9 8.2-2.9 8.2 1.7 8.2 2.9-3.2 2.9-8.2 2.9zm0 4.8c-5 0-8.2-1.7-8.2-2.9v-2c1.8 1.2 4.9 2 8.2 2s6.4-0.7 8.2-1.9v2c0 1.1-3.2 2.8-8.2 2.8zm0 4.8c-5 0-8.2-1.7-8.2-2.9v-2c1.8 1.2 4.9 1.9 8.2 1.9s6.4-0.7 8.2-1.9v2c0 1.2-3.2 2.9-8.2 2.9zm8.2-0.1v2c0 1.2-3.2 2.9-8.2 2.9s-8.2-1.7-8.2-2.9v-2c1.8 1.2 4.9 1.9 8.2 1.9s6.4-0.6 8.2-1.9z" />
+
+		                            </svg>
+                                    </div>
+                                    <div class="circle-blue aos-init aos-animate" data-aos="zoom-out" data-aos-delay="500"></div>
+                                    <div class="circle-white aos-init aos-animate" data-aos="zoom-in"></div>
+                                </a>
+                            </div>
+                            <div class="text aos-init aos-animate" data-aos="fade-up">
+                                <h3>資料庫查詢</h3>
+                                <p>提供自1982年至今之能源資料,並產製互動式圖形及表格方便使用。</p>
+                                <a href="/database" class="hbtn">
+                                    READ MORE
+                                </a>
+                            </div>
+                        </div>
+                    </div>                        <div class="index-about-item">
+                        <div class="line aos-init" data-aos="fade-down" data-aos-once="false">
+                            <img src="/Content/images/index-line.png" alt="">
+                        </div>
+                        <div class="content">
+                            <span data-aos="flip-left" class="aos-init aos-animate"></span>
+                            <div class="circle">
+                                <a href="./publication/page0">
+                                    <div class="circle-icon">
+                                        <svg viewBox="0 0 24 24" xml:space="preserve">
+                                        <path d="m19.7 1.6h-12.9c-1.7 0-3.1 1.4-3.1 3.1v13.4c0 0.1 0 0.2 0.1 0.3 0 0.2-0.1 0.4-0.1 0.7 0 1.9 1.5 3.4 3.4 3.4h12.6c0.3 0 0.6-0.3 0.6-0.6s-0.3-0.6-0.6-0.6h-12.6c-1.2 0-2.2-1-2.2-2.2s1-2.2 2.2-2.2h12.6c0.3 0 0.6-0.3 0.6-0.6v-14c0-0.4-0.3-0.7-0.6-0.7zm-0.6 14h-12c-0.8 0-1.6 0.3-2.2 0.8v-11.7c0-1.1 0.9-1.9 1.9-1.9h12.3v12.8zm0.6 2.7h-12.2c-0.3 0-0.6 0.3-0.6 0.6s0.3 0.6 0.6 0.6h12.2c0.3 0 0.6-0.3 0.6-0.6s-0.3-0.6-0.6-0.6z"></path>
+				          </svg>
+                                    </div>
+                                    <div class="circle-blue aos-init aos-animate" data-aos="zoom-out" data-aos-delay="500"></div>
+                                    <div class="circle-white aos-init aos-animate" data-aos="zoom-in"></div>
+                                </a>
+                            </div>
+                            <div class="text aos-init aos-animate" data-aos="fade-up">
+                                <h3>統計刊物</h3>
+                                <p>
+                                    能源統計月報<br>
+                                    能源統計年報<br>
+                                    能源統計平衡表<br>
+                                    能源統計手冊<br>
+                                    燃料燃燒二氧化碳排放統計與分析
+                                </p>
+                                <a href="./publication/page0" class="hbtn">
+                                    READ MORE
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        //AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+    });
+
+</script>

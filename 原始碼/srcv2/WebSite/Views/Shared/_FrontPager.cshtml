@@ -1,0 +1,15 @@
+﻿@using JamZoo.Project.WebSite.Models
+@model PagerModel
+
+@if (Model.TotalPages > 1)
+{
+    <ul class="pagination t_c">
+        @Html.Pager(Model.PageSize, Model.Page, Model.TotalRecords).Options(o => o
+        .DisplayTemplate("FrontPagerTemplate")
+        .RouteValues(Request.RequestContext.RouteData.Values)
+        .AddRouteValue("PageSize", Model.PageSize)
+        )
+    </ul>
+}
+
+

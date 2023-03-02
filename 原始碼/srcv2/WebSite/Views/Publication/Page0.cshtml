@@ -1,0 +1,756 @@
+﻿@{
+    Layout = "~/Views/Publication/_Master.cshtml";
+}
+
+<div class="publishing_rbox">
+   <nav class="publishing_hgroup">
+            <div class="date_l">
+                <dl class="datebox coffee">
+                    <dt>發布日</dt>
+                    <dd>110-12-30</dd>
+                </dl>
+                <dl class="datebox gray">
+                    <dt>更新日</dt>
+                    <dd>@ViewBag.LASTUPDATE</dd>
+                </dl>
+            </div>
+            <div class="standard_caption1">能源統計月報</div>
+            <figure class="download_btn">
+                @*  <a href="#">
+                <svg viewBox="0 0 95 40">
+                    <path d="m24 9.7v-0.7h-2.9v0.8h2.8c0.1 0 0.1 0 0.1-0.1zm0-2.7c0-0.1 0-0.1-0.1-0.1h-2.8v0.9h2.9v-0.8zm21.8 6.7-1.3-0.1v0.9h1.3v-0.8zm-22.3 3.6h-6.3c-0.1 0-0.2 0.1-0.2 0.2v0.6h6.7v-0.6c0-0.1 0-0.2-0.2-0.2zm18.1-3.6v0.9h1.4v-0.9h-1.4zm28.4 17.8v-19h-2.6v19l-3.9-3.8-1.9 1.8 7 6.9 7-6.9-1.9-1.8-3.7 3.8zm-53-11.3h6.7v-0.8h-6.7v0.8zm24.6-3.6 1.4 0.1v-0.9h-1.4v0.8zm4.2 0v-0.9h-1.3v0.9h1.3zm35.3-6.4c-0.2-5.4-4.7-9.7-10.2-9.7-2.8 0-5.4 1.2-7.3 3.1h-58.7c-2.5 0-4.6 2.1-4.6 4.6v10.9c0 2.5 2.1 4.6 4.6 4.6h48.5c1.3 0.8 2.7 1.3 4.4 1.3h6.6v-2.6h-6.5c-3 0-5.5-2.4-5.5-5.4 0-2.2 1.4-4.2 3.7-5l1-0.4 0.2-1.1c0.3-1.5 1.6-2.6 3-2.7 1.6-0.1 3 1.2 3 1.2l0.7-1.7c1.3-2.6 4-4.3 6.9-4.3 4.2 0 7.6 3.3 7.6 7.4v1.6 0.6h1.9c2.7 0 4.8 2.2 4.8 4.8s-2.2 4.8-4.8 4.8h-7.3v2.6h7.3c4.1 0 7.4-3.3 7.4-7.4-0.1-3.7-2.9-6.8-6.7-7.2zm-30.9-5.4c0.5 0.4 1 0.9 1.6 1.6l-0.6 1.2c-0.6-0.7-1.2-1.2-1.6-1.6l0.6-1.2zm-36.6 16.6h-12.1v-1.6h5.3v-3h-3.9v-1.6h3.9v-3h-3.3v-1.6h8.2v1.6h-3.3v3h3.8v1.6h-3.8v3h5.3v1.6zm-0.5-10.1c-2.1-1.2-3.9-2.4-5.5-4.3-1.1 1.5-3 2.8-5.6 4.5l-0.7-1.5c3.1-1.5 5.1-3.3 6-5.1l1.1 0.3-0.1 0.3c1.5 1.8 3.4 3.3 5.5 4.3l-0.7 1.5zm12.1 10.7h-1.5v-0.5h-6.7v0.5h-1.5v-5.5c0-0.3 0.1-0.5 0.3-0.5h9c0.3 0 0.4 0.2 0.4 0.5v5.5zm1.3-6.6h-12.3v-1.4h5.4v-0.8h-4.6v-1.3h4.6v-0.8h-4.3v-1.3h4.3v-0.8h-5.3v-1.3h5.3v-0.9h-4.2v-1.3h4.2v-0.7h1.7l-0.2 0.7h3.7c0.4 0 0.5 0.1 0.5 0.4v1.7h1.1v1.4h-1.1v1.6c0 0.3-0.1 0.5-0.3 0.5h-3.9v0.8h4.6v1.3h-4.6v0.8h5.4v1.4zm12.6-8.2h-5.6v2.2c1.8 1.5 3.3 3.1 4.9 4.9l-0.8 1.5c-1.2-1.4-2.5-2.9-4.2-4.5v10.7h-1.4v-14.8h-4.9v-1.6h12.1v1.6zm11.8 15c-0.6 0-1.2-1.8-1.5-2.8-0.6 1.1-1.3 2-2.1 2.7l-0.8-1.1 1-0.9h-3v1.9h-1.5v-1.9h-3.1v-1.4h3.1v-0.9h-2.3c-0.3 0-0.3-0.1-0.3-0.2v-5c0-0.1 0-0.2 0.1-0.2h2.5v-0.7h-2.9v-1.3h2.9v-0.7h1.5v0.8h2.9v1.3h-2.9v0.7h2.5c0.1 0 0.1 0.1 0.1 0.2v5c0 0.1 0 0.2-0.3 0.2h-2.3v0.9h3.1v1.3c0.7-0.8 1.2-1.6 1.5-2.2-0.5-2.1-0.8-5-1-8.6h-8.3v-1.4h3.4v-1h-2.7v-1.3h2.7v-0.8h1.5v0.8h2.7v1.3h-2.7v1h3.4l-0.1-3.1 1.4 0.1v3h2.6v1.4h-2.6c0.1 2.9 0.4 5.9 0.4 5.9s0.3-2.5 0.3-4.7l1.2 0.1-0.1 2.3c-0.2 1.7-0.3 2.9-1 4.7 0 0 0.2 1.9 0.5 1.9 0.1 0 0.3 0 0.2-1.9l1.2 0.4c-0.1 2.1-0.4 4.2-1.2 4.2z"></path>
+                </svg>
+            </a>*@
+        </figure>
+</nav>
+    <section class="inquire_accordion current">
+        <div class="panel"><a href="javascript:;">編製說明</a></div>
+        <div class="panel-content show">
+            <div class="row">
+                <div class="col-md-6">編製說明</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="~/Content/uploads/編製說明.odt" title="開啟 編製說明.odt"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/編製說明.pdf" title="開啟 編製說明.pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/編製說明.doc" title="開啟 編製說明.doc"><img src="/images/publication/doc_3.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">110年統計資料異動說明</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/110年統計資料異動說明.odt" title="開啟 110年統計資料異動說明.odt"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/110年統計資料異動說明.pdf" title="開啟 110年統計資料異動說明.pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/110年統計資料異動說明.doc" title="開啟 110年統計資料異動說明.doc"><img src="/images/publication/doc_3.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="inquire_accordion ">
+        <!--第2頁籤--->
+        <div class="panel"> <a href="javascript:;">壹、主要能源指標</a> </div>
+        <div class="panel-content show">
+            <div class="row">
+                <div class="col-md-6">壹、主要能源指標</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/壹、主要能源指標.ods" title="開啟 壹、主要能源指標.ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/壹、主要能源指標.pdf" title="開啟 壹、主要能源指標.pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/壹、主要能源指標.xls" title="開啟 壹、主要能源指標.xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="inquire_accordion">
+        <!--第3頁籤--->
+        <div class="panel"> <a href="javascript:;">貳、能源供需概況分析</a> </div>
+        <div class="panel-content">
+            <div class="row">
+                <div class="col-md-6">貳、能源供需概況分析</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/貳、能源供需概況分析.ods" title="開啟 貳、能源供需概況分析.ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/貳、能源供需概況分析.pdf" title="開啟 貳、能源供需概況分析.pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/貳、能源供需概況分析.doc" title="開啟 貳、能源供需概況分析.doc"><img src="/images/publication/doc_3.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="inquire_accordion">
+        <!--第4頁籤--->
+        <div class="panel"> <a href="javascript:;">參、能源指標</a> </div>
+        <div class="panel-content">
+            <div class="row">
+                <div class="col-md-6">參、能源指標</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/參、能源指標.ods" title="開啟 參、能源指標.ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/參、能源指標.pdf" title="開啟 參、能源指標.pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/參、能源指標.xls" title="開啟 參、能源指標.xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="inquire_accordion">
+        <!--第5頁籤--->
+        <div class="panel"> <a href="javascript:;">肆、能源供給</a> </div>
+        <div class="panel-content">
+            <div class="row">
+                <div class="col-md-6">4-1能源供給(原始單位)(月)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/4-1能源供給(原始單位)(月).ods" title="開啟 4-1能源供給(原始單位)(月).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/4-1能源供給(原始單位)(月).pdf" title="開啟 4-1能源供給(原始單位)(月).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/4-1能源供給(原始單位)(月).xls" title="開啟 4-1能源供給(原始單位)(月).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">4-2能源供給(公秉油當量單位)(月)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/4-2能源供給(公秉油當量單位)(月).ods" title="開啟 4-2能源供給(公秉油當量單位)(月).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/4-2能源供給(公秉油當量單位)(月).pdf" title="開啟 4-2能源供給(公秉油當量單位)(月).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/4-2能源供給(公秉油當量單位)(月).xls" title="開啟 4-2能源供給(公秉油當量單位)(月).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">4-3自產能源(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/4-3自產能源(歷年).ods" title="開啟 4-3自產能源(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/4-3自產能源(歷年).pdf" title="開啟 4-3自產能源(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/4-3自產能源(歷年).xls" title="開啟 4-3自產能源(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">4-4進口能源(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/4-4進口能源(歷年).ods" title="開啟 4-4進口能源(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/4-4進口能源(歷年).pdf" title="開啟 4-4進口能源(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/4-4進口能源(歷年).xls" title="開啟 4-4進口能源(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 4-5能源總供給(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/4-5能源總供給(歷年).ods" title="開啟 4-5能源總供給(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/4-5能源總供給(歷年).pdf" title="開啟 4-5能源總供給(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/4-5能源總供給(歷年).xls" title="開啟 4-5能源總供給(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="inquire_accordion">
+        <!--第6頁籤--->
+        <div class="panel"> <a href="javascript:;">伍、能源需要</a> </div>
+        <div class="panel-content">
+            <div class="row">
+                <div class="col-md-6"> 5-1能源需要(原始單位)(月)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-1能源需要(原始單位)(月).ods" title="開啟 5-1能源需要(原始單位)(月).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-1能源需要(原始單位)(月).pdf" title="開啟 5-1能源需要(原始單位)(月).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-1能源需要(原始單位)(月).xls" title="開啟 5-1能源需要(原始單位)(月).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 5-2能源需要(公秉油當量單位)(月)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-2能源需要(公秉油當量單位)(月).ods" title="開啟 5-2能源需要(公秉油當量單位)(月).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-2能源需要(公秉油當量單位)(月).pdf" title="開啟 5-2能源需要(公秉油當量單位)(月).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-2能源需要(公秉油當量單位)(月).xls" title="開啟 5-2能源需要(公秉油當量單位)(月).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                <div class="row">
+                <div class="col-md-6"> 5-3運輸部門能源消費(月)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-3運輸部門能源消費(月).ods" title="開啟 5-3運輸部門能源消費(月).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-3運輸部門能源消費(月).pdf" title="開啟 5-3運輸部門能源消費(月).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-3運輸部門能源消費(月).xls" title="開啟 5-3運輸部門能源消費(月).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                <div class="row">
+                <div class="col-md-6">  5-4工業部門能源消費(月)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-4工業部門能源消費(月).ods" title="開啟 5-4工業部門能源消費(月).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-4工業部門能源消費(月).pdf" title="開啟 5-4工業部門能源消費(月).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-4工業部門能源消費(月).xls" title="開啟 5-4工業部門能源消費(月).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                <div class="row">
+                <div class="col-md-6">  5-5運輸部門能源消費(累計)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-5運輸部門能源消費(累計).ods" title="開啟 5-5運輸部門能源消費(累計).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-5運輸部門能源消費(累計).pdf" title="開啟 5-5運輸部門能源消費(累計).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-5運輸部門能源消費(累計).xls" title="開啟 5-5運輸部門能源消費(累計).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                <div class="row">
+                <div class="col-md-6"> 5-6工業部門能源消費(累計)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-6工業部門能源消費(累計).ods" title="開啟 5-6工業部門能源消費(累計).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-6工業部門能源消費(累計).pdf" title="開啟 5-6工業部門能源消費(累計).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-6工業部門能源消費(累計).xls" title="開啟 5-6工業部門能源消費(累計).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                <div class="row">
+                <div class="col-md-6">  5-7國內能源消費(按產品區分)(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-7國內能源消費(按產品區分)(歷年).ods" title="開啟 5-7國內能源消費(按產品區分)(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-7國內能源消費(按產品區分)(歷年).pdf" title="開啟 5-7國內能源消費(按產品區分)(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-7國內能源消費(按產品區分)(歷年).xls" title="開啟 5-7國內能源消費(按產品區分)(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                <div class="row">
+                <div class="col-md-6"> 5-8國內能源消費(按部門區分)(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-8國內能源消費(按部門區分)(歷年).ods" title="開啟 5-8國內能源消費(按部門區分)(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-8國內能源消費(按部門區分)(歷年).pdf" title="開啟 5-8國內能源消費(按部門區分)(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-8國內能源消費(按部門區分)(歷年).xls" title="開啟 5-8國內能源消費(按部門區分)(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                <div class="row">
+                <div class="col-md-6"> 5-9國內能源消費(按用途區分)(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-9國內能源消費(按用途區分)(歷年).ods" title="開啟 5-9國內能源消費(按用途區分)(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-9國內能源消費(按用途區分)(歷年).pdf" title="開啟 5-9國內能源消費(按用途區分)(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-9國內能源消費(按用途區分)(歷年).xls" title="開啟 5-9國內能源消費(按用途區分)(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                <div class="row">
+                <div class="col-md-6"> 5-10工業部門能源消費(按產業別)(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-10工業部門能源消費(按產業別)(歷年).ods" title="開啟 5-10工業部門能源消費(按產業別)(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-10工業部門能源消費(按產業別)(歷年).pdf" title="開啟 5-10工業部門能源消費(按產業別)(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-10工業部門能源消費(按產業別)(歷年).xls" title="開啟 5-10工業部門能源消費(按產業別)(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                <div class="row">
+                <div class="col-md-6"> 5-11工業部門能源消費(按能源別)(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-11工業部門能源消費(按能源別)(歷年).ods" title="開啟 5-11工業部門能源消費(按能源別)(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-11工業部門能源消費(按能源別)(歷年).pdf" title="開啟 5-11工業部門能源消費(按能源別)(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-11工業部門能源消費(按能源別)(歷年).xls" title="開啟 5-11工業部門能源消費(按能源別)(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                <div class="row">
+                <div class="col-md-6"> 5-12運輸部門能源消費(按運輸型態別)(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-12運輸部門能源消費(按運輸型態別)(歷年).ods" title="開啟 5-12運輸部門能源消費(按運輸型態別)(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-12運輸部門能源消費(按運輸型態別)(歷年).pdf" title="開啟 5-12運輸部門能源消費(按運輸型態別)(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-12運輸部門能源消費(按運輸型態別)(歷年).xls" title="開啟 5-12運輸部門能源消費(按運輸型態別)(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                <div class="row">
+                <div class="col-md-6"> 5-13運輸部門能源消費(按能源別)(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-13運輸部門能源消費(按能源別)(歷年).ods" title="開啟 5-13運輸部門能源消費(按能源別)(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-13運輸部門能源消費(按能源別)(歷年).pdf" title="開啟 5-13運輸部門能源消費(按能源別)(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-13運輸部門能源消費(按能源別)(歷年).xls" title="開啟 5-13運輸部門能源消費(按能源別)(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                <div class="row">
+                <div class="col-md-6"> 5-14住宅與服務業部門能源消費(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-14住宅與服務業部門能源消費(歷年).ods" title="開啟 5-14住宅與服務業部門能源消費(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-14住宅與服務業部門能源消費(歷年).pdf" title="開啟 5-14住宅與服務業部門能源消費(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-14住宅與服務業部門能源消費(歷年).xls" title="開啟 5-14住宅與服務業部門能源消費(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                <div class="row">
+                <div class="col-md-6"> 5-15能源總需要(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/5-15能源總需要(歷年).ods" title="開啟 5-15能源總需要(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/5-15能源總需要(歷年).pdf" title="開啟 5-15能源總需要(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/5-15能源總需要(歷年).xls" title="開啟 5-15能源總需要(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="inquire_accordion">
+        <!--第7頁籤--->
+        <div class="panel"> <a href="javascript:;">陸、能源平衡表</a> </div>
+        <div class="panel-content">
+            <div class="row">
+                <div class="col-md-6">6-1能源平衡表-OECD能源統計格式(原始單位)(月)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/6-1能源平衡表-OECD能源統計格式(原始單位)(月).ods" title="開啟 6-1能源平衡表-OECD能源統計格式(原始單位)(月).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/6-1能源平衡表-OECD能源統計格式(原始單位)(月).pdf" title="開啟 6-1能源平衡表-OECD能源統計格式(原始單位)(月).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/6-1能源平衡表-OECD能源統計格式(原始單位)(月).xls" title="開啟 6-1能源平衡表-OECD能源統計格式(原始單位)(月).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 6-2能源平衡表-OECD能源統計格式(公噸油當量單位)(月)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/6-2能源平衡表-OECD能源統計格式(公噸油當量單位)(月).ods" title="開啟 6-2能源平衡表-OECD能源統計格式(公噸油當量單位)(月).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/6-2能源平衡表-OECD能源統計格式(公噸油當量單位)(月).pdf" title="開啟 6-2能源平衡表-OECD能源統計格式(公噸油當量單位)(月).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/6-2能源平衡表-OECD能源統計格式(公噸油當量單位)(月).xls" title="開啟 6-2能源平衡表-OECD能源統計格式(公噸油當量單位)(月).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">6-3能源平衡表-OECD能源統計格式(公秉油當量單位)(月)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/6-3能源平衡表-OECD能源統計格式(公秉油當量單位)(月).ods" title="開啟 6-3能源平衡表-OECD能源統計格式(公秉油當量單位)(月).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/6-3能源平衡表-OECD能源統計格式(公秉油當量單位)(月).pdf" title="開啟 6-3能源平衡表-OECD能源統計格式(公秉油當量單位)(月).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/6-3能源平衡表-OECD能源統計格式(公秉油當量單位)(月).xls" title="開啟 6-3能源平衡表-OECD能源統計格式(公秉油當量單位)(月).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">6-4能源平衡表-OECD能源統計格式(原始單位)(累計)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/6-4能源平衡表-OECD能源統計格式(原始單位)(累計).ods" title="開啟 6-4能源平衡表-OECD能源統計格式(原始單位)(累計).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/6-4能源平衡表-OECD能源統計格式(原始單位)(累計).pdf" title="開啟 6-4能源平衡表-OECD能源統計格式(原始單位)(累計).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/6-4能源平衡表-OECD能源統計格式(原始單位)(累計).xls" title="開啟 6-4能源平衡表-OECD能源統計格式(原始單位)(累計).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">6-5能源平衡表-OECD能源統計格式(公噸油當量單位)(累計)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/6-5能源平衡表-OECD能源統計格式(公噸油當量單位)(累計).ods" title="開啟 6-5能源平衡表-OECD能源統計格式(公噸油當量單位)(累計).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/6-5能源平衡表-OECD能源統計格式(公噸油當量單位)(累計).pdf" title="開啟 6-5能源平衡表-OECD能源統計格式(公噸油當量單位)(累計).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/6-5能源平衡表-OECD能源統計格式(公噸油當量單位)(累計).xls" title="開啟 6-5能源平衡表-OECD能源統計格式(公噸油當量單位)(累計).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">6-6能源平衡表-OECD能源統計格式(公秉油當量單位)(累計)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/6-6能源平衡表-OECD能源統計格式(公秉油當量單位)(累計).ods" title="開啟 6-6能源平衡表-OECD能源統計格式(公秉油當量單位)(累計).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/6-6能源平衡表-OECD能源統計格式(公秉油當量單位)(累計).pdf" title="開啟 6-6能源平衡表-OECD能源統計格式(公秉油當量單位)(累計).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/6-6能源平衡表-OECD能源統計格式(公秉油當量單位)(累計).xls" title="開啟 6-6能源平衡表-OECD能源統計格式(公秉油當量單位)(累計).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="inquire_accordion">
+        <!--第7頁籤--->
+        <div class="panel"> <a href="javascript:;">柒、煤炭</a> </div>
+        <div class="panel-content">
+            <div class="row">
+                <div class="col-md-6">7-1煤炭供給與消費(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/7-1煤炭供給與消費(歷年).ods" title="開啟 7-1煤炭供給與消費(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/7-1煤炭供給與消費(歷年).pdf" title="開啟 7-1煤炭供給與消費(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/7-1煤炭供給與消費(歷年).xls" title="開啟 7-1煤炭供給與消費(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">7-2煉焦煤進口來源(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/7-2煉焦煤進口來源(歷年).ods" title="開啟 7-2煉焦煤進口來源(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/7-2煉焦煤進口來源(歷年).pdf" title="開啟 7-2煉焦煤進口來源(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/7-2煉焦煤進口來源(歷年).xls" title="開啟 7-2煉焦煤進口來源(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">7-3燃料煤進口來源(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/7-3燃料煤進口來源(歷年).ods" title="開啟 7-3燃料煤進口來源(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/7-3燃料煤進口來源(歷年).pdf" title="開啟 7-3燃料煤進口來源(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/7-3燃料煤進口來源(歷年).xls" title="開啟 7-3燃料煤進口來源(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 7-4亞煙煤進口來源(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/7-4亞煙煤進口來源(歷年).ods" title="開啟 7-4亞煙煤進口來源(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/7-4亞煙煤進口來源(歷年).pdf" title="開啟 7-4亞煙煤進口來源(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/7-4亞煙煤進口來源(歷年).xls" title="開啟 7-4亞煙煤進口來源(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="inquire_accordion">
+        <!--第7頁籤--->
+        <div class="panel"> <a href="javascript:;">捌、原油及其產品</a> </div>
+        <div class="panel-content">
+            <div class="row">
+                <div class="col-md-6">8-1原油供給與煉製(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/8-1原油供給與煉製(歷年).ods" title="開啟 8-1原油供給與煉製(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/8-1原油供給與煉製(歷年).pdf" title="開啟 8-1原油供給與煉製(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/8-1原油供給與煉製(歷年).xls" title="開啟 8-1原油供給與煉製(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">8-2原油進口來源(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/8-2原油進口來源(歷年).ods" title="開啟 8-2原油進口來源(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/8-2原油進口來源(歷年).pdf" title="開啟 8-2原油進口來源(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/8-2原油進口來源(歷年).xls" title="開啟 8-2原油進口來源(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">8-3石油產品供給(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/8-3石油產品供給(歷年).ods" title="開啟 8-3石油產品供給(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/8-3石油產品供給(歷年).pdf" title="開啟 8-3石油產品供給(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/8-3石油產品供給(歷年).xls" title="開啟 8-3石油產品供給(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 8-4石油產品國內消費(按部門區分)(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/8-4石油產品國內消費(按部門區分)(歷年).ods" title="開啟 8-4石油產品國內消費(按部門區分)(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/8-4石油產品國內消費(按部門區分)(歷年).pdf" title="開啟 8-4石油產品國內消費(按部門區分)(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/8-4石油產品國內消費(按部門區分)(歷年).xls" title="開啟 8-4石油產品國內消費(按部門區分)(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">  8-5石油產品國內消費(按油品區分)(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/8-5石油產品國內消費(按油品區分)(歷年).ods" title="開啟 8-5石油產品國內消費(按油品區分)(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/8-5石油產品國內消費(按油品區分)(歷年).pdf" title="開啟 8-5石油產品國內消費(按油品區分)(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/8-5石油產品國內消費(按油品區分)(歷年).xls" title="開啟 8-5石油產品國內消費(按油品區分)(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">  8-6工業部門石油產品消費(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/8-6工業部門石油產品消費(歷年).ods" title="開啟 8-6工業部門石油產品消費(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/8-6工業部門石油產品消費(歷年).pdf" title="開啟 8-6工業部門石油產品消費(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/8-6工業部門石油產品消費(歷年).xls" title="開啟 8-6工業部門石油產品消費(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 8-7石油產品出口(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/8-7石油產品出口(歷年).ods" title="開啟 8-7石油產品出口(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/8-7石油產品出口(歷年).pdf" title="開啟 8-7石油產品出口(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/8-7石油產品出口(歷年).xls" title="開啟 8-7石油產品出口(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="inquire_accordion">
+        <!--第7頁籤--->
+        <div class="panel"> <a href="javascript:;">玖、天然氣</a> </div>
+        <div class="panel-content">
+            <div class="row">
+                <div class="col-md-6">9-1液化天然氣供給與消費(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/9-1液化天然氣供給與消費(歷年).ods" title="開啟 9-1液化天然氣供給與消費(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/9-1液化天然氣供給與消費(歷年).pdf" title="開啟 9-1液化天然氣供給與消費(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/9-1液化天然氣供給與消費(歷年).xls" title="開啟 9-1液化天然氣供給與消費(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">9-2液化天然氣進口來源(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/9-2液化天然氣進口來源(歷年).ods" title="開啟 9-2液化天然氣進口來源(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/9-2液化天然氣進口來源(歷年).pdf" title="開啟 9-2液化天然氣進口來源(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/9-2液化天然氣進口來源(歷年).xls" title="開啟 9-2液化天然氣進口來源(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 9-3自產天然氣供給與消費(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/9-3自產天然氣供給與消費(歷年).ods" title="開啟 9-3自產天然氣供給與消費(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/9-3自產天然氣供給與消費(歷年).pdf" title="開啟 9-3自產天然氣供給與消費(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/9-3自產天然氣供給與消費(歷年).xls" title="開啟 9-3自產天然氣供給與消費(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="inquire_accordion">
+        <!--第7頁籤--->
+        <div class="panel"> <a href="javascript:;">拾、電力</a> </div>
+        <div class="panel-content">
+            <div class="row">
+                <div class="col-md-6"> 10-1電力供需(月)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/10-1電力供需(月).ods" title="開啟 10-1電力供需(月).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/10-1電力供需(月).pdf" title="開啟 10-1電力供需(月).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/10-1電力供需(月).xls" title="開啟 10-1電力供需(月).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">10-2自用發電設備發電概況(月)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/10-2自用發電設備發電概況(月).ods" title="開啟 10-2自用發電設備發電概況(月).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/10-2自用發電設備發電概況(月).pdf" title="開啟 10-2自用發電設備發電概況(月).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/10-2自用發電設備發電概況(月).xls" title="開啟 10-2自用發電設備發電概況(月).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 10-3自用發電設備發電概況(累計)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/10-3自用發電設備發電概況(累計).ods" title="開啟 10-3自用發電設備發電概況(累計).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/10-3自用發電設備發電概況(累計).pdf" title="開啟 10-3自用發電設備發電概況(累計).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/10-3自用發電設備發電概況(累計).xls" title="開啟 10-3自用發電設備發電概況(累計).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 10-4發電量(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/10-4發電量(歷年).ods" title="開啟 10-4發電量(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/10-4發電量(歷年).pdf" title="開啟 10-4發電量(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/10-4發電量(歷年).xls" title="開啟 10-4發電量(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                                <div class="row">
+                <div class="col-md-6"> 10-5發電結構(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/10-5發電結構(歷年).ods" title="開啟 10-5發電結構(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/10-5發電結構(歷年).pdf" title="開啟 10-5發電結構(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/10-5發電結構(歷年).xls" title="開啟 10-5發電結構(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                                <div class="row">
+                <div class="col-md-6"> 10-6台電供電結構(包括廠用電)(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/10-6台電供電結構(包括廠用電)(歷年).ods" title="開啟 10-6台電供電結構(包括廠用電)(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/10-6台電供電結構(包括廠用電)(歷年).pdf" title="開啟 10-6台電供電結構(包括廠用電)(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/10-6台電供電結構(包括廠用電)(歷年).xls" title="開啟 10-6台電供電結構(包括廠用電)(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                                <div class="row">
+                <div class="col-md-6"> 10-7發電裝置容量(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/10-7發電裝置容量(歷年).ods" title="開啟 10-7發電裝置容量(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/10-7發電裝置容量(歷年).pdf" title="開啟 10-7發電裝置容量(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/10-7發電裝置容量(歷年).xls" title="開啟 10-7發電裝置容量(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                                <div class="row">
+                <div class="col-md-6"> 10-8發電裝置容量結構(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/10-8發電裝置容量結構(歷年).ods" title="開啟 10-8發電裝置容量結構(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/10-8發電裝置容量結構(歷年).pdf" title="開啟 10-8發電裝置容量結構(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/10-8發電裝置容量結構(歷年).xls" title="開啟 10-8發電裝置容量結構(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                                <div class="row">
+                <div class="col-md-6"> 10-9台電火力發電燃料耗用量(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/10-9台電火力發電燃料耗用量(歷年).ods" title="開啟 10-9台電火力發電燃料耗用量(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/10-9台電火力發電燃料耗用量(歷年).pdf" title="開啟 10-9台電火力發電燃料耗用量(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/10-9台電火力發電燃料耗用量(歷年).xls" title="開啟 10-9台電火力發電燃料耗用量(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                                <div class="row">
+                <div class="col-md-6"> 10-10民營電廠發電燃料耗用量(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/10-10民營電廠發電燃料耗用量(歷年).ods" title="開啟 10-10民營電廠發電燃料耗用量(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/10-10民營電廠發電燃料耗用量(歷年).pdf" title="開啟 10-10民營電廠發電燃料耗用量(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/10-10民營電廠發電燃料耗用量(歷年).xls" title="開啟 10-10民營電廠發電燃料耗用量(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                                <div class="row">
+                <div class="col-md-6"> 10-11電力消費(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/10-11電力消費(歷年).ods" title="開啟 10-11電力消費(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/10-11電力消費(歷年).pdf" title="開啟 10-11電力消費(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/10-11電力消費(歷年).xls" title="開啟 10-11電力消費(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>                                <div class="row">
+                <div class="col-md-6"> 10-12工業部門電力消費(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/10-12工業部門電力消費(歷年).ods" title="開啟 10-12工業部門電力消費(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/10-12工業部門電力消費(歷年).pdf" title="開啟 10-12工業部門電力消費(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/10-12工業部門電力消費(歷年).xls" title="開啟 10-12工業部門電力消費(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 10-13住宅與服務業部門電力消費(歷年)	</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/10-13住宅與服務業部門電力消費(歷年).ods" title="開啟 10-13住宅與服務業部門電力消費(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/10-13住宅與服務業部門電力消費(歷年).pdf" title="開啟 10-13住宅與服務業部門電力消費(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/10-13住宅與服務業部門電力消費(歷年).xls" title="開啟 10-13住宅與服務業部門電力消費(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="inquire_accordion">
+        <!--第7頁籤--->
+        <div class="panel"> <a href="javascript:;">拾壹、再生能源</a> </div>
+        <div class="panel-content">
+            <div class="row">
+                <div class="col-md-6"> 11-1再生能源供給(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/11-1再生能源供給(歷年).ods" title="開啟 11-1再生能源供給(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/11-1再生能源供給(歷年).pdf" title="開啟 11-1再生能源供給(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/11-1再生能源供給(歷年).xls" title="開啟 11-1再生能源供給(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 11-2再生能源裝(設)置容量(歷年)</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/11-2再生能源裝(設)置容量(歷年).ods" title="開啟 11-2再生能源裝(設)置容量(歷年).ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/11-2再生能源裝(設)置容量(歷年).pdf" title="開啟 11-2再生能源裝(設)置容量(歷年).pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/11-2再生能源裝(設)置容量(歷年).xls" title="開啟 11-2再生能源裝(設)置容量(歷年).xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="inquire_accordion">
+        <!--第7頁籤--->
+        <div class="panel"> <a href="javascript:;">拾貳、能源價格</a> </div>
+        <div class="panel-content">
+            <div class="row">
+                <div class="col-md-6">  12-1國內油價變動</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/12-1國內油價變動.ods" title="開啟 12-1國內油價變動.ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/12-1國內油價變動.pdf" title="開啟 12-1國內油價變動.pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/12-1國內油價變動.xls" title="開啟 12-1國內油價變動.xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 12-2國內歷次調整之電價</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/12-2國內歷次調整之電價.ods" title="開啟 12-2國內歷次調整之電價.ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/12-2國內歷次調整之電價.pdf" title="開啟 12-2國內歷次調整之電價.pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/12-2國內歷次調整之電價.xls" title="開啟 12-2國內歷次調整之電價.xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 12-3世界主要國家石油產品價格及稅率</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/12-3世界主要國家石油產品價格及稅率.ods" title="開啟 12-3世界主要國家石油產品價格及稅率.ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/12-3世界主要國家石油產品價格及稅率.pdf" title="開啟 12-3世界主要國家石油產品價格及稅率.pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/12-3世界主要國家石油產品價格及稅率.xls" title="開啟 12-3世界主要國家石油產品價格及稅率.xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> 12-4鄰近國家電力用電每度平均售價</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/12-4鄰近國家電力用電每度平均售價.ods" title="開啟 12-4鄰近國家電力用電每度平均售價.ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/12-4鄰近國家電力用電每度平均售價.pdf" title="開啟 12-4鄰近國家電力用電每度平均售價.pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/12-4鄰近國家電力用電每度平均售價.xls" title="開啟 12-4鄰近國家電力用電每度平均售價.xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">  12-5鄰近國家電燈用電每度平均售價	</div>
+                <div class="col-md-6">
+                    <ul class="publishing_btn">
+                        <li><a href="/Content/uploads/12-5鄰近國家電燈用電每度平均售價.ods" title="開啟 12-5鄰近國家電燈用電每度平均售價.ods"><img src="/images/publication/doc_1.svg"></a></li>
+                        <li><a href="/Content/uploads/12-5鄰近國家電燈用電每度平均售價.pdf" title="開啟 12-5鄰近國家電燈用電每度平均售價.pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                        <li><a href="/Content/uploads/12-5鄰近國家電燈用電每度平均售價.xls" title="開啟 12-5鄰近國家電燈用電每度平均售價.xls"><img src="/images/publication/doc_5.svg"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <section class="inquire_accordion">
+            <!--第7頁籤--->
+            <div class="panel"> <a href="javascript:;">拾參、附錄</a> </div>
+            <div class="panel-content">
+                <div class="row">
+                    <div class="col-md-6">能源產品單位熱值表</div>
+                    <div class="col-md-6">
+                        <ul class="publishing_btn">
+                            <li><a href="/Content/uploads/能源產品單位熱值表.odt" title="開啟 能源產品單位熱值表.odt"><img src="/images/publication/doc_1.svg"></a></li>
+                            <li><a href="/Content/uploads/能源產品單位熱值表.pdf" title="開啟 能源產品單位熱值表.pdf"><img src="/images/publication/doc_2.svg"></a></li>
+                            <li><a href="/Content/uploads/能源產品單位熱值表.doc" title="開啟 能源產品單位熱值表.doc"><img src="/images/publication/doc_3.svg"></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+</div>

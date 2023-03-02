@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0,maximum-scale=1.0" />
+<meta name="format-detection" content="telephone=no">
+<meta name="keywords" content="" />
+<meta name="description" content="經濟部能源局 - 能源統計專區" />
+<link rel="shortcut icon" href="../../../images/favicon/favicon.ico" />
+<link rel="apple-touch-icon" sizes="120x120" href="../../../images/favicon/favicon_120.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../../../images/favicon/favicon_152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="../../../images/favicon/favicon_167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../../images/favicon/favicon_180.png">
+<link rel="shortcut icon" href="../../../images/favicon/favicon_16.png" sizes="16x16">
+<link rel="shortcut icon" href="../../../images/favicon/favicon_32.png" sizes="32x32">
+<link rel="shortcut icon" href="../../../images/favicon/favicon_64.png" sizes="64x64">
+<link rel="shortcut icon" href="../../../images/favicon/favicon_96.png" sizes="96x96">
+<meta property="og:title" content="網站主題">
+<meta property="og:site_name" content="網站名稱">
+<meta property="og:url" content="網址">
+<meta property="og:image" content="圖片網址">
+<meta property="og:image:type" content="圖片格式">
+<meta property="og:image:width" content="圖片寬度">
+<meta property="og:image:height" content="圖片高度">
+<meta property="og:description" content="網站描述">
+<meta property="og:type" content="website">
+<title>查詢系統 【能源統計專區】經濟部能源局</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/3.0.0/css/ionicons.css" rel="stylesheet">
+<link href="../../../css/moe_chart.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src='https://code.highcharts.com/highcharts.js'></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<!--下載+pdf用--->
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.14.0/printThis.js"></script>
+</head>
+<body>
+<div class="ie9_warning text-center">很抱歉！由於您使用的瀏覽器已經過時，微軟已經於2016年停止IE10以下瀏覽器的技術支援，請您務必<a href="http://windows.microsoft.com/zh-tw/internet-explorer/download-ie" target="_blank">更新</a>並建議您安裝<a href="http://www.google.com/intl/zh-TW/chrome/" target="_blank" class="chrome_download">Google Chrome瀏覽器</a>。</div>
+<section class="ie_sm_warning">
+  <dl>
+    <dt><i class="icon ion-ios-laptop"></i></dt>
+    <dd>很抱歉！IE系列禁止使用小型視窗瀏覽，請將您的瀏覽器展開到較大分辨率，以便繼續瀏覽。</dd>
+  </dl>
+</section>
+<section class="js_preloader">
+  <ul class="dots">
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</section>
+<figure class="backtotop"><i class="fa fa-arrow-up" aria-hidden="true"></i></figure>
+<header class="navbar fixed-top moe_header">
+  <nav class="container">
+    <div class="navbar-brand"><a href="../../../index.html" title="回首頁"><img src="../../../images/moe_logo.png"></a></div>
+    <button class="navbar-toggler" type="button">
+    <svg>
+      <line x1="0" y1="4" x2="30" y2="4" />
+      <line x1="0" y1="15" x2="30" y2="15" />
+      <line x1="0" y1="26" x2="30" y2="26" />
+    </svg>
+    </button>
+    <div class="nav-slider ml-auto">
+      <button type="button" class="btn m_close" title="關閉選單"></button>
+      <ul class="nav navbar-nav">
+        <li> <a href="../../../index.html">首頁</a></li>
+        <li class="current"> <a href="../../../inquire1.html">查詢系統</a></li>
+        <li> <a href="../../../publication.html">出版品</a></li>
+        <li> <a href="../../../thematic.html">主題式圖表</a></li>
+        <li> <a href="../../../ecollege.html">統計e學院</a></li>
+      </ul>
+    </div>
+    <div class="nav-mask"></div>
+  </nav>
+</header>
+<div class="maintop">
+  <article class="container section_pad">
+    <h3 class="std_h4caption text-center">轉變投入</h3>
+    <form class="inquire_drop">
+      <div class="select"> <i class="icon ion-ios-arrow-down"></i>
+        <select>
+          <option>09801</option>
+          <option>09802</option>
+          <option>09803</option>
+          <option>09804</option>
+          <option>09805</option>
+        </select>
+      </div>
+      <button type="submit" class="btn">查詢</button>
+    </form>
+    <ul class="chart_nav">
+      <li><a href="gas6_1.html">
+        <figure class="con icon1">線型</figure>
+        </a></li>
+      <li><a href="gas6_2.html">
+        <figure class="con icon2">縱向柱型</figure>
+        </a></li>
+      <li><a href="gas6_3.html">
+        <figure class="con icon3">堆積柱形</figure>
+        </a></li>
+      <li><a href="gas6_4.html">
+        <figure class="con icon4">區域型</figure>
+        </a></li>
+      <li><a href="gas6_5.html">
+        <figure class="con icon5">縱向柱型</figure>
+        </a></li>
+      <li class="current"><a href="gas6_6.html">
+        <figure class="con icon6">派型</figure>
+        </a></li>
+      <li><a href="javascript:;">
+        <figure class="con icon7">下載此圖</figure>
+        </a></li>
+      <li><a href="javascript:;">
+        <figure class="con icon8">下載此pdf</figure>
+        </a></li>
+      <li><a href="javascript:;">
+        <figure class="con icon9">列印此圖</figure>
+        </a></li>
+    </ul>
+    <div id="chart_inner"></div>
+    <h5 class="table_unit">單位：千立方公尺</h5>
+    <blockquote class="table_outer pie">
+      <div class="tWrap">
+        <div class="tWrap__head">
+          <table>
+            <thead>
+              <tr>
+                <th>日期</th>
+                <th>自產天然氣</th>
+                <th>液化天然氣</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="tWrap__body">
+          <table id="datatable" class="table table-bordered">
+            <thead>
+              <tr>
+                <td>日期</td>
+                <td>自產天然氣</td>
+                <td>液化天然氣</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>10803</td>
+                <td>158.3 </td>
+                <td>1301964.4 </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </blockquote>
+    <div class="text-center"><a href="../../../inquire_gas.html" class="btn orange_bg"><i class="icon ion-ios-arrow-back"></i> 回查詢系統</a></div>
+  </article>
+  <footer class="moe_footer text-center"> <abbr class="abbr">經濟部能源局 - 能源統計專區</abbr>
+    <ul class="foo_ul">
+      <li><i class="icon ion-md-navigate"></i><span class="mobile">聯絡地址：10492 </span>臺北市中山區復興北路2號13樓</li>
+      <li><i class="icon ion-ios-call"></i><span class="mobile">電話：</span>(02)2772-1370</li>
+      <li><i class="icon ion-md-print"></i><span class="mobile">傳真：</span>(02)2776-9417</li>
+      <li><i class="icon ion-md-print"></i><span class="mobile">/</span> (02)2711-5891</li>
+    </ul>
+  </footer>
+</div>
+<script>
+Highcharts.chart("chart_inner",{data:{table:"datatable",switchRowsAndColumns: true,endRow: 1},credits:{enabled:false},navigation:{buttonOptions:{enabled:false}},chart:{type:"pie"},legend:{enabled:true},title:{text:null},subtitle:{text:'單位：千立方公尺',align:'right',style:{fontSize:'.9rem',fontFamily:'"\5Fae\8Edf\6B63\9ed1\9ad4","Gulim",sans-serif'}},plotOptions: {//Pie與其他類型不同
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    color: '#666',
+                    connectorColor: '#666',
+                    },
+                showInLegend: true,colors: ["#47bbf7","#ffcc66"],//自定顏色，由左至右
+            },
+        },xAxis:{type:'category'},yAxis:{allowDecimals:false,title:{text:"千立方公尺"}},tooltip:{
+		    //borderColor		: '#999',
+			shadow			: false,
+		    shared			: false,//同時顯示數據？
+		    useHTML			: true,
+			yDecimals		: 0,
+            valueDecimals	: 1,
+            headerFormat	: 
+			     '<h4 class="inquire3_tip_caption" style="color:{point.color}">{point.key}</h4>'
+                +'<table class="tip">'
+                +'<tbody>', 
+            pointFormat: 
+                  '<td>{point.y:.1f}/ 佔比：{point.percentage:.1f}%</td></tr></tbody></table>'//日期欄位加：<h4>{series.name}:</h4>
+        },
+});
+//Table核取顯示
+var chart=$("#chart_inner").highcharts();$(".chart_checkbox").on("change",function(){for(var b=0;b<$("input[type=checkbox]").length;b++){var a=chart.series[b];if($(".table_check"+b).is(":checked")){a.show()}else{a.hide()}}});
+//下載圖/pdf/列印此圖
+$(".chart_nav>li>a>.icon7").click(function(){chart.exportChart(null,{chart:{backgroundColor:"#fff"}})});$(".chart_nav>li>a>.icon8").click(function(){chart.exportChart({type:"application/pdf",filename:"my-pdf"})});$(".chart_nav>li>a>.icon9").on("click",function(){$("#chart_inner").printThis({})});
+</script>
+<script src="../../../js/master.js"></script>
+</body>
+</html>

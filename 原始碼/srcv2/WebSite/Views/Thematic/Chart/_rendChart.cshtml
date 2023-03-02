@@ -1,0 +1,23 @@
+﻿@using JamZoo.Project.WebSite.ViewModels
+@model List<ChartViewModel>
+@{
+    foreach (ChartViewModel row in Model)
+    {
+        if (row.Type == "pie")
+        {
+            @Html.Partial("Chart/_pie", row);
+        }
+        else if (row.Type == "column")
+        {
+            @Html.Partial("Chart/_column", row);
+        }
+        else if (row.Type == "line")
+        {
+            @Html.Partial("Chart/_line", row);
+        }
+        else if (row.Type == "columnLine")
+        {
+            @Html.Partial("Chart/" + row.htmlName, row);
+        }
+    }
+}

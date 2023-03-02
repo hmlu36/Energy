@@ -1,0 +1,47 @@
+﻿@model JamZoo.Project.WebSite.ViewModels.PageOfChartViewModel
+@{
+    String Id = Request.QueryString["Id"].ToString();
+    Layout = "~/Views/Shared/_Master.cshtml";
+    string PageName = Model.PageName;
+    PageName = PageName.Replace("(圓餅圖)", string.Empty);
+    PageName = PageName.Replace("(長條圖)", string.Empty);
+    PageName = PageName.Replace("(折線圖)", string.Empty);
+}
+@section js {
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+}
+
+<div class="boe_bg">
+    <div class="maintop">
+        <div class="container">
+            <h1 class="standard_caption1">@PageName</h1>
+            <form class="inquire_drop" method="get" action="@Url.Content("~/Thematic/Detail?Id=" + Model.Id)">
+                @Html.Hidden("Id", Model.Id)
+                民國
+                <div class="select">
+                    <i class="icon ion-ios-arrow-down"></i>
+                    <select name="Start">
+                        @for (int i = 71; i < 109; i++)
+                        {
+                            <option @(i == Model.Start ? "selected" : "") value="@i">@string.Format("{0:000}", i)</option>
+                        }
+                    </select>
+                </div>
+                至
+                <div class="select">
+                    <i class="icon ion-ios-arrow-down"></i>
+                    <select name="End">
+                        @for (int i = 71; i < 109; i++)
+                        {
+                            <option @(i == Model.End ? "selected" : "") value="@i">@string.Format("{0:000}", i)</option>
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="btn">查詢</button>
+            </form>
+            @Html.Partial("Chart/_t" + Id, Model)
+            <div class="back_btn"><a href="@Url.Content("~/thematic")"><i class="icon ion-ios-arrow-back"></i> 回主題式圖資</a></div>
+        </div>
+    </div>
+</div>

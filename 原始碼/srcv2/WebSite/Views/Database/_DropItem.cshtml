@@ -1,0 +1,128 @@
+﻿@using JamZoo.Project.WebSite.ViewModels
+@model DropItem
+@{
+    Layout = null;
+    string subClass = "sub" + (Model.Depth + 2).ToString();
+}
+<style>
+    .open_symbol span {
+        display:none;
+    }
+</style>
+
+
+@if (Model.Depth == 0)
+{
+    <article class="outer_selectall">
+        <section class="data_search_bar@(Model.HasChild ? "":" none")">
+            <label for="checkbox@(Model.Id)" @(Model.ShowCheckBox ? "class=checkbox" : "")>
+                @if (Model.ShowCheckBox)
+                {
+                    <input class="checkall" id="checkbox@(Model.Id)" type="checkbox" name="@Model.SelectName" value="@Model.Id">
+                }
+                <span></span>
+                @Model.Name
+            </label>
+        </section>
+        <button class="open_symbol@(Model.HasChild ? "": " none")" type="button"><span>+</span></button>
+        @if (Model.HasChild)
+        {
+            <div class="sub2 datasearch_box table_sub_indent @(Model.HasChild ? "":" none")">
+                <div class="data_search_bar none">
+                    <label class="checkbox light_green">
+                        <input class="checkall" type="checkbox" value="">
+                        <span></span>全選
+                    </label>
+                </div>
+                @for (int i = 0; i < Model.ChildList.Count(); i++)
+                {
+                    @Html.Partial("_DropItem", Model.ChildList[i]);
+                }
+            </div>
+        }
+    </article>
+
+
+}
+else if (Model.Depth == 1)
+{
+    <div class="outer_selectall_2">
+        <section class="data_search_bar@(Model.HasChild ? "":" none")">
+            <label class="checkbox">
+                <input class="checkall_3" type="checkbox" name="@Model.SelectName" value="@Model.Id">
+                <span></span>@Model.Name
+            </label>
+        </section>
+        <button class="open_symbol@(Model.HasChild ? "": " none")" type="button"><span>+</span></button>
+        @if (Model.HasChild)
+        {
+            // 第二層
+            <div class="sub3 datasearch_box datasearch_box_2 @(subClass)@(Model.HasChild ? "":" none")">
+                <ul class="ul">
+                    <li class="light_green">
+                        <label class="checkbox">
+                            <input class="checkall_2" type="checkbox" value="">
+                            <span></span>全選
+                        </label>
+                    </li>
+                    @for (int i = 0; i < Model.ChildList.Count(); i++)
+                    {
+                        @Html.Partial("_DropItem", Model.ChildList[i]);
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+}
+else if (Model.Depth == 2)
+{
+    // depth = 2
+    // 第三層
+    <li class="outer_selectall_3">
+        <div>
+            <label class="checkbox">
+                <input class="checkall_3" type="checkbox" name="@Model.SelectName" value="@Model.Id">
+                <span></span>
+                @Model.Name
+            </label>
+        </div>
+        @if (Model.HasChild)
+        {
+            for (int i = 0; i < Model.ChildList.Count(); i++)
+            {
+                @Html.Partial("_DropItem", Model.ChildList[i]);
+            }
+        }
+    </li>
+}
+else if (Model.Depth == 3)
+{
+    // 第 4 層
+    <blockquote class="outer_selectall_4">
+        <div class="indent1">
+            <label class="checkbox">
+                <input class="checkall_4" type="checkbox" name="@Model.SelectName" value="@Model.Id">
+                <span></span>
+                @Model.Name
+            </label>
+        </div>
+        @if (Model.HasChild)
+        {
+            for (int i = 0; i < Model.ChildList.Count(); i++)
+            {
+                @Html.Partial("_DropItem", Model.ChildList[i]);
+            }
+        }
+    </blockquote>
+}
+else if (Model.Depth == 4)
+{
+    // 第 5 層
+    <div class="indent2">
+        <label class="checkbox">
+            <input type="checkbox" name="@Model.SelectName" value="@Model.Id">
+            <span></span>
+            @Model.Name
+        </label>
+    </div>
+}

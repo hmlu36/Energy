@@ -1,0 +1,64 @@
+﻿@using JamZoo.Project.WebSite.ViewModels
+@model DropItem
+@{
+    Layout = null;
+    string subClass = "sub" + (Model.Depth + 2).ToString();
+}
+@if (Model.Depth == 0)
+{
+    <section class="data_search_bar@(Model.HasChild ? "":" none")">
+        @if (Model.ShowCheckBox)
+        {
+        <input class="" id="checkbox@(Model.Id)" type="checkbox" name="@Model.SelectName" value="@Model.Id">
+        }
+        <label for="checkbox@(Model.Id)" class="checkbox"><span></span>@Model.Name</label>
+    </section>
+    if (Model.HasChild)
+    {
+        <article class="datasearch_box @(subClass)">
+            @for (int i = 0; i < Model.ChildList.Count(); i++)
+            {
+            @Html.Partial("_DropItem", Model.ChildList[i]);
+            }
+        </article>
+    }
+}
+else if (Model.Depth == 1)
+{
+    <section class="data_search_bar@(Model.HasChild ? "":" none")">
+        <input class="" id="checkbox@(Model.Id)" type="checkbox" name="@Model.SelectName" value="@Model.Id">
+        <label for="checkbox@(Model.Id)" class="checkbox"><span></span>@Model.Name</label>
+    </section>
+    // 第二層
+    if (Model.HasChild)
+    {
+        <div class="datasearch_box @(subClass)@(Model.HasChild ? "":" none")">
+            <ul class="ul">
+                @for (int i = 0; i < Model.ChildList.Count(); i++)
+                {
+                    @Html.Partial("_DropItem", Model.ChildList[i]);
+                }
+            </ul>
+        </div>
+    }
+}
+else
+{
+    // depth = 3
+    // 第三層
+    string indent = "";
+    if (Model.Depth > 3)
+    {
+        indent = "indent" + (Model.Depth - 3).ToString();
+    }
+    <li @(indent != "" ? "class=" + indent : "")>
+        <input class="" id="checkbox@(Model.Id)" type="checkbox" name="@Model.SelectName" value="@Model.Id">
+        <label for="checkbox@(Model.Id)" class="checkbox"><span></span>@Model.Name</label>
+    </li>
+    for (int i = 0; i < Model.ChildList.Count(); i++)
+    {
+        @Html.Partial("_DropItem", Model.ChildList[i]);
+    }
+}
+
+

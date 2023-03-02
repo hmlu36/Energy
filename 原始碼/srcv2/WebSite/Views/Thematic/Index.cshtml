@@ -1,0 +1,167 @@
+﻿@using JamZoo.Project.WebSite.Models;
+@model ThematicListModel
+@{
+        Layout = "~/Views/Thematic/_Master.cshtml";
+}
+@section js {
+    @*<script src="https://code.highcharts.com/highcharts.src.js"></script>
+        <script src="https://code.highcharts.com/highcharts-3d.js"></script>*@
+}
+<link href="~/css/cp.css" rel="stylesheet">
+
+<div class="boe_bg">
+    <div class="maintop">
+        <div class="container">
+            <!--CP Start-->
+            <section class="album">
+                <style>
+                    .btn {
+                        text-align: unset;
+                    }
+                </style>
+                <section class="photoThumb">
+                    <!--小縮圖區，點選縮圖看大圖-->
+                    <ul>
+                        <li>
+                            <a title="顯示大圖,(png)" href="#" id="ph1">
+                                <h3>電力排碳係數</h3>
+                                <img src="~/cover/5.png" alt="電力排碳係數" />
+                            </a>
+                        </li>
+                        <li>
+                            <a title="顯示大圖,(png)" href="#" id="ph2">
+                                <h3>燃料燃燒二氧化碳排放量</h3>
+                                <img src="~/cover/7.png" alt="燃料燃燒二氧化碳排放量" />
+                            </a>
+                        </li>
+                        <li>
+                            <a title="顯示大圖,(png)" href="#" id="ph3">
+                                <h3>再生能源歷年發電結構</h3>
+                                <img src="~/cover/2.png" alt="再生能源歷年發電結構" />
+                            </a>
+                        </li>
+
+                        <li>
+                            <a title="顯示大圖,(png)" href="#" id="ph4">
+                                <h3>再生能源占電力比例</h3>
+                                <img src="~/cover/6.png" alt="再生能源占電力比例" />
+                            </a>
+                        </li>
+                        <li>
+                            <a title="顯示大圖,(png)" href="#" id="ph5">
+                                <h3>電力消費</h3>
+                                <img src="~/cover/3.png" alt="電力消費" />
+                            </a>
+                        </li>
+                        <li>
+                            <a title="顯示大圖,(png)" href="#" id="ph6">
+                                <h3>能源密集度</h3>
+                                <img src="~/cover/1.png" alt="能源密集度" />
+                            </a>
+                        </li>
+                        <li>
+                            <a title="顯示大圖,(png)" href="#" id="ph7">
+                                <h3>碳排放密集度</h3>
+                                <img src="~/cover/4.png" alt="碳排放密集度" />
+                            </a>
+                        </li>
+
+
+
+
+
+                    </ul>
+                    <!--/.photoThumb-->
+                </section>
+
+                <section class="photoShow">
+                    <!--大圖區-->
+                    <ul>
+
+
+
+                        <li>
+                            <a href="~/cover/5.png" target="_blank" title="以新視窗開啟這個圖檔,(png)"><img src="~/cover/5.png" alt="電力排碳係數" /></a>
+                            <span class="caption">電力排碳係數<br /><span class="caption_note">2020年電力排放係數較2019年下降1.4%，更較2005年下降9.5%</span></span>
+
+                        </li>
+                        <li>
+                            <a href="~/cover/7.png" target="_blank" title="以新視窗開啟這個圖檔,(png)"><img src="~/cover/7.png" alt="燃料燃燒二氧化碳排放量" /></a>
+                            <span class="caption">燃料燃燒二氧化碳排放量<br /><span class="caption_note">2020年燃料燃燒CO2排放量較歷年最高(2017)減少4.5%</span></span>
+
+                        </li>
+                        <li>
+                            <a href="~/cover/2.png" target="_blank" title="以新視窗開啟這個圖檔,(jpg)"><img src="~/cover/2.png" alt="再生能源歷年發電結構" /></a>
+                            <span class="caption">再生能源歷年發電結構<br /><span class="caption_note">2020年再生能源發電以太陽光電占比40%為大宗，且較2011年增加39個百分點</span></span>
+
+                        </li>
+                        <li>
+                            <a href="~/cover/6.png" target="_blank" title="以新視窗開啟這個圖檔,(png)"><img src="~/cover/6.png" alt="再生能源占電力比例" /></a>
+                            <span class="caption">再生能源占電力比例<br /><span class="caption_note">109年再生能源發電占比較108年減少0.1個百分點，較100年增加1.91個百分點</span></span>
+
+                        </li>
+                        <li>
+                            <a href="~/cover/3.png" target="_blank" title="以新視窗開啟這個圖檔,(png)"><img src="~/cover/3.png" alt="電力消費" /></a>
+                            <span class="caption">電力消費<br /><span class="caption_note">2020年電力消費較2019年增加2.08%，較2005年增加24.2%</span></span>
+
+                        </li>
+                        <li>
+                            <a href="~/cover/1.png" target="_blank" title="以新視窗開啟這個圖檔,(jpg)"><img src="~/cover/1.png" alt="能源密集度" /></a>
+                            <span class="caption">
+                                能源密集度<br />
+                                <span class="caption_note">2020年能源密集度較2019年下降2.5%，較2010年下降23.5%</span>
+                            </span>
+
+                        </li>
+
+                        <li>
+                            <a href="~/cover/4.png" target="_blank" title="以新視窗開啟這個圖檔,(png)"><img src="~/cover/4.png" alt="碳排放密集度" /></a>
+                            <span class="caption">碳排放密集度<br /><span class="caption_note">2020年碳排放密集度較2019年減少3.6%，較2010年減少5.91%</span></span>
+
+                        </li>
+                    </ul>
+                    <!--/.photoShow-->
+                </section>
+                <script type="text/javascript" src="~/js/effect.js"></script>
+                @*<h1 class="standard_caption1">主題式圖資</h1>
+                    <ul class="thematic_ul">
+                        <li>
+                            <a href="@Url.Content("~/Thematic/Detail?Id=1")">
+                                <img src="@Url.Content("~/images/thematic/thematic_1.jpg")">
+                                <summary>能源供給</summary>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Content("~/Thematic/Detail?Id=3")">
+                                <img src="@Url.Content("~/images/thematic/thematic_3.jpg")">
+                                <summary>電力供給</summary>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Content("~/Thematic/Detail?Id=4")">
+                                <img src="@Url.Content("~/images/thematic/thematic_4.jpg")">
+                                <summary>能源消費</summary>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Content("~/Thematic/Detail?Id=6")">
+                                <img src="@Url.Content("~/images/thematic/thematic_6.jpg")">
+                                <summary>電力消費</summary>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Content("~/Thematic/Detail?Id=7")">
+                                <img src="@Url.Content("~/images/thematic/thematic_7.jpg")">
+                                <summary>能源指標</summary>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Content("~/Thematic/Detail?Id=8")">
+                                <img src="@Url.Content("~/images/thematic/thematic_8.jpg")">
+                                <summary>溫室氣體</summary>
+                            </a>
+                        </li>
+                    </ul>*@
+        </div>
+    </div>
+</div>

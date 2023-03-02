@@ -1,0 +1,395 @@
+﻿@using JamZoo.Project.WebSite.ViewModels;
+@using System.Globalization;
+
+@model DatabaseSearchPage
+@{
+    Layout = "~/Views/Shared/_Master.cshtml";
+    // 定義日曆的格式
+    var calendar = new TaiwanCalendar();
+    var culture = CultureInfo.CreateSpecificCulture("zh-TW");
+    culture.DateTimeFormat.Calendar = calendar;
+
+    // 月份的下拉
+    DateTime _START = new DateTime(71, 1, 1, calendar);
+    DateTime _END = new DateTime(Model.GetLastUpdate民國年, Model.GetLastUpdate民國月, 1, calendar);
+    int _TOTALMONTH = (int)(_END.Subtract(_START).Days / (365.25 / 12)) + 1;
+
+    // 季度的下拉
+    DateTime _Q_START = new DateTime(71, 1, 1, calendar);
+    DateTime _Q_END = new DateTime(Model.GetLastUpdate民國年, 1, 1, calendar);
+    int _TOTALQUARTERLY = Convert.ToInt32(Math.Ceiling((float)(_TOTALMONTH / 3))) + 1;
+
+    // 年份的下拉
+    DateTime _YEAR_START = new DateTime(71, 1, 1, calendar);
+    DateTime _YEAR_END = new DateTime(Model.GetLastUpdate民國年, 1, 1, calendar);
+    DateTime zeroTime = new DateTime(1, 1, 1);
+    int _TOTALYEARS = (zeroTime + _END.Subtract(_START)).Year;
+
+    // 是否隱藏季年
+    bool HideYear = false;
+    bool HideQ = false;
+
+    // 發電裝置容量隱藏季年
+    if (Model.PageId == 4)
+    {
+        //  HideYear = true;
+        HideQ = true;
+    }
+}
+
+@section css {
+    <link href="@Url.Content("~/css/checkbox_ui.css")" rel="stylesheet">
+}
+
+@if (TempData["alert"] != null)
+{
+    <script type="text/javascript">
+        $(function () {
+            alert('@(TempData["alert"].ToString())');
+        });
+    </script>
+}
+
+@if (Model.PageId == 0)
+{
+    <script type="text/javascript">
+        $(function () { $(".outer_selectall>.data_search_bar+.open_symbol").click(function () { $(".outer_selectall>.data_search_bar+.open_symbol").removeClass("active"); function a() { ua = navigator.userAgent; var b = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1; return b } if (a()) { $(".outer_selectall .datasearch_box").slideUp('fast'); } else { $(".outer_selectall .datasearch_box").slideUp() } if ($(this).next().is(":hidden") == true) { $(this).addClass("active"); function a() { ua = navigator.userAgent; var b = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1; return b } if (a()) { $(this).next().show() } else { $(this).next().slideDown() } } }) });
+    </script>
+}
+else
+{
+    <script type="text/javascript">
+        $(function () {
+            $(".outer_selectall>.datasearch_box").show(); $(".outer_selectall>.data_search_bar+.open_symbol").addClass("active"); $(function () { $(".outer_selectall>.data_search_bar+.open_symbol").on("click", function (b) { b.preventDefault(); var a = $(this); var c = a.next(".outer_selectall .datasearch_box"); a.toggleClass("active"); c.slideToggle() }) });
+        });
+    </script>
+}
+
+@if (Model.PageId == 1 || Model.PageId == 2)
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#data_accordion').submit(function () {
+
+                var _amt = $('#data_accordion input:checked').length;
+                if (_amt == 0) {
+                    alert('請選擇至少一個項目')
+                    return false;
+                }
+                return true;
+            });
+        });
+    </script>
+
+}
+else
+{
+    <script type="text/javascript">
+                        $(function () {
+                    $('#data_accordion').submit(function () {
+
+                        var _amt = $('#leftBox input:checked').length;
+                        if (_amt == 0) {
+                            alert('請在左右邊選單 各選擇至少一個項目')
+                            return false;
+                        }
+
+                        var r_amt = $('#rightBox input:checked').length;
+                        if (r_amt == 0) {
+                            alert('請在左右邊選單 各選擇至少一個項目')
+                            return false;
+                        }
+
+                        return true;
+                    });
+});
+    </script>
+
+}
+
+
+<div class="boe_bg">
+    <div class="maintop">
+        <div class="container">
+            <h1 class="standard_caption1">@Model.PageInfo.DisplayName</h1>
+            <form id="data_accordion" method="post" action="@Url.Content("~/Database/List?PageId=" + Model.PageId)">
+                <blockquote class="data_one_select">
+                    <section class="form-group col-md-6 col-xl-2">
+                        <label for="yearType">西元/民國</label>
+                        <div class="gray_select select_arrow">
+
+                            <select id="yearType" name="yearType">
+                                <option value="0">西元</option>
+                                <option value="1" selected>民國</option>
+                            </select>
+                        </div>
+                    </section>
+                    <script type="text/javascript">
+                                                                        $(function () {
+                                    $('#yearType').change(function () {
+                                        var _type = $(this).val();
+
+                                        if (parseInt(_type) == 0) {
+                                            r0('#ddl_s_m', 'M');
+                                            r0('#ddl_e_m', 'M');
+
+                                            r0('#ddl_s_q', 'Q');
+                                            r0('#ddl_e_q', 'Q');
+
+                                            r0('#ddl_s_y', 'Y');
+                                            r0('#ddl_e_y', 'Y');
+                                        }
+                                        else if (parseInt(_type) == 1) {
+                                            r1('#ddl_s_m', 'M');
+                                            r1('#ddl_e_m', 'M');
+
+                                            r1('#ddl_s_q', 'Q');
+                                            r1('#ddl_e_q', 'Q');
+
+                                            r1('#ddl_s_y', 'Y');
+                                            r1('#ddl_e_y', 'Y');
+                                        }
+                                    });
+
+});
+
+                                                                        function r0(_id, _t) {
+                                    $('option', _id).each(function (idx, ele) {
+                                        if (
+                                            $(ele).text().startsWith("19")
+                                            ||
+                                            $(ele).text().startsWith("20")
+                                        ) {
+                                            return;
+                                        }
+
+                                        if (_t == "M") {
+                                            var _text = $(ele).text();
+                                            var _pre = parseInt(_text.substring(0, 3)) + 1911;
+                                            var _next = _text.substring(4, 6);
+                                            $(ele).text(_pre.toString() + '年' + _next.toString() + '月');
+                                        } else if (_t == "Q") {
+                                            var _text = $(ele).text();
+                                            //var _ary = _text.split("第");
+                                            //var _pre = parseInt(_ary[0]) + 1911;
+                                            //var _next = _ary[1];
+                                            var _pre = parseInt(_text.substring(0, 3)) + 1911;
+                                            var _next = _text.substring(3, 10);
+
+                                            $(ele).text(_pre + _next);
+                                        } else if (_t == "Y") {
+                                            var _text = parseInt($(ele).text()) + 1911;
+                                            $(ele).text(_text + "年");
+                                        }
+
+                                    });
+}
+
+                                                                        function r1(_id, _t) {
+                                    $('option', _id).each(function (idx, ele) {
+                                        if (
+                                            !$(ele).text().startsWith("19")
+                                            &&
+                                            !$(ele).text().startsWith("20")
+                                        ) {
+                                            return;
+                                        }
+
+                                        if (_t == "M") {
+                                            var _text = $(ele).text();
+                                            var _pre = parseInt(_text.substring(0, 4)) - 1911;
+                                            if (_pre < 100) {
+                                                _pre = "0" + _pre;
+                                            }
+                                            var _next = _text.substring(5, 7);
+                                            $(ele).text(_pre.toString() + '年' + _next.toString() + '月');
+                                        } else if (_t == "Q") {
+                                            var _text = $(ele).text();
+                                            //var _ary = _text.split("Q");
+                                            //var _pre = parseInt(_ary[0]) - 1911;
+                                            //var _next = _ary[1];
+                                            var _pre = parseInt(_text.substring(0, 4)) - 1911;
+                                            if (_pre < 100) {
+                                                _pre = "0" + _pre;
+                                            }
+                                            var _next = _text.substring(4, 10);
+
+                                            $(ele).text(_pre + _next);
+                                        } else if (_t == "Y") {
+                                            var _text = parseInt($(ele).text()) - 1911;
+                                            $(ele).text(_text + "年");
+                                        }
+                                    });
+}
+                    </script>
+                    <section class="form-group col-md-6 col-xl-2">
+                        <label for="YearOrMonth">週期</label>
+                        <div class="gray_select select_arrow">
+
+                            <select id="YearOrMonth" name="PeriodType">
+                                <option value="M">月</option>
+                                @if (!HideQ)
+                                {
+                                    <option value="Q">季</option>
+                                }
+                                @if (!HideYear)
+                                {
+                                    <option value="Y">年</option>
+                                }
+                            </select>
+                        </div>
+                    </section>
+                    <script type="text/javascript">
+                                                                        $('#YearOrMonth').change(function () {
+                                    refreshDDL();
+});
+                                                                        $(function () {
+                                    refreshDDL();
+});
+                                                                        function refreshDDL() {
+                                    $('.startend').prop('disabled', true);
+                            $('.startend').css('display', 'none');
+
+                            var _t = $('#YearOrMonth').val().toLowerCase();
+                            $('#ddl_s_' + _t).prop('disabled', false);
+                            $('#ddl_s_' + _t).css('display', '');
+                            $('#ddl_e_' + _t).prop('disabled', false);
+                            $('#ddl_e_' + _t).css('display', '');
+}
+                    </script>
+                    <section class="form-group col-md-6 col-xl-5">
+                        <label for="ddl_s_m">起</label>
+                        <label for="ddl_e_m">迄</label>
+                        <div class="gray_select text-center">
+
+                            <div class="select_arrow box2">
+                                <select id="ddl_s_m" class="startend" name="Start">
+                                    @for (int i = 0; i <= _TOTALMONTH; i++)
+                                    {
+                                        DateTime r1 = _START.AddMonths(i);
+                                        string s1 = r1.ToString("yyyMM", culture).PadLeft(5, '0');
+                                        string s1Display = r1.ToString("yyy年MM月", culture).PadLeft(7, '0');
+                                        <option @(s1 == Model.Start ? "selected" : "") value="@s1">@s1Display</option>
+                                    }
+                                </select>
+                                <select id="ddl_s_q" class="startend" name="Start" disabled style="display:none;">
+                                    @for (int i = 0; i <= _TOTALQUARTERLY; i++)
+                                    {
+                                        DateTime r1 = _START.AddMonths(i * 3);
+                                        string val = r1.ToString("yyyMM", culture).PadLeft(5, '0');
+                                        string display = string.Format("{0}Q{1}",
+                                            r1.ToString("yyy", culture).PadLeft(3, '0'),
+                                            Math.Ceiling((float)r1.Month / 3)
+                                            );
+
+                                        bool selected =
+                                          Model.Start.Substring(0, 3) == display.Substring(0, 3) &&
+                                          Math.Ceiling((float)Int32.Parse(Model.Start.Substring(3, 2)) / 3).ToString() == display.Substring(4, 1);
+
+                                        string newDisplay = DatabaseSearchPage.季別轉換(display);
+                                        <option @(selected ? "selected" : "") value="@val">@newDisplay</option>
+                                    }
+                                </select>
+                                <select id="ddl_s_y" class="startend" name="Start" disabled style="display:none;">
+                                    @for (int i = 0; i <= _TOTALYEARS; i++)
+                                    {
+                                        DateTime r1 = _YEAR_START.AddYears(i);
+                                        string display = r1.ToString("yyy", culture);
+                                        string s1 = r1.ToString("yyyMM", culture).PadLeft(5, '0');
+                                        <option @(s1.Substring(0, 3) == Model.Start.Substring(0, 3) ? "selected" : "") value="@s1">@r1.ToString("yyy年", culture)</option>
+                                    }
+                                </select>
+                            </div>
+                            ~
+                            <div class="select_arrow box2">
+                                <select id="ddl_e_m" class="startend" name="End">
+                                    @for (int i = 0; i <= _TOTALMONTH; i++)
+                                    {
+                                        DateTime r1 = _START.AddMonths(i);
+                                        string display = r1.ToString("yyyMM", culture).PadLeft(5, '0');
+                                        string val = r1.AddMonths(1).ToString("yyyMM", culture).PadLeft(5, '0');
+                                        <option @(display == Model.End ? "selected" : "") value="@val">@r1.ToString("yyy年MM月", culture).PadLeft(7, '0')</option>
+                                    }
+                                </select>
+                                <select id="ddl_e_q" class="startend" name="End" disabled style="display:none">
+                                    @for (int i = 0; i <= _TOTALQUARTERLY; i++)
+                                    {
+                                        DateTime r1 = _START.AddMonths(i * 3);
+                                        string display = string.Format("{0}Q{1}",
+                                            r1.ToString("yyy", culture).PadLeft(3, '0'),
+                                            Math.Ceiling((float)r1.Month / 3)
+                                            );
+                                        string val = r1.AddMonths(3).ToString("yyyMM", culture).PadLeft(5, '0');
+                                        bool selected =
+                                            Model.End.Substring(0, 3) == display.Substring(0, 3) &&
+                                            Math.Ceiling((float)Int32.Parse(Model.End.Substring(3, 2)) / 3).ToString() == display.Substring(4, 1);
+                                        string newDisplay = DatabaseSearchPage.季別轉換(display);
+                                        <option @(selected ? "selected" : "") value="@val">@newDisplay</option>
+                                    }
+                                </select>
+                                <select id="ddl_e_y" class="startend" name="End" disabled style="display:none">
+                                    @for (int i = 0; i <= _TOTALYEARS; i++)
+                                    {
+                                        DateTime r1 = _YEAR_START.AddYears(i);
+                                        string display = r1.ToString("yyy", culture);
+                                        string val = r1.AddYears(1).ToString("yyyMM", culture).PadLeft(5, '0');
+                                        <option @(display == Model.End.Substring(0, 3) ? "selected" : "") value="@val">@r1.ToString("yyy年", culture)</option>
+                                        @*if (display != "109")
+                                            {
+                                                if (Model.End.Substring(0, 3) == "109")
+                                                {
+                                                    <option @(display == "108" ? "selected" : "") value="@val">@display</option>
+                                                }
+                                                else
+                                                {
+                                                    <option @(display == Model.End.Substring(0, 3) ? "selected" : "") value="@val">@display</option>
+                                                }
+                                            }*@
+                                    }
+                                </select>
+
+                            </div>
+                        </div>
+                        @*<dfn class="text-danger"><i class="icon ion-md-alert"></i> 錯誤提示</dfn>*@
+                    </section>
+                    @if (Model.PageInfo.UnitListAry.Count() == 1)
+                    {
+                        <input type="hidden" name="UnitType" value="0" />
+                    }
+                    else
+                    {
+                        <section class="form-group col-md-6 col-xl-3">
+                            <label for="UnitType">單位</label>
+                            <div class="gray_select select_arrow">
+                                <select name="UnitType" id="UnitType">
+                                    @{
+                                        for (int i = 0; i < Model.PageInfo.UnitListAry.Count(); i++)
+                                        {
+                                            if (!string.IsNullOrEmpty(Model.PageInfo.UnitListAry[i]))
+                                            {
+                                                <option value="@(i)">@Model.PageInfo.UnitListAry[i]</option>
+                                            }
+
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </section>
+
+                    }
+                </blockquote>
+
+                @Html.Partial("_LeftRightSec", Model)
+
+                <h6 class="easy_final_date text-center">更新日期：@Model.LastUpdate</h6>
+                @*<button type="submit" class="data_submit">開始查詢</button>*@
+                <div class="row col-xl-9 mx-auto">
+                    <div class="col-md-6"><a href="@Url.Content("~/Database")" class="data_submit block w100 purple_bg">回首頁</a></div>
+                    <div class="col-md-6">
+                        <button type="submit" class="data_submit block w100">開始查詢</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

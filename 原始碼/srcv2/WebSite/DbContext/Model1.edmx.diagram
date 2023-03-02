@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fdea4b8bec064862af168cc3a0e78e61" Name="Diagram1" ZoomLevel="97">
+        <EntityTypeShape EntityType="Model.T_Account" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="Model.T_Account_Role_Mapping" Width="1.5" PointX="2.75" PointY="12.75" />
+        <EntityTypeShape EntityType="Model.T_Permission" Width="1.5" PointX="4.875" PointY="5.375" />
+        <EntityTypeShape EntityType="Model.T_Role" Width="1.5" PointX="4.875" PointY="8.375" />
+        <EntityTypeShape EntityType="Model.T_Role_Permission_Mapping" Width="1.5" PointX="4.875" PointY="11.375" />
+        <EntityTypeShape EntityType="Model.T_Industry" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="Model.T_Thematic" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.T_Banner" Width="1.5" PointX="9.375" PointY="3.75" />
+        <EntityTypeShape EntityType="Model.T_Publication_Level3" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.T_Publication" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="Model.energy50" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.tmp_cc" Width="1.5" PointX="14.375" PointY="11.75" />
+        <EntityTypeShape EntityType="Model.coal50" Width="1.5" PointX="14.375" PointY="14.75" />
+        <EntityTypeShape EntityType="Model.T_Parent" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.T_ChartData" Width="1.5" PointX="5.625" PointY="2.125" />
+        <EntityTypeShape EntityType="Model.T_Flow" Width="1.5" PointX="14.375" PointY="5.75" />
+        <EntityTypeShape EntityType="Model.T_Energy" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="Model.energy50_db" Width="1.5" PointX="19.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.wesdes50" Width="1.5" PointX="5.375" PointY="14.75" />
+        <EntityTypeShape EntityType="Model.wesdes50_db" Width="1.5" PointX="7.375" PointY="15.75" />
+        <EntityTypeShape EntityType="Model.power50_db" Width="1.5" PointX="11.375" PointY="4.75" />
+        <EntityTypeShape EntityType="Model.T_Child" Width="1.5" PointX="7.375" PointY="9.75" />
+        <EntityTypeShape EntityType="Model.T_System" Width="1.5" PointX="9.375" PointY="19.75" />
+        <EntityTypeShape EntityType="Model.power50" Width="1.5" PointX="11.375" PointY="19.75" />
+        <EntityTypeShape EntityType="Model.fuel50_db" Width="1.5" PointX="16.375" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.upfile_log" Width="1.5" PointX="18.375" PointY="17.75" />
+        <EntityTypeShape EntityType="Model.T_Publication_Level1" Width="1.5" PointX="18.375" PointY="20.75" />
+        <EntityTypeShape EntityType="Model.T_Publication_Level2" Width="1.5" PointX="20.375" PointY="19.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

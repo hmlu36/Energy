@@ -1,0 +1,355 @@
+﻿@using JamZoo.Project.WebSite.ViewModels
+@using System.Globalization;
+@model PublicListPage
+@{
+    Layout = "~/Views/Publication/_Master.cshtml";
+
+}
+<style>
+
+    .pr-md-4, .px-md-4 {
+        padding-right: 1.5rem !important;
+    }
+
+    .content-inner ul li a {
+        padding: 22.5px 20px;
+        background: white;
+        border: 2px solid #E0E0E0;
+        /*border-radius: 100px;          color:#E0E0E0;*/
+        align-items: center;
+        cursor: pointer;
+        transition: background .3s,box-shadow .3s;
+    }
+
+
+        .content-inner ul li a:hover {
+            color: #000;
+            border: 2px solid #000;
+            box-shadow: 0px 0px 5px rgb(0 0 0 / 50%);
+            /*background: #72A418;
+    box-shadow: 1px 1px 10px rgb(0 0 0 / 50%);*/
+        }
+
+
+    .content-inner ul {
+        flex-wrap: wrap;
+    }
+
+    i.icon-right-open::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        -webkit-transition: color .3s;
+        transition: color .3s;
+    }
+
+    .content-inner ul li a h3 {
+        transition: color 0s;
+        color: #000;
+        margin-bottom: 0;
+    }
+
+    .content-inner ul li a i:nth-of-type(2) {
+        font-size: 25px;
+        color: #72A418;
+        background: #E3EDD1;
+        /*border-radius: 50%;*/
+        height: 37.5px;
+        width: 37.5px;
+        margin-right: 0;
+        transition: color .3s,background .3s;
+    }
+
+    .icon-right-open:before {
+        content: '>';
+    }
+
+    i.icon-right-open {
+        display: inline-block;
+        color: #1E1E1E;
+        font-size: 12px;
+        margin: auto;
+        border-radius: 50%;
+        width: 14px;
+        height: 14px;
+        position: relative;
+        -webkit-transition: background .3s;
+        transition: background .3s;
+    }
+
+
+
+    [class^="icon-"]:before, [class*=" icon-"]:before {
+        font-family: "fontello";
+        font-style: normal;
+        font-weight: normal;
+        speak: none;
+        display: inline-block;
+        text-decoration: inherit;
+        width: 1em;
+        margin-right: 0.2em;
+        text-align: center;
+        /* opacity: .8; */
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1em;
+        margin-left: 0.2em;
+        /* font-size: 120%; */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        /* text-shadow: 1px 1px 1px rgb(127 127 127 / 30%); */
+    }
+
+
+    .date_l {
+        width: 100%;
+        display: block !important;
+    }
+
+        .date_l .datebox {
+            float: right;
+            padding-right: 0.7em;
+        }
+
+    .content-inner ul li a:hover i:nth-of-type(1),
+    .content-inner ul li a:hover h3,
+    .content-inner ul li a:hover svg {
+        color: #000;
+    }
+
+    .row .item {
+        margin: 2px;
+        padding-left: 45px;
+        width: 100%;
+    }
+
+        .row .item a {
+            color: #000;
+            font-size: 12pt;
+        }
+
+    .mbottom {
+        margin-bottom: 20px;
+    }
+
+    .iconbtn {
+        width: 96px;
+    }
+
+    .publicbtn0 {
+        width: 110px;
+        height: 110px;
+        background: url("/Content/images/years (1).png") no-repeat center;
+        background-position: -20px -20px;
+        background-size: 140%;
+        margin: auto;
+        display: block;
+    }
+
+    .publicbtn1 {
+        width: 110px;
+        height: 110px;
+        background: url("/Content/images/years (2).png") no-repeat center;
+        background-position: -20px -20px;
+        background-size: 140%;
+        margin: auto;
+        display: block;
+    }
+
+    .publicbtn2 {
+        width: 110px;
+        height: 110px;
+        background: url("/Content/images/years (4).png") no-repeat center;
+        background-position: -20px -20px;
+        background-size: 140%;
+        margin: auto;
+        display: block;
+    }
+
+
+
+    .publicbtn3 {
+        width: 110px;
+        height: 110px;
+        background: url("/Content/images/years (3).png") no-repeat center;
+        background-position: -20px -20px;
+        background-size: 140%;
+        margin: auto;
+        display: block;
+    }
+
+    .publicbtn4 {
+        width: 110px;
+        height: 110px;
+        background: url("/Content/images/monthly (4).png") no-repeat center;
+        background-position: -20px -20px;
+        background-size: 140%;
+        margin: auto;
+        display: block;
+    }
+
+    .publicbtn5 {
+        width: 110px;
+        height: 110px;
+        background: url("/Content/images/monthly (1).png") no-repeat center;
+        background-position: -20px -20px;
+        background-size: 140%;
+        margin: auto;
+        display: block;
+    }
+
+    .publicbtn6 {
+        width: 110px;
+        height: 110px;
+        background: url("/Content/images/monthly (8).png") no-repeat center;
+        background-position: -20px -20px;
+        background-size: 140%;
+        margin: auto;
+        display: block;
+    }
+
+    .publicbtn7 {
+        width: 110px;
+        height: 110px;
+        background: url("/Content/images/monthly (5).png") no-repeat center;
+        background-position: -20px -20px;
+        background-size: 140%;
+        margin: auto;
+        display: block;
+    }
+
+    .publicbtn8 {
+        width: 110px;
+        height: 110px;
+        background: url("/Content/images/monthly (7).png") no-repeat center;
+        background-position: -25px -25px;
+        background-size: 140%;
+        margin: auto;
+        display: block;
+    }
+
+    .publicbtn9 {
+        width: 110px;
+        height: 110px;
+        background: url("/Content/images/monthly (10).png") no-repeat center;
+        background-position: -20px -20px;
+        background-size: 140%;
+        margin: auto;
+        display: block;
+    }
+
+    .publicbtn11 {
+        width: 110px;
+        height: 110px;
+        background: url("/Content/images/monthly (7).png") no-repeat center;
+        background-position: -20px -20px;
+        background-size: 140%;
+        margin: auto;
+        display: block;
+    }
+
+    .publicbtn10 {
+        width: 110px;
+        height: 110px;
+        background: url("/Content/images/monthly (3).png") no-repeat center;
+        background-position: -20px -20px;
+        background-size: 140%;
+        margin: auto;
+        display: block;
+    }
+
+
+
+    a.file_download {
+        display: block;
+        padding: 5px 10px;
+        background: #eee;
+        cursor: pointer;
+        float: right;
+        color: #333;
+        margin-right: 5px;
+    }
+
+    .font-12 {
+        margin-top: 10px;
+        font-size: 1rem;
+        line-height: 150%;
+
+        color: #363636;
+    }
+</style>
+<link href="~/css/tabs.css" rel="stylesheet">
+
+
+<div class="publishing_rbox">
+    <nav class="publishing_hgroup">
+        <div class="date_l">
+            @*<dl class="datebox coffee">
+            <dt>發布日</dt>
+            <dd>110-12-30</dd>
+        </dl>*@
+
+            <dl class="datebox gray">
+                <dt>更新日</dt>
+                <dd>@ViewBag.LASTUPDATE</dd>
+            </dl>
+            <a class="file_download" href="@Url.Content("~/upload/年報.zip?a=202200617")" target="_blank" title="開啟 年報.zip"><i class="fa fa-file-text"></i> 全書下載</a>
+
+        </div>
+        <figure class="download_btn">
+            @*  <a href="#">
+                    <svg viewBox="0 0 95 40">
+                        <path d="m24 9.7v-0.7h-2.9v0.8h2.8c0.1 0 0.1 0 0.1-0.1zm0-2.7c0-0.1 0-0.1-0.1-0.1h-2.8v0.9h2.9v-0.8zm21.8 6.7-1.3-0.1v0.9h1.3v-0.8zm-22.3 3.6h-6.3c-0.1 0-0.2 0.1-0.2 0.2v0.6h6.7v-0.6c0-0.1 0-0.2-0.2-0.2zm18.1-3.6v0.9h1.4v-0.9h-1.4zm28.4 17.8v-19h-2.6v19l-3.9-3.8-1.9 1.8 7 6.9 7-6.9-1.9-1.8-3.7 3.8zm-53-11.3h6.7v-0.8h-6.7v0.8zm24.6-3.6 1.4 0.1v-0.9h-1.4v0.8zm4.2 0v-0.9h-1.3v0.9h1.3zm35.3-6.4c-0.2-5.4-4.7-9.7-10.2-9.7-2.8 0-5.4 1.2-7.3 3.1h-58.7c-2.5 0-4.6 2.1-4.6 4.6v10.9c0 2.5 2.1 4.6 4.6 4.6h48.5c1.3 0.8 2.7 1.3 4.4 1.3h6.6v-2.6h-6.5c-3 0-5.5-2.4-5.5-5.4 0-2.2 1.4-4.2 3.7-5l1-0.4 0.2-1.1c0.3-1.5 1.6-2.6 3-2.7 1.6-0.1 3 1.2 3 1.2l0.7-1.7c1.3-2.6 4-4.3 6.9-4.3 4.2 0 7.6 3.3 7.6 7.4v1.6 0.6h1.9c2.7 0 4.8 2.2 4.8 4.8s-2.2 4.8-4.8 4.8h-7.3v2.6h7.3c4.1 0 7.4-3.3 7.4-7.4-0.1-3.7-2.9-6.8-6.7-7.2zm-30.9-5.4c0.5 0.4 1 0.9 1.6 1.6l-0.6 1.2c-0.6-0.7-1.2-1.2-1.6-1.6l0.6-1.2zm-36.6 16.6h-12.1v-1.6h5.3v-3h-3.9v-1.6h3.9v-3h-3.3v-1.6h8.2v1.6h-3.3v3h3.8v1.6h-3.8v3h5.3v1.6zm-0.5-10.1c-2.1-1.2-3.9-2.4-5.5-4.3-1.1 1.5-3 2.8-5.6 4.5l-0.7-1.5c3.1-1.5 5.1-3.3 6-5.1l1.1 0.3-0.1 0.3c1.5 1.8 3.4 3.3 5.5 4.3l-0.7 1.5zm12.1 10.7h-1.5v-0.5h-6.7v0.5h-1.5v-5.5c0-0.3 0.1-0.5 0.3-0.5h9c0.3 0 0.4 0.2 0.4 0.5v5.5zm1.3-6.6h-12.3v-1.4h5.4v-0.8h-4.6v-1.3h4.6v-0.8h-4.3v-1.3h4.3v-0.8h-5.3v-1.3h5.3v-0.9h-4.2v-1.3h4.2v-0.7h1.7l-0.2 0.7h3.7c0.4 0 0.5 0.1 0.5 0.4v1.7h1.1v1.4h-1.1v1.6c0 0.3-0.1 0.5-0.3 0.5h-3.9v0.8h4.6v1.3h-4.6v0.8h5.4v1.4zm12.6-8.2h-5.6v2.2c1.8 1.5 3.3 3.1 4.9 4.9l-0.8 1.5c-1.2-1.4-2.5-2.9-4.2-4.5v10.7h-1.4v-14.8h-4.9v-1.6h12.1v1.6zm11.8 15c-0.6 0-1.2-1.8-1.5-2.8-0.6 1.1-1.3 2-2.1 2.7l-0.8-1.1 1-0.9h-3v1.9h-1.5v-1.9h-3.1v-1.4h3.1v-0.9h-2.3c-0.3 0-0.3-0.1-0.3-0.2v-5c0-0.1 0-0.2 0.1-0.2h2.5v-0.7h-2.9v-1.3h2.9v-0.7h1.5v0.8h2.9v1.3h-2.9v0.7h2.5c0.1 0 0.1 0.1 0.1 0.2v5c0 0.1 0 0.2-0.3 0.2h-2.3v0.9h3.1v1.3c0.7-0.8 1.2-1.6 1.5-2.2-0.5-2.1-0.8-5-1-8.6h-8.3v-1.4h3.4v-1h-2.7v-1.3h2.7v-0.8h1.5v0.8h2.7v1.3h-2.7v1h3.4l-0.1-3.1 1.4 0.1v3h2.6v1.4h-2.6c0.1 2.9 0.4 5.9 0.4 5.9s0.3-2.5 0.3-4.7l1.2 0.1-0.1 2.3c-0.2 1.7-0.3 2.9-1 4.7 0 0 0.2 1.9 0.5 1.9 0.1 0 0.3 0 0.2-1.9l1.2 0.4c-0.1 2.1-0.4 4.2-1.2 4.2z"></path>
+                    </svg>
+                </a>*@
+        </figure>
+    </nav>
+
+    <section>
+        <div class="content-inner">
+            <ul class="noneStyle d-flex">
+                @{
+
+                    string[] content = new string[12];
+                    content[0] = "能源密集度、能源進口依存度、人均能源消費、再生能源相關占比等統計指標。";
+                    content[1] = "我國總體能源供需概況，以及總供給與國內能源消費各項資料。";
+
+                    content[2] = "涵蓋各能源產品的供給、轉變與消費等流向，並提供3種常用計量單位。";
+
+                    content[3] = "編製說明及當年度資料修訂項目";
+
+                    content[4] = "原油供給、煉製、進口來源，以及石油產品供給、轉變、消費、出口與國際航運。";
+
+                    content[5] = "天然氣供給、轉變、消費，以及液化天然氣進口來源。";
+
+                    content[6] = "煤及煤產品供給、轉變、消費，以及煤炭進口來源。";
+
+                    content[7] = "當月及累計之原始單位、公秉油當量單位、公噸油當量單位平衡表。";
+                    content[8] = "國內油、氣、電價格，原油、天然氣、煤炭進口能源價格，以及國際重要油價及電價資訊。";
+                    content[9] = "月報編製說明，以及當年度統計資料異動說明。";
+                    content[10] = "能源產品單位熱值表。";
+                }
+                @for (int i = 0; i < Model.Data.Data.Count(); i++)
+                {
+                    var parent = Model.Data.Data[i];
+                    <li>
+                        <div class="pr-0 pr-md-4">
+                            <a class="d-flex " data-index="1" href="./page01_detail?Id=@parent.Id">
+                                <div style="width: 65%; float: left">
+                                    <h3 class="font-25 font-weight-bold">@parent.Title</h3>
+                                    <p class="font-12">@Html.Raw(@content[i])</p>
+                                </div>
+                                <div style="width:35%;float:right;text-align:center;"><i class="iconbtn publicbtn@{@i}"></i></div>
+
+                            </a>
+                        </div>
+                    </li>
+                }
+
+
+            </ul>
+        </div>
+    </section>
+</div>

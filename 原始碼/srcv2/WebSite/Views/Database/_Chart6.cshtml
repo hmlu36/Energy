@@ -1,0 +1,57 @@
+﻿@using JamZoo.Project.WebSite.ViewModels;
+@model DatabaseSearchPage
+@{
+    var DetailPage = Model.DetailPages[Model.DetailI];
+    var ColorArray = DetailPage.EnergyInfo.ColorArray;
+    string strColor = "['#47bbf7','#ffcc66','#b18cc4','#a5a5a5','#ca5c3b','#009b62','#71ad3c','#d88098','#fc0','#cccccc','#ce0000','#339933','#3399cc','#0066cc','#ff33cc','#99cc00','#ff6600','#339999','#cc33cc','#ffcc00','#00ccff','#cc3366','#66cccc','#6699cc']";
+    if (ColorArray.Count() > 0)
+    {
+        strColor = DetailPage.EnergyInfo.ColorJsonString;
+    }
+}
+<script>Highcharts.setOptions({lang: {numericSymbols: null  }});
+
+Highcharts.chart("chart_inner",{data:{table:"datatable",startColumn:0,endColumn:1,},credits:{enabled:false},navigation:{buttonOptions:{enabled:false}},chart:{type:"pie"},legend:{enabled:true},title:{text:null},subtitle:{text:'',align:'right',style:{fontSize:'.9rem',fontFamily:'"\5Fae\8Edf\6B63\9ed1\9ad4","Gulim",sans-serif'}},plotOptions: {//Pie與其他類型不同
+			series:{states:{inactive:{opacity:1}},marker:{enabled:false}},
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    color: '#000',
+                    connectorColor: '#666',
+                    },
+                showInLegend: true,colors:@(Html.Raw(strColor)),//自定顏色，由左至右
+            },
+        },xAxis:{},yAxis:{allowDecimals:false,title:{enabled:false,style:{fontWeight:"normal"}},title:{text:""}},tooltip:{
+		    //borderColor		: '#999',
+			shadow			: false,
+		    shared			: false,//同時顯示數據？
+		    useHTML			: true,
+			yDecimals		: 0,
+            valueDecimals	: 1,
+            headerFormat	:
+			     '<h4 class="inquire3_tip_caption" style="color:{point.color}">{point.key}</h4>'
+                +'<table class="tip">'
+                +'<tbody>',
+            pointFormat:
+                  '<td>{point.y:.1f}/ 佔比：{point.percentage:.1f}%</td></tr></tbody></table>'//日期欄位加：<h4>{series.name}:</h4>
+        },
+});
+
+
+    //預設某個類別不顯示
+    var s = Highcharts.charts[0].series[0];
+    var hideAry = @Html.Raw(DetailPage.EnergyInfo.HiddenChartListJsonString);
+    setTimeout(function () {
+        for (var idx = 0; idx < hideAry.length; idx ++) {
+            s.points[parseInt(hideAry[idx])].setVisible(false);//第3個隱藏
+        }
+    },0);
+
+
+//Table核取顯示
+var chart=$("#chart_inner").highcharts();$(".chart_checkbox").on("change",function(){for(var b=0;b<$("input[type=checkbox]").length;b++){var a=chart.series[b];if($(".table_check"+b).is(":checked")){a.show()}else{a.hide()}}});
+//下載圖/pdf/列印此圖
+$(".chart_nav>li>a>.icon7").click(function(){chart.exportChart(null,{chart:{backgroundColor:"#fff"}})});$(".chart_nav>li>a>.icon8").click(function(){chart.exportChart({type:"application/pdf",filename:"my-pdf"})});$(".chart_nav>li>a>.icon9").on("click",function(){$("#chart_inner").printThis({})});
+</script>

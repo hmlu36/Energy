@@ -1,0 +1,672 @@
+﻿@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string CurrentController = string.Empty;
+    if (ViewContext.RouteData.Values["Controller"] != null)
+    {
+        CurrentController = ViewContext.RouteData.Values["Controller"].ToString();
+    }
+}
+<style>
+    div.loadingdiv {
+        height: 100%;
+        width: 100%;
+        /*100%覆蓋網頁內容, 避免user在loading時進行其他操作*/
+        position: fixed;
+        z-index: 99999;
+        /*須大於網頁內容*/
+        top: 0;
+        left: 0;
+        display: block;
+        background: #000;
+        opacity: 0.6;
+        text-align: center;
+    }
+
+        div.loadingdiv img {
+            position: relative;
+            vertical-align: middle;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 50vh;
+        }
+</style>
+<div class="loadingdiv" id="loading" style="display: none">
+    <img src="~/Scripts/ckeditor/ckfinder/plugins/gallery/colorbox/images/loading.gif" />
+</div>
+<h3>1.能源供需-OECD格式(wesdes50)</h3>
+<table class="pure-table pure-table-bordered" style="width: 100%">
+    <thead>
+        <tr style="text-align:center">
+            <td width="260">項目</td>
+            <td width="100">上傳時間</td>
+            <td>上傳檔案</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4">
+                請選擇整年或月份匯入
+                <select id="yyy">
+                    <option value="99">99</option>
+                    <option value="100">100</option>
+                    <option value="101">101</option>
+                    <option value="102">102</option>
+                    <option value="103">103</option>
+                    <option value="104">104</option>
+                    <option value="105">105</option>
+                    <option value="106">106</option>
+                    <option value="107">107</option>
+                    <option value="108">108</option>
+                    <option value="109">109</option>
+                    <option value="110">110</option>
+                </select>年
+                <select id="mm">
+                    <option value="--">--</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>月
+            </td>
+        </tr>
+        <tr>
+            <td>
+                1.資料庫查詢能源平衡表月資料(原始單位)
+            </td>
+            <td>@ViewBag.File11</td>
+            <td>
+                @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="1-1">
+                    <input id="dbName" name="dbName" type="hidden" value="wesdes50">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson(0,1,1)">介接匯入</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                2.資料庫查詢能源平衡表月資料(熱值單位)
+            </td>
+            <td>@ViewBag.File12</td>
+            <td>
+                @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="1-2">
+                    <input id="dbName" name="dbName" type="hidden" value="wesdes50">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson(1,1,1)">介接匯入</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                3.資料庫查詢能源平衡表月資料(油當量單位)
+            </td>
+            <td>@ViewBag.File13</td>
+            <td>
+                @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="1-3">
+                    <input id="dbName" name="dbName" type="hidden" value="wesdes50">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson(2,1,1)">介接匯入</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<h3>2.能源進口來源 </h3>
+<table class="pure-table pure-table-bordered" style="width: 100%">
+    <thead>
+        <tr style="text-align:center">
+            <td width="260">項目</td>
+            <td width="100">上傳時間</td>
+            <td>上傳檔案</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1.煉焦煤</td>
+            <td>@ViewBag.File21</td>
+            <td>
+                @using (Html.BeginForm("Test3", "account", new { }, FormMethod.Post,
+                                                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="2-1">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson(4,1,2)">介接匯入</button>
+
+            </td>
+        </tr>
+        <tr>
+            <td>2.燃料煤</td>
+            <td>@ViewBag.File22</td>
+            <td>
+                @using (Html.BeginForm("Test3", "account", new { }, FormMethod.Post,
+                                                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="2-2">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson(1,1,2)">介接匯入</button>
+            </td>
+        </tr>
+        <tr>
+            <td>3.無煙煤</td>
+            <td>@ViewBag.File23</td>
+            <td>
+                @using (Html.BeginForm("Test3", "account", new { }, FormMethod.Post,
+                                                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="2-3">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson(2,1,2)">介接匯入</button>
+            </td>
+        </tr>
+        <tr>
+            <td>4.亞煙煤</td>
+            <td>@ViewBag.File24</td>
+            <td>
+                @using (Html.BeginForm("Test3", "account", new { }, FormMethod.Post,
+                                                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="2-4">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson(8,1,2)">介接匯入</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>6.原油(千桶)</td>
+            <td>@ViewBag.File26</td>
+            <td>
+                @using (Html.BeginForm("Test3", "account", new { }, FormMethod.Post,
+                                                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="2-6">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson(21,1,2)">介接匯入</button>
+            </td>
+        </tr>
+        <tr>
+            <td>7.液化天然氣</td>
+            <td>@ViewBag.File27</td>
+            <td>
+                @using (Html.BeginForm("Test3", "account", new { }, FormMethod.Post,
+                                                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="2-7">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson(22,1,2)">介接匯入</button>
+            </td>
+        </tr>
+        @*<tr>
+                <td colspan="3">完成匯入後 [temp_cc]  請執行 <a href="@Url.Content("~/Account/ToCoal50")" style="color:dodgerblue">轉換</a></td>
+            </tr>*@
+    </tbody>
+</table>
+
+<h3>3.常用能源指標(energy50_db)</h3>
+<table class="pure-table pure-table-bordered" style="width: 100%">
+    <thead>
+        <tr style="text-align:center">
+            <td width="260">項目</td>
+            <td width="100">上傳時間</td>
+            <td>上傳檔案</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                1.能源指標(月)
+            </td>
+            <td>@ViewBag.File31</td>
+            <td>
+                @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="3-1">
+                    <input id="dbName" name="dbName" type="hidden" value="energy50_db">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson('M',1,3)">介接匯入</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                2.能源指標(季)
+            </td>
+            <td>@ViewBag.File32</td>
+            <td>
+                @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="3-2">
+                    <input id="dbName" name="dbName" type="hidden" value="energy50_db">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson('S',1,3)">介接匯入</button>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                3.能源指標(年)
+            </td>
+            <td>@ViewBag.File33</td>
+            <td>
+                @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="3-3">
+                    <input id="dbName" name="dbName" type="hidden" value="energy50_db">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson('Y',1,3)">介接匯入</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                4.能源環境指標
+            </td>
+            <td>@ViewBag.File34</td>
+            <td>
+                @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="3-4">
+                    <input id="dbName" name="dbName" type="hidden" value="energy50_db">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson('E',1,3)">介接匯入</button>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>4.發電量(power50_db)</h3>
+<table class="pure-table pure-table-bordered" style="width: 100%">
+    <thead>
+        <tr style="text-align:center">
+            <td width="260">項目</td>
+            <td width="100">上傳時間</td>
+            <td>上傳檔案</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                1.發電量
+            </td>
+            <td>@ViewBag.File41</td>
+            <td>
+                @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="4-1">
+                    <input id="dbName" name="dbName" type="hidden" value="power50_db">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson('',1,4)">介接匯入</button>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>5.發電裝置容量(power50)</h3>
+<table class="pure-table pure-table-bordered" style="width: 100%">
+    <thead>
+        <tr style="text-align:center">
+            <td width="260">項目</td>
+            <td width="100">上傳時間</td>
+            <td>上傳檔案</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                1.發電裝置容量
+            </td>
+            <td>@ViewBag.File51</td>
+            <td>
+                @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="5-1">
+                    <input id="dbName" name="dbName" type="hidden" value="power50">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson('',1,5)">介接匯入</button>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>6.發電燃料投入 (fuel50_db)</h3>
+<table class="pure-table pure-table-bordered" style="width: 100%">
+    <thead>
+        <tr style="text-align:center">
+            <td width="260">項目</td>
+            <td width="100">上傳時間</td>
+            <td>上傳檔案</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                1.燃料投入(台電)
+            </td>
+            <td>@ViewBag.File61</td>
+            <td>
+                @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="6-1">
+                    <input id="dbName" name="dbName" type="hidden" value="fuel50_db">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson('T',1,6)">介接匯入</button>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                2.燃料投入(民營)
+            </td>
+            <td>@ViewBag.File62</td>
+            <td>
+                @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="6-2">
+                    <input id="dbName" name="dbName" type="hidden" value="fuel50_db">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson('M',1,6)">介接匯入</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                3.燃料投入(自用)
+            </td>
+            <td>@ViewBag.File63</td>
+            <td>
+                @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="6-3">
+                    <input id="dbName" name="dbName" type="hidden" value="fuel50_db">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson('A',1,6)">介接匯入</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                4.燃料投入(合計)
+            </td>
+            <td>@ViewBag.File64</td>
+            <td>
+                @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+                {
+                    <input id="File_Type" name="File_Type" type="hidden" value="6-4">
+                    <input id="dbName" name="dbName" type="hidden" value="fuel50_db">
+                    <input type="file" name="f" style="width: 200px" />
+                    <input type="submit" value="送出" />
+
+                }
+                <br /><br /><button type="button" name="btn1" onclick="UpdateJson('TO',1,6)">介接匯入</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+    -----
+<fieldset>
+    <legend>[簡易查詢] 匯入</legend>
+    <ol>
+        <li>能源平衡表(原始單位/熱值/公秉油當量)=>wesdes50(簡易查詢)</li>
+        <li>供給、消費、燃料投入=>wesdes50(簡易查詢)</li>
+        <li>電力發電量、裝置容量=>power50-發電量</li>
+        <li>常用能源指標=>energy50-201_整體能源供需-常用能源指標</li>
+    </ol>
+    <br />
+
+
+    @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                                new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+    {
+        <span>只允許 .xls 檔</span>
+        <br />
+        <select name="dbName">
+            <option value="wesdes50">wesdes50 - 原始單位、熱值、公秉油當量</option>
+            <option value="power50" selected>power50 - 發電量</option>
+            <option value="energy50">energy50 - 201_整體能源供需-常用能源指標</option>
+
+        </select>
+        <input type="file" name="f" />
+        <input type="submit" value="送出" />
+
+    }
+</fieldset>
+<hr />
+
+<fieldset>
+    <legend>[資料庫查詢] 匯入</legend>
+    <ol>
+        <li>能源平衡表(原始單位/熱值/公秉油當量)=>wesdes50_db-原始單位</li>
+        <li>發電量、發電裝置容量=>power50_db-發電量</li>
+        <li>發電燃料投入=>fuel50_db-發電燃料投入</li>
+        <li>常用能源指標=>energy50_db-常用能源指標</li>
+    </ol>
+
+    @using (Html.BeginForm("test", "account", new { }, FormMethod.Post,
+                                    new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+    {
+        <span>只允許 .xls 檔</span>
+        <br />
+        <select name="dbName">
+            <option value="wesdes50_db" selected>wesdes50_db - 原始單位、熱值、公秉油當量</option>
+            <option value="power50_db">power50_db - 發電量、發電裝置容量</option>
+            <option value="fuel50_db">fuel50_db - 發電燃料投入</option>
+            <option value="energy50_db">energy50_db - 常用能源指標</option>
+        </select>
+        <input type="file" name="f" />
+        <input type="submit" value="送出" />
+    }
+</fieldset>
+
+<hr />
+
+<b1>匯入[主題式圖資資料]</b1>
+@using (Html.BeginForm("Test2", "account", new { }, FormMethod.Post,
+                            new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+{
+    <span>只允許 .xls 檔</span>
+    <br />
+    <input type="file" name="f" />
+    <input type="submit" value="送出" />
+}
+<hr />
+
+<fieldset>
+    <legend>[3xx_進口來源國] 匯入[temp_cc] 表格</legend>
+    @using (Html.BeginForm("Test3", "account", new { }, FormMethod.Post,
+                                                new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+    {
+        <span>只允許 .xls 檔</span>
+        <br />
+        <input type="file" name="f" />
+        <input type="submit" value="送出" />
+    }
+    <br />
+    <br />
+    匯入 [temp_cc] 之後，請執行轉換到「coal50」 --->
+    <a href="@Url.Content("~/Account/ToCoal50")">轉換</a>
+</fieldset>
+
+
+<script>
+    function UpdateJson(id, type,s) {
+        @*$("#report").load(
+            '@Url.Content("~/Inquire/DetailAjax?Id=")'  + id + '&Start=@Model.Start&End=@Model.End&UnitType=@Model.UnitType&YearOrMonth=@Model.YearOrMonth&TempStart=@Model.TempStart&ChartType=@Model.ChartType'
+        );*@
+        var yyy = $("#yyy option:selected").val();
+        var mm = $("#mm option:selected").val();
+        var YYYMM1 ,YYYMM2;
+        if (mm == '--') {
+            YYYMM1 = yyy + '01';
+            YYYMM2 = yyy + '12';
+        } else {
+            YYYMM1 = yyy + '01';
+            YYYMM2 = yyy + mm;
+        }
+        $('#loading').css("display", "");
+
+        switch (s) {
+                case 1:
+                    A1(id, YYYMM1, YYYMM2);        
+                break;
+                case 2:
+                    A2(id, YYYMM1, YYYMM2);        
+                break;
+                case 3:
+                    A3(id, YYYMM1, YYYMM2);        
+                break;
+                case 4:
+                    A4(id, YYYMM1, YYYMM2);        
+                break;
+                case 5:
+                    A5(id, YYYMM1, YYYMM2);        
+                break;
+                case 6:
+                    A6(id, YYYMM1, YYYMM2);        
+                break;
+        }
+    }
+    function A1(id,YYYMM1,YYYMM2) {
+        $.ajax({
+            url: '/job/GetData?datatype=' + id + '&YYYMM1=' + YYYMM1 + '&YYYMM2=' + YYYMM2,
+            success: function (data) {
+                     $('#loading').css("display", "none");
+                    alert(data);
+            },
+            complete: function () {
+                setTimeout(function () { $('#loading').css("display", "none"); }, 3000);
+            }
+        });
+    }
+    function A2(id,YYYMM1,YYYMM2) {
+        $.ajax({
+            url: '/job/GetImportData?datatype=' + id + '&YYYMM1=' + YYYMM1 + '&YYYMM2=' + YYYMM2,
+            success: function (data) {
+                     $('#loading').css("display", "none");
+                    alert(data);
+            },
+            complete: function () {
+                setTimeout(function () { $('#loading').css("display", "none"); }, 3000);
+            }
+        });
+    }
+    function A3(id,YYYMM1,YYYMM2) {
+        $.ajax({
+            url: '/job/GetIndexData?datatype=' + id + '&YYYMM1=' + YYYMM1 + '&YYYMM2=' + YYYMM2,
+            success: function (data) {
+                     $('#loading').css("display", "none");
+                    alert(data);
+            },
+            complete: function () {
+                setTimeout(function () { $('#loading').css("display", "none"); }, 3000);
+            }
+        });
+    }
+    function A4(id,YYYMM1,YYYMM2) {
+        $.ajax({
+            url: '/job/GetPowerData?datatype=' + id + '&YYYMM1=' + YYYMM1 + '&YYYMM2=' + YYYMM2,
+            success: function (data) {
+                     $('#loading').css("display", "none");
+                    alert(data);
+            },
+            complete: function () {
+                setTimeout(function () { $('#loading').css("display", "none"); }, 3000);
+            }
+        });
+    }
+    function A5(id,YYYMM1,YYYMM2) {
+        $.ajax({
+            url: '/job/GetDevCapData?datatype=' + id + '&YYYMM1=' + YYYMM1 + '&YYYMM2=' + YYYMM2,
+            success: function (data) {
+                     $('#loading').css("display", "none");
+                    alert(data);
+            },
+            complete: function () {
+                setTimeout(function () { $('#loading').css("display", "none"); }, 3000);
+            }
+        });
+    }
+    function A6(id,YYYMM1,YYYMM2) {
+        $.ajax({
+            url: '/job/GetFuelInputData?datatype=' + id + '&YYYMM1=' + YYYMM1 + '&YYYMM2=' + YYYMM2,
+            success: function (data) {
+                     $('#loading').css("display", "none");
+                    alert(data);
+            },
+            complete: function () {
+                setTimeout(function () { $('#loading').css("display", "none"); }, 3000);
+            }
+        });
+    }
+
+
+</script>

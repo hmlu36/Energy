@@ -1,0 +1,67 @@
+﻿@using JamZoo.Project.WebSite.Enums;
+@using JamZoo.Project.WebSite.Library;
+@using System.Web.Script.Serialization;
+@model JamZoo.Project.WebSite.Models.SystemModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string CurrentController = string.Empty;
+    if (ViewContext.RouteData.Values["Controller"] != null)
+    {
+        CurrentController = ViewContext.RouteData.Values["Controller"].ToString();
+    }
+}
+@Html.ActionLink("回上頁", "List", new { page = Model.page }, new { @class = "pure-button" })
+<p>
+@Html.ValidationMessage("message")
+</p>
+
+@using (Html.BeginForm(Model.Mode == EditPageMode.Create ? "create" : "update", 
+    CurrentController, new { page = Model.page }, FormMethod.Post,
+    new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+{
+	<fieldset>	
+
+	    @Html.HiddenFor(p => p.Id)
+        @Html.HiddenFor(p => p.Mk)
+
+		<div class="pure-control-group">
+			@Html.LabelFor(p => p.Mk)
+            @Model.Mk
+		</div>
+
+		<div class="pure-control-group">
+			@Html.LabelFor(p => p.Mv)
+			@Html.TextBoxFor(p => p.Mv, new { @class = "pure-input-1-5" })
+			@Html.ValidationMessageFor(p => p.Mv)
+            <span class="pure-input-1-2">注意:日期格式是月、日，個位數需要補0</span>
+		</div>
+
+		<div class="pure-control-group">
+			@Html.LabelFor(p => p.Createdate)
+			@Model.Createdate
+			@Html.HiddenFor(p => p.Createdate)
+		</div>
+
+		<div class="pure-control-group" style="display:none">
+			@Html.LabelFor(p => p.Updatedate)
+			@Html.TextBoxFor(p => p.Updatedate, new { @class = "pure-input-1-2" })
+			@Html.ValidationMessageFor(p => p.Updatedate)
+		</div>
+
+
+
+		<div class="pure-control-group">
+            <label></label>
+            @if (Model.Mode == EditPageMode.Create)
+            {
+                <input type="submit" value="新 增" class="pure-button" />
+            }
+            else if (Model.Mode == EditPageMode.Update)
+            {
+                <input type="submit" value="修 改" class="pure-button" />
+            }
+           
+        </div>
+	</fieldset>
+}

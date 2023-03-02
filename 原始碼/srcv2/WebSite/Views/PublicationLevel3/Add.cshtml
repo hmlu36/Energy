@@ -1,0 +1,163 @@
+﻿@using JamZoo.Project.WebSite.Enums;
+@using JamZoo.Project.WebSite.Library;
+@using System.Web.Script.Serialization;
+@model JamZoo.Project.WebSite.Models.PublicationLevel3Model
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string CurrentController = string.Empty;
+    if (ViewContext.RouteData.Values["Controller"] != null)
+    {
+        CurrentController = ViewContext.RouteData.Values["Controller"].ToString();
+    }
+}
+@Html.ActionLink("回上頁", "List", new { page = Model.page }, new { @class = "pure-button" })
+<p>
+@Html.ValidationMessage("message")
+</p>
+
+@using (Html.BeginForm(Model.Mode == EditPageMode.Create ? "create" : "update", 
+    CurrentController, new { page = Model.page }, FormMethod.Post,
+    new { enctype = "multipart/form-data", @class = "pure-form pure-form-aligned" }))
+{
+<fieldset>
+
+    @Html.HiddenFor(p => p.Id)
+
+    <div class="pure-control-group">
+        @Html.LabelFor(p => p.Parentid)
+        @Html.DropDownListFor(p => p.Parentid, Model.ParentSelectList, new { @class = "pure-input-small" })
+
+        @Html.ValidationMessageFor(p => p.Parentid)
+    </div>
+
+    <div class="pure-control-group">
+        @Html.LabelFor(p => p.Title)
+        @Html.TextBoxFor(p => p.Title, new { @class = "pure-input-1-2" })
+        @Html.ValidationMessageFor(p => p.Title)
+    </div>
+    <div class="pure-control-group">
+        @Html.LabelFor(p => p.ENTitle)
+        @Html.TextBoxFor(p => p.ENTitle, new { @class = "pure-input-1-2" })
+        @Html.ValidationMessageFor(p => p.ENTitle)
+    </div>
+    <div class="pure-control-group">
+        @Html.LabelFor(p => p.Iorder)
+        @Html.TextBoxFor(p => p.Iorder, new { @class = "pure-input-1-3" })
+        @Html.ValidationMessageFor(p => p.Iorder)
+    </div>
+
+    <div class="pure-control-group">
+        @Html.LabelFor(p => p.Ods)
+        <input type="file" name="OdsFile" />
+        @Html.HiddenFor(p => p.Ods)
+        @if (!string.IsNullOrEmpty(Model.Ods))
+        {
+            string url = Url.Content("~/Upload/" + Model.Ods);
+            <a herf="@url">下載</a>
+        }
+        @Html.ValidationMessageFor(p => p.Ods)
+    </div>
+
+
+
+    <div class="pure-control-group">
+        @Html.LabelFor(p => p.Pdf)
+        <input type="file" name="PdfFile" />
+        @Html.HiddenFor(p => p.Pdf)
+        @if (!string.IsNullOrEmpty(Model.Pdf))
+        {
+            string url = Url.Content("~/Upload/" + Model.Pdf);
+            <a herf="@url">下載</a>
+        }
+        @Html.ValidationMessageFor(p => p.Pdf)
+    </div>
+
+    <div class="pure-control-group">
+        @Html.LabelFor(p => p.Word)
+        <input type="file" name="WordFile" />
+        @Html.HiddenFor(p => p.Word)
+        @if (!string.IsNullOrEmpty(Model.Word))
+        {
+            string url = Url.Content("~/Upload/" + Model.Word);
+            <a herf="@url">下載</a>
+        }
+        @Html.ValidationMessageFor(p => p.Word)
+    </div>
+
+    <div class="pure-control-group">
+        @Html.LabelFor(p => p.Meta)
+        <input type="file" name="MetaFile" />
+        @Html.HiddenFor(p => p.Meta)
+        @if (!string.IsNullOrEmpty(Model.Meta))
+        {
+            string url = Url.Content("~/Upload/" + Model.Meta);
+            <a herf="@url">下載</a>
+        }
+        @Html.ValidationMessageFor(p => p.Meta)
+    </div>
+
+    <div class="pure-control-group">
+        @Html.LabelFor(p => p.Excel)
+        <input type="file" name="ExcelFile" />
+        @Html.HiddenFor(p => p.Excel)
+        @if (!string.IsNullOrEmpty(Model.Excel))
+        {
+            string url = Url.Content("~/Upload/" + Model.Excel);
+            <a herf="@url">下載</a>
+        }
+        @Html.ValidationMessageFor(p => p.Excel)
+    </div>
+
+    <div class="pure-control-group">
+        @Html.LabelFor(p => p.PNG)
+        <input type="file" name="PNGFile" />
+        @Html.HiddenFor(p => p.PNG)
+        @if (!string.IsNullOrEmpty(Model.PNG))
+        {
+            string url = Url.Content("~/Upload/" + Model.PNG);
+            <a herf="@url">下載</a>
+        }
+        @Html.ValidationMessageFor(p => p.PNG)
+    </div>
+    <div class="pure-control-group">
+        @Html.LabelFor(p => p.JSON)
+        <input type="file" name="JSONFile" />
+        @Html.HiddenFor(p => p.JSON)
+        @if (!string.IsNullOrEmpty(Model.JSON))
+        {
+            string url = Url.Content("~/Upload/" + Model.JSON);
+            <a herf="@url">下載</a>
+        }
+        @Html.ValidationMessageFor(p => p.JSON)
+    </div>
+    <div class="pure-control-group">
+        @Html.LabelFor(p => p.Createdate)
+        @Model.Createdate
+        @Html.HiddenFor(p => p.Createdate)
+    </div>
+
+    @if (Model.Mode == EditPageMode.Update)
+    {
+        <div class="pure-control-group">
+            @Html.LabelFor(p => p.Updatedate)
+            @Model.Updatedate
+        </div>
+    }
+
+
+
+    <div class="pure-control-group">
+        <label></label>
+        @if (Model.Mode == EditPageMode.Create)
+        {
+            <input type="submit" value="新 增" class="pure-button" />
+        }
+        else if (Model.Mode == EditPageMode.Update)
+        {
+            <input type="submit" value="修 改" class="pure-button" />
+        }
+
+    </div>
+</fieldset>
+}

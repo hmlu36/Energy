@@ -1,0 +1,56 @@
+﻿@using JamZoo.Project.WebSite.ViewModels
+@{
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+<div class="boe_bg">
+    <div class="maintop">
+        <div class="container">
+            <h1 class="standard_caption1">資料庫查詢</h1>
+            <ul class="easy_8icon text-center">
+                @for (int i = 0; i < DatabaseTypeList.Data.Keys.Count(); i++)
+                {
+                    if (i > 2)
+                    {
+                        break;
+                    }
+                    var dt = DatabaseTypeList.Data[i];
+                    string _name = dt.Name;
+                    if (!string.IsNullOrEmpty(dt.DisplayName))
+                    {
+                        _name = dt.DisplayName;
+                    }
+                <li>
+                    <a href="@Url.Content("~/Database/Search?PageId=" + dt.Id)" class="color@(i + 1)">
+                        @Html.Partial("IndexViewBox/_" + (i + 1))
+                    <figcaption>@_name</figcaption>
+                    </a>
+                </li>
+                }
+            </ul>
+            <hr />
+            <h2 class="standard_caption2 text-center">電力供給</h2>
+            <ul class="easy_8icon text-center">
+                @for (int i = 0; i < DatabaseTypeList.Data.Keys.Count(); i++)
+                {
+                    if (i < 3)
+                    {
+                        continue;
+                    }
+                    var dt = DatabaseTypeList.Data[i];
+                    string _name = dt.Name;
+                    if (!string.IsNullOrEmpty(dt.DisplayName))
+                    {
+                        _name = dt.DisplayName;
+                    }
+                    <li>
+                        <a href="@Url.Content("~/Database/Search?PageId=" + dt.Id)" class="color@(i + 1)">
+                            @Html.Partial("IndexViewBox/_" + (i + 1))
+                            <figcaption>@_name</figcaption>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+

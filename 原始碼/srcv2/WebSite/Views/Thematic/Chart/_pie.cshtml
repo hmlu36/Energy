@@ -1,0 +1,42 @@
+﻿@using JamZoo.Project.WebSite.ViewModels;
+@model ChartViewModel
+@{
+    Model.Title = Model.Title.Replace("(圓餅圖)", string.Empty);
+    Model.Title = Model.Title.Replace("(長條圖)", string.Empty);
+    Model.Title = Model.Title.Replace("(折線圖)", string.Empty);
+}
+
+<script>
+    Highcharts.setOptions({ lang: { thousandsSep: ',' } });
+    @*Highcharts.chart('@Model.Id', {
+        chart: { type: 'pie' }, "credits": { "enabled": false }, title: { text: '@Model.Title', style: { fontFamily: '"\5Fae\8Edf\6B63\9ed1\9ad4","Gulim",sans-serif' } }, subtitle: { text: '@(Model.SubTitle)' }, plotOptions: { pie: { innerSize: '40%', depth: 45, allowPointSelect: true, cursor: 'pointer', dataLabels: { useHTML: true, enabled: true, format: '<span style="color:{point.fontcolor};font-size:{point.fontsize};">{point.percentage:.1f} %</span>', distance: -30, }, showInLegend: true, point: { events: { legendItemClick: function (e) { e.preventDefault() } } } } }, tooltip: { pointFormat: '<summary style="color:{point.fontcolor};font-size:.96rem">{series.name} : <strong class="red">{point.percentage:.1f}%</strong></summary>', useHTML: true, }, legend: { backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white', verticalAlign: 'bottom', borderColor: '#ccc', borderWidth: 0, itemMarginTop: 3, itemMarginBottom: 3, shadow: false, reversed: true, y: -13, x: 0, itemStyle: { font: '.95rem "\5Fae\8Edf\6B63\9ed1\9ad4","Gulim",sans-serif', color: '#222' }, itemHoverStyle: { color: '#333' }, itemHiddenStyle: { color: '#444' } }, responsive: { rules: [{ condition: { maxWidth: 414 }, chartOptions: { legend: { align: 'center', verticalAlign: 'top', y: -13, x: -8, layout: 'vertical', } } }] },
+        series: [{
+            name: '總計', data: [
+                @{ 
+                    int i = 0;
+                    foreach (var r in Model.PieData)
+                    {
+                    <text>
+                    { name: '@r.Key', y: @(r.Value), sliced: false, selected: false, fontsize: '12px', color: '@ChartViewModel.GetColor(r.Key)' },
+                    </text>
+                        i++;
+                    }
+                }
+		]}]});*@
+
+    Highcharts.setOptions({lang:{thousandsSep:','}});Highcharts.chart('@Model.Id',{chart:{type:'pie'},"credits":{"enabled":false},title:{text:'@Model.Title',style:{fontFamily:'"\5Fae\8Edf\6B63\9ed1\9ad4","Gulim",sans-serif'}},subtitle:{text:'@Model.SubTitle'},plotOptions:{series:{states:{inactive:{opacity:1,},},},pie:{allowPointSelect:true,cursor:'pointer',dataLabels:{enabled:true,format:'<span style="color:{point.fontcolor};font-size:{point.fontsize};">{point.percentage:.1f} %</span>',},showInLegend:true,}},tooltip:{pointFormat:'<summary style = "color:{point.fontcolor};font-size:.96rem">{series.name} : <strong class="red">{point.percentage:.1f}%</strong></summary>',useHTML:true,},legend:{backgroundColor:(Highcharts.theme && Highcharts.theme.background2) || 'white',verticalAlign:'bottom',borderColor:'#ccc',borderWidth:0,itemMarginTop:3,itemMarginBottom:3,shadow:false,/*reversed:true,*/y:-13,x:0,},responsive:{rules:[{condition:{maxWidth:414},chartOptions:{legend:{align:'center',verticalAlign:'top',y:-13,x:-8,layout:'vertical',}}}]},
+        series:[{name:'總計',data:[
+
+              @{ 
+                  int i = 0;
+foreach (var r in Model.PieData)
+{
+    <text>
+    { name: '@r.Key', y: @(r.Value), sliced: false, selected: false, fontsize: '12px', color: '@ChartViewModel.GetColor(r.Key)' },
+    </text>
+    i++;
+}
+}
+
+		]}]});
+</script>

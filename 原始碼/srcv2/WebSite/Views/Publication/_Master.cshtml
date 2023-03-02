@@ -1,0 +1,104 @@
+﻿@{
+    Layout = "~/Views/Shared/_Master.cshtml";
+    var actionName = this.ViewContext.RouteData.Values["action"].ToString().ToLower();
+    var title = "";
+    var title2 = "";
+    if (actionName.ToLower() == "page_info") { title = "公告資訊"; }
+    if (actionName.ToLower() == "page_info01") { title = "公告資訊"; title2 = "「能源統計月報」改版預告"; }
+    if (actionName.ToLower() == "page_info02") {  title = "公告資訊"; title2 = "「能源統計年報」與「能源平衡表」整併預告"; }
+
+    if (actionName.ToLower() == "monthly") { title = "能源統計月報"; }
+    if (actionName.ToLower() == "monthly" || actionName.ToLower() == "monthly_detail") { title = "能源統計月報"; }
+    if (actionName.ToLower() == "page0new2" || actionName.ToLower() == "page0_detail") { title = "能源統計月報"; }
+    if (actionName.ToLower() == "Page0new_bk") { title = "能源統計月報(舊)"; }
+    if (actionName.ToLower() == "page01"   || actionName.ToLower() == "page01_detail") { title = "能源統計年報(平衡表)"; }
+    if (actionName.ToLower() == "page1") { title = "能源平衡表"; }
+    if (actionName.ToLower() == "page2") { title = "能源統計手冊"; }
+    if (actionName.ToLower() == "page3") { title = "燃料燃燒二氧化碳排放統計與分析"; }
+}
+<style>
+    .container {
+        padding: 0px !important;
+        padding-top: 0px !important;
+    }
+
+    .h2t {
+        font-size: 3.3rem;
+        letter-spacing: -.05em;
+        line-height: 1.25em;
+        margin: 0;
+        padding-left: 15px;
+        text-align: center;
+        padding-top: 55px;
+    }
+
+
+
+    .breadcrumb {
+        font-size: .96rem;
+    }
+
+        .breadcrumb.esist > li + li:before {
+            display: inline-block;
+            padding-right: 0.5rem;
+            content: "/";
+        }
+
+    .cp2 {
+        position: relative;
+        /*max-width: 1140px;*/
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        z-index: 2;
+        background-color: none;
+        border-bottom:1px solid #ABABAB
+    }
+
+
+
+</style>
+<link href="~/css/public0302.css" rel="stylesheet">
+
+<div class="boe_bg">
+
+    <div class="maintop">
+        <div class="row layer2" style="height: 330px">
+            <div class="cp2 ">  @*<h2 class="h2t ">@if (@title2 != ""){@title2;}else{ @title}</h2>*@<br /></div>
+
+        </div>
+        <div class="container " style="background-color:transparent;">
+            <ol id="bread" class="esistBread breadcrumb esist"><li><a href="/">首頁</a></li><li>@title</li>@if (@title2 != ""){<li>@title2</li>;}</ol>
+        </div>
+        <article class="container statistics_wrapper">
+
+            <aside class="aside">
+                <ul id="publishing_fixselect" class="l_m_ul1">
+                    <li @(actionName.ToLower() == "page_info" ? "class=current" : "")><a href="@Url.Content("~/publication/page_info")">公告資訊</a></li>
+
+                    @*<li @(actionName.ToLower() == "monthly" ? "class=current" : "")><a href="@Url.Content("~/publication/monthly")">能源統計月報</a></li>*@
+
+                    <li @(actionName.ToLower() == "monthly" || actionName.ToLower() == "monthly_detail" ? "class=current" : "")><a href="@Url.Content("~/publication/monthly")">能源統計月報</a></li>
+                    @*<li @(actionName.ToLower() == "page0new2" || actionName.ToLower() == "page0_detail" ? "class=current" : "")><a href="@Url.Content("~/publication/page0new2")">能源統計月報(new2)</a></li>
+        <li @(actionName.ToLower() == "Page0new_bk" ? "class=current" : "")><a href="@Url.Content("~/publication/Page0new_bk")">能源統計月報(舊)</a></li>*@
+                    <li @(actionName.ToLower() == "page01" ? "class=current" : "")><a href="@Url.Content("~/publication/page01")">能源統計年報(平衡表)</a></li>
+                    @*<li @(actionName.ToLower() == "page1" ? "class=current" : "")><a href="@Url.Content("~/publication/page1")">能源平衡表</a></li>*@
+                    <li @(actionName.ToLower() == "page2" ? "class=current" : "")><a href="@Url.Content("~/publication/page2")">能源統計手冊</a></li>
+                    <li @(actionName.ToLower() == "page3" ? "class=current" : "")><a href="@Url.Content("~/publication/page3")">燃料燃燒二氧化碳排放統計與分析</a></li>
+                    @*<li ><a href="@Url.Content("~/upload/能源統計操作手冊-基礎知識篇1110215.pdf")" target="_blank" title="開啟 能源統計操作手冊-基礎知識篇.pdf">操作手冊</a></li>*@
+                    @*<li @(actionName.ToLower() == "page4" ? "class=current" : "")><a href="@Url.Content("~/Inquire/List?Id=0")"></a></li>
+        <li @(actionName.ToLower() == "page5" ? "class=current" : "")><a href="@Url.Content("~/Inquire/List?Id=0")"></a></li>
+        <li @(actionName.ToLower() == "page6" ? "class=current" : "")><a href="@Url.Content("~/Inquire/List?Id=0")">能源統計說明資訊(Metadata)</a></li>*@
+                </ul>
+
+            </aside>
+            @RenderBody()
+
+
+        </article>
+    </div>
+</div>
+
+

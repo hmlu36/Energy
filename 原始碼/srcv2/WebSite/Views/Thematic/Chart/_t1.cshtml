@@ -1,0 +1,19 @@
+﻿@using JamZoo.Project.WebSite.ViewModels
+@model JamZoo.Project.WebSite.ViewModels.PageOfChartViewModel
+<section class="row p">
+    <div class="col-lg-6">
+        <div id="chart1"></div>
+    </div>
+    <div class="col-lg-6">
+        <div id="chart2"></div>
+    </div>
+    <div class="col-lg-11 f_c">
+        <div id="chart3"></div>
+    </div>
+
+
+</section>
+<div id="chart4"></div>
+<div id="chart5"></div>
+<div id="chart6"></div>
+@Html.Partial("Chart/_rendChart", Model.ChartList)

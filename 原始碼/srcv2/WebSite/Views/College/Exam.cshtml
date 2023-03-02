@@ -1,0 +1,150 @@
+﻿@{
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<div class="maintop">
+    <article class="container section_pad">
+        <h2 class="std_h2caption text-center">能源統計知識評量</h2>
+        <div id="quiz">
+            <div id="quiz-start-screen">
+                <summary class="p">下列關於能源統計知識的選擇題問答，共有10題目，請依次作答。</summary>
+                <p><a href="#" id="quiz-start-btn" class="quiz-button">開始，Go!</a></p>
+            </div>
+        </div>
+    </article>
+    @Html.Partial("_Footer")
+</div>
+<script>
+//jquery-quiz v0.0.1
+!function(a,b,c,d){"use strict";a.quiz=function(b,d){var e=this;e.$el=a(b),e.$el.data("quiz",e),e.options=a.extend(a.quiz.defaultOptions,d);var f=e.options.questions,g=f.length,h=e.options.startScreen,i=e.options.startButton,j=e.options.homeButton,k=e.options.resultsScreen,l=e.options.gameOverScreen,m=e.options.nextButtonText,n=e.options.finishButtonText,o=e.options.restartButtonText,p=1,q=0,r=!1;e.methods={init:function(){e.methods.setup(),a(c).on("click",i,function(a){a.preventDefault(),e.methods.start()}),a(c).on("click",j,function(a){a.preventDefault(),e.methods.home()}),a(c).on("click",".answers a",function(a){a.preventDefault(),e.methods.answerQuestion(this)}),a(c).on("click","#quiz-next-btn",function(a){a.preventDefault(),e.methods.nextQuestion()}),a(c).on("click","#quiz-finish-btn",function(a){a.preventDefault(),e.methods.finish()}),a(c).on("click","#quiz-restart-btn, #quiz-retry-btn",function(a){a.preventDefault(),e.methods.restart()})},setup:function(){var b="";e.options.counter&&(b+='<div id="quiz-counter"></div>'),b+='<div id="questions">',a.each(f,function(c,d){b+='<div class="question-container">',b+='<p class="question">'+d.q+"</p>",b+='<ul class="answers">',a.each(d.options,function(a,c){b+='<li><a href="#" data-index="'+a+'">'+c+"</a></li>"}),b+="</ul>",b+="</div>"}),b+="</div>",0===a(k).length&&(b+='<div id="'+k.substr(1)+'">',b+='<p id="quiz-results"></p>',b+="</div>"),b+='<div id="quiz-controls" class="back_outer">',b+='<p id="quiz-response"></p>',b+='<div id="quiz-buttons">',b+='<a href="#" id="quiz-next-btn">'+m+"</a>",b+='<a href="#" id="quiz-finish-btn">'+n+"</a>",b+='<a href="#" id="quiz-restart-btn">'+o+"</a>",b+="</div>",b+="</div>",e.$el.append(b).addClass("quiz-container quiz-start-state"),a("#quiz-counter").hide(),a(".question-container").hide(),a(l).hide(),a(k).hide(),a("#quiz-controls").hide()},start:function(){e.$el.removeClass("quiz-start-state").addClass("quiz-questions-state"),a(h).hide(),a("#quiz-controls").hide(),a("#quiz-finish-btn").hide(),a("#quiz-restart-btn").hide(),a("#questions").show(),a("#quiz-counter").show(),a(".question-container:first-child").show().addClass("active-question"),e.methods.updateCounter()},answerQuestion:function(b){if(!r){r=!0;var c=a(b),d="",g=c.data("index"),h=p-1,i=f[h].correctIndex;if(g===i)c.addClass("correct"),d=f[h].correctResponse,q++;else if(c.addClass("incorrect"),d=f[h].incorrectResponse,!e.options.allowIncorrect)return void e.methods.gameOver(d);a("#quiz-response").html(d),a("#quiz-controls").fadeIn(),"function"==typeof e.options.answerCallback&&e.options.answerCallback(p,g,f[h])}},nextQuestion:function(){r=!1,a(".active-question").hide().removeClass("active-question").next(".question-container").show().addClass("active-question"),a("#quiz-controls").hide(),++p===g&&(a("#quiz-next-btn").hide(),a("#quiz-finish-btn").show()),e.methods.updateCounter(),"function"==typeof e.options.nextCallback&&e.options.nextCallback()},gameOver:function(b){if(0===a(l).length){var c="";c+='<div id="'+l.substr(1)+'">',c+='<p id="quiz-gameover-response"></p>',c+='<p><a href="#" id="quiz-retry-btn">'+o+"</a></p>",c+="</div>",e.$el.append(c)}a("#quiz-gameover-response").html(b),a("#quiz-counter").hide(),a("#questions").hide(),a("#quiz-finish-btn").hide(),a(l).show()},finish:function(){e.$el.removeClass("quiz-questions-state").addClass("quiz-results-state"),a(".active-question").hide().removeClass("active-question"),a("#quiz-counter").hide(),a("#quiz-response").hide(),a("#quiz-finish-btn").hide(),a("#quiz-next-btn").hide(),a("#quiz-restart-btn").show(),a(k).show();var b=e.options.resultsFormat.replace("%score",q).replace("%total",g);a("#quiz-results").html(b),"function"==typeof e.options.finishCallback&&e.options.finishCallback()},restart:function(){e.methods.reset(),e.$el.addClass("quiz-questions-state"),a("#questions").show(),a("#quiz-counter").show(),a(".question-container:first-child").show().addClass("active-question"),e.methods.updateCounter()},reset:function(){r=!1,p=1,q=0,a(".answers a").removeClass("correct incorrect"),e.$el.removeClass().addClass("quiz-container"),a("#quiz-restart-btn").hide(),a(l).hide(),a(k).hide(),a("#quiz-controls").hide(),a("#quiz-response").show(),a("#quiz-next-btn").show(),a("#quiz-counter").hide(),a(".active-question").hide().removeClass("active-question")},home:function(){e.methods.reset(),e.$el.addClass("quiz-start-state"),a(h).show(),"function"==typeof e.options.homeCallback&&e.options.homeCallback()},updateCounter:function(){var b=e.options.counterFormat.replace("%current",p).replace("%total",g);a("#quiz-counter").html(b)}},e.methods.init()},a.quiz.defaultOptions={allowIncorrect:!0,counter:!0,counterFormat:"%current/%total",startScreen:"#quiz-start-screen",startButton:"#quiz-start-btn",homeButton:"#quiz-home-btn",resultsScreen:"#quiz-results-screen",resultsFormat:"<h3 class='icon'><i class='icon ion-ios-checkmark-circle'></i></h3><summary class='result_summary'>合計共有%total題，您答對了%score題喔～</summary>",gameOverScreen:"#quiz-gameover-screen",nextButtonText:"下一題 <i class='icon ion-ios-arrow-forward'></i>",finishButtonText:"看看結果 <i class='icon ion-ios-arrow-forward'></i>",restartButtonText:"再挑戰一次"},a.fn.quiz=function(b){return this.each(function(){new a.quiz(this,b)})}}(jQuery,window,document);
+
+$('#quiz').quiz({
+    //resultsScreen: '#results-screen',
+    //counter: false,
+    //homeButton: '#custom-home',
+    counterFormat: '第%current題 - 共%total題',
+    questions: [
+      {
+        'q': '能源可提供熱能或動力，就您所知，下列何者屬於能源？',//第1題
+        'options': [
+          'A‧煤炭',//<h4><img src="https://i.imgur.com/lzsC0Gj.jpg" width="30"></h4>
+          'B‧原油',
+          'C‧天然氣',
+          'D‧電力',
+          'E‧以上皆是'
+        ],
+        'correctIndex':4,//答案是第幾？從0排序，A為0，B為1...以此類推
+        'correctResponse': '<h4 class="light_green q_title"><i class="fa fa-check" aria-hidden="true"></i>答對囉!</h4><summary>第1題正確答案：E‧煤炭、原油、天然氣、電力皆屬於能源。</summary>',//答對內容
+        'incorrectResponse': '<h4 class="red q_title"><i class="fa fa-times" aria-hidden="true"></i>可惜~您答錯了。</h4><summary>正確解答：E‧以上皆是，煤炭、原油、天然氣、電力皆<strong class="red">屬於能源<strong>。</summary>'//答錯內容
+      },
+      {
+        'q': '臺灣自己生產的能源很少，不論原油、煤炭、天然氣都仰賴進口，就您所知，2018年臺灣能源有多少比例依賴進口？',//第2題
+        'options': [
+          'A‧30%以下',
+          'B‧31%~60%',
+          'C‧61%~90%',
+          'D‧91%以上'
+        ],
+        'correctIndex':3,
+        'correctResponse':'<h4 class="light_green q_title"><i class="fa fa-check" aria-hidden="true"></i>答對囉!</h4><summary>第2題正確答案：D‧2018年臺灣能源進口占能源總供給98%。</summary>',
+        'incorrectResponse':'<h4 class="red q_title"><i class="fa fa-times" aria-hidden="true"></i>可惜~您答錯了。</h4><summary>正確解答：D‧2018年臺灣能源進口占能源總供給98%。</summary>'
+      },
+      {
+        'q': '就您所知，2018年臺灣消費最多能源的部門是？',//第3題
+        'options': [
+          'A‧工業部門',
+          'B‧運輸部門',
+          'C‧農業部門',
+          'D‧住宅部門'
+        ],
+        'correctIndex':0,
+        'correctResponse': '<h4 class="light_green q_title"><i class="fa fa-check" aria-hidden="true"></i>答對囉!</h4><summary>第3題正確答案：A‧工業部門。</summary><summary class="text-left">2018年臺灣消費能源最多的部門是工業部門，共消費了2千7百萬公秉油當量，占國內能源消費31.01%，相當於1輛小客車繞行地球1千7百萬圈的油耗量。</summary>',
+        'incorrectResponse': '<h4 class="red q_title"><i class="fa fa-times" aria-hidden="true"></i>可惜~您答錯了。</h4><summary>第3題正確答案：A‧工業部門。</summary><summary class="text-left">2018年臺灣消費能源最多的部門是工業部門，共消費了2千7百萬公秉油當量，占國內能源消費31.01%，相當於1輛小客車繞行地球1千7百萬圈的油耗量。</summary>'
+      },
+      {
+        'q': '2018年臺灣消費最多的能源別是石油產品(54%)，其次為電力(29%)，就您所知，下列哪個部門消費的電力最多？',//第4題
+        'options': [
+          'A‧工業部門',
+          'B‧運輸部門',
+          'C‧服務業部門',
+          'D‧住宅部門'
+        ],
+        'correctIndex':0,
+        'correctResponse': '<h4 class="light_green q_title"><i class="fa fa-check" aria-hidden="true"></i>答對囉!</h4><summary>第4題正確答案：A‧工業部門占電力總消費56%，其中電子業(占工業部門電力消費34%)和化材業(占工業部門電力消費22%)為前2大電力消費產業。</summary>',
+        'incorrectResponse':'<h4 class="red q_title"><i class="fa fa-times" aria-hidden="true"></i>可惜~您答錯了。</h4><summary>正確解答：A‧工業部門占電力總消費56%，其中電子業(占工業部門電力消費34%)和化材業(占工業部門電力消費22%)為前2大電力消費產業。</summary>'
+      },
+      {
+        'q': '2018年臺灣的發電方式包括：火力發電、核能發電、抽蓄水力發電與再生能源發電(例如：水力及風力)，就您所知，核能發電占總發電量比例為多少？',//第5題
+        'options': [
+          'A‧約10%',
+          'B‧約30%',
+          'C‧約50%',
+          'D‧約70%'
+        ],
+        'correctIndex':0,
+        'correctResponse': '<h4 class="light_green q_title"><i class="fa fa-check" aria-hidden="true"></i>答對囉!</h4><summary>第5題正確答案：A‧約10%。</summary><summary class="text-left">2018年臺灣核能發電占總發電量比例為10.05%；另占比最多的發電方式為燃煤發電占47.62%，其次為燃氣發電占33.54%。</summary>',
+        'incorrectResponse':'<h4 class="red q_title"><i class="fa fa-times" aria-hidden="true"></i>可惜~您答錯了。</h4><summary>第5題正確答案：A‧約10%。</summary><summary class="text-left">2018年臺灣核能發電占總發電量比例為10.05%；另占比最多的發電方式為燃煤發電占47.62%，其次為燃氣發電占33.54%。</summary>'
+      },
+      {
+        'q': '煤炭相較其他能源價格較便宜且供給穩定，但燃燒時產生的空氣污染物較高，就您所知，下列何者為煤炭用途？',//第6題
+        'options': [
+          'A‧發電',
+          'B‧煉焦、高爐煉鋼',
+          'C‧鍋爐加熱',
+          'D‧製作電石、電極與濾材的原料',
+		  'E‧以上皆是'
+        ],
+        'correctIndex':4,
+        'correctResponse': '<h4 class="light_green q_title"><i class="fa fa-check" aria-hidden="true"></i>答對囉!</h4><summary>第6題正確答案：E‧以上皆是。</summary><summary class="text-left">煤炭除了可以用來發電與產熱外，鋼鐵業也將其投入焦爐與高爐用以煉焦及煉鋼，亦能應用其特性當原料使用，如：無煙煤質地細密可做為濾材原料。</summary>',
+        'incorrectResponse':'<h4 class="red q_title"><i class="fa fa-times" aria-hidden="true"></i>可惜~您答錯了。</h4><summary>第6題正確答案：E‧以上皆是。</summary><summary class="text-left">煤炭除了可以用來發電與產熱外，鋼鐵業也將其投入焦爐與高爐用以煉焦及煉鋼，亦能應用其特性當原料使用，如：無煙煤質地細密可做為濾材原料。</summary>'
+      },
+      {
+        'q': '再生能源為取之不盡的自然資源，可循環再生，就您所知，以下何者不屬於再生能源？',//第7題
+        'options': [
+          'A‧水力發電',
+          'B‧風力發電',
+          'C‧太陽光電',
+          'D‧天然氣'
+        ],
+        'correctIndex':3,
+        'correctResponse': '<h4 class="light_green q_title"><i class="fa fa-check" aria-hidden="true"></i>答對囉!</h4><summary>第7題正確答案：D‧天然氣屬於不可再生的化石能源。</summary>',
+        'incorrectResponse':'<h4 class="red q_title"><i class="fa fa-times" aria-hidden="true"></i>可惜~您答錯了。</h4><summary>正確解答：D‧天然氣屬於不可再生的化石能源。</summary>'
+      },
+      {
+        'q': '臺灣天然氣用量逐年增加，2018年燃氣發電占總發電量已達33.54%，就您所知，2018年臺灣進口液化天然氣最主要的來源(進口國)？',//第8題
+        'options': [
+          'A‧卡達',
+          'B‧馬來西亞',
+          'C‧澳洲',
+          'D‧俄羅斯'
+        ],
+        'correctIndex':0,
+        'correctResponse': '<h4 class="light_green q_title"><i class="fa fa-check" aria-hidden="true"></i>答對囉!</h4><summary>第8題正確答案：A‧卡達。</summary><summary>卡達地處中東北鄰波斯灣，南與沙烏地阿拉伯接壤，其天然氣蘊藏量排名世界第3。隨著天然氣發電占比在2025預計達到50%，天然氣來源對於國家能源安全愈趨重要。2018年臺灣進口液化天然氣來源，以卡達占28.75%最多，其後依序為馬來西亞16.65%、澳洲15.24%、俄羅斯13.69%、巴布亞紐幾內亞6.86%、印尼6.79%、其他12.01%。</summary>',
+        'incorrectResponse':'<h4 class="red q_title"><i class="fa fa-times" aria-hidden="true"></i>可惜~您答錯了。</h4><summary>正確解答：A‧卡達。</summary><summary class="text-left">卡達地處中東北鄰波斯灣，南與沙烏地阿拉伯接壤，其天然氣蘊藏量排名世界第3。隨著天然氣發電占比在2025預計達到50%，天然氣來源對於國家能源安全愈趨重要。2018年臺灣進口液化天然氣來源，以卡達占28.75%最多，其後依序為馬來西亞16.65%、澳洲15.24%、俄羅斯13.69%、巴布亞紐幾內亞6.86%、印尼6.79%、其他12.01%。</summary>'
+      },
+      {
+        'q': '「初級能源」係指由自然資源中直接提取、採集，未經轉化或處理的能源，「次級能源」則是由初級能源或其他次級能源經處理轉換而得，就您所知，以下何者不屬於初級能源？',//第9題
+        'options': [
+          'A‧煤炭',
+          'B‧原油',
+          'C‧天然氣',
+          'D‧柴油'
+        ],
+        'correctIndex':3,
+		  'correctResponse': '<h4 class="light_green q_title"><i class="fa fa-check" aria-hidden="true"></i>答對囉!</h4><summary>第9題正確答案：D‧柴油。</summary><summary class="text-left">柴油是從原油精煉而來，無法由自然界中直接獲取，屬於次級能源。</summary>',
+        'incorrectResponse':'<h4 class="red q_title"><i class="fa fa-times" aria-hidden="true"></i>可惜~您答錯了。</h4><summary>正確解答：D‧柴油。</summary><summary class="text-left">柴油是從原油精煉而來，無法由自然界中直接獲取，屬於次級能源。</summary>'
+      },
+      {
+        'q': '能源密集度是生產每一單位GDP所耗用的能源，常用於衡量一國能源使用效率之優劣，就您所知，通常能源密集度越低，代表能源使用效率如何？',//第10題
+        'options': [
+          'A‧愈佳',
+          'B‧愈差',
+          'C‧不一定'
+        ],
+        'correctIndex':0,
+        'correctResponse': '<h4 class="light_green q_title"><i class="fa fa-check" aria-hidden="true"></i>答對囉!</h4><summary>第10題正確答案：A‧愈佳。</summary><summary class="text-left">能源密集度與能源使用效率成反比，該值愈低，代表每單位GDP所需耗用之能源越少，故使用效率愈佳。</summary>',
+        'incorrectResponse':'<h4 class="red q_title"><i class="fa fa-times" aria-hidden="true"></i>可惜~您答錯了。</h4><summary>正確解答：A‧愈佳。</summary><summary class="text-left">能源密集度與能源使用效率成反比，該值愈低，代表每單位GDP所需耗用之能源越少，故使用效率愈佳。</summary>'
+      }
+    ]
+  });
+</script>>

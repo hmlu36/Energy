@@ -1,0 +1,66 @@
+﻿@using JamZoo.Project.WebSite.ViewModels;
+@model IndexPage
+@{
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@section js { 
+}
+
+<div class="boe_bg">
+    <div class="maintop">
+        <div class="container index">
+            <h1 class="home_caption1">能源統計專區簡介</h1>
+            <hr />
+            本專區提供具時效性、準確性之能源統資料供各界使用者參考,並提<br />
+            供統計視覺化資訊,方便使用者快速掌握我國能源況。<br /><br /><br />
+                                          <ul class="easy_8icon">
+                                              <li class="rblock">
+                                                  <h2>主題式圖資</h2>
+                                                  <div class="hometxt">
+                                                      列舉數項主題,方便快速瞭解我國能源概況。
+                                                  </div>
+                                                  <a href="@Url.Content("~/Inquire/List?Id=0")" class="hbtn">
+                                                      READ MORE
+                                                  </a>
+                                              </li>
+                                              <li>
+                                                  <h2>
+                                                      常用查詢
+                                                  </h2>
+                                                  <div class="hometxt">
+                                                      提供近五年各能源別資料及圖表。
+                                                    </div>
+                                                  <a href="@Url.Content("~/Inquire/List?Id=0")" class="hbtn">
+                                                      READ MORE
+                                                  </a>
+</li>
+                                              <li class="rblock">
+                                                  <h2>
+                                                      資料庫查詢
+                                                  </h2>
+                                                  <div class="hometxt">
+                                                      提供自1982年至今之能源資料,並產製互動式圖形及表格方便使用。
+                                                  </div>
+                                                      <a href="@Url.Content("~/Inquire/List?Id=0")" class="hbtn">
+                                                         READ MORE
+                                                      </a>
+</liclass="rblock">
+                                              <li>
+                                                  <h2>
+                                                      統計刊物
+                                                  </h2>
+                                                  <div class="hometxt">
+                                                      能源統計月報<br />
+                                                      能源統計年報<br />
+                                                      能源統計平衡表<br />
+                                                      能源統計手冊<br />
+                                                      燃料燃燒二氧化碳排放統計與分析<br />
+                                                  </div>
+                                                  <a href="@Url.Content("~/Inquire/List?Id=0")" class="hbtn">
+                                                      READ MORE
+                                                  </a>
+                                              </li>
+                                          </ul>
+        </div>
+    </div>
+</div>

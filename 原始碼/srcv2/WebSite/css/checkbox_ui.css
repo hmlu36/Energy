@@ -1,0 +1,11 @@
+/*===================獨立radio checkbox css3===================*/
+
+input[type=checkbox]:not(old),.checkbox input[type=checkbox]{display:none;}
+input[type=checkbox]:not(old)+.checkbox,input[type=radio]:not(old)+.radio{line-height:1.5em;cursor:pointer;margin-bottom:0;}
+/*input[type=checkbox]:not(old)+.checkbox>span{width:1.1em;height:1.1em;margin:0 .5em .2em 0;border-radius:.25em;background:#e0e0e0;display:inline-block;vertical-align:middle;}
+input[type=checkbox]:not(old):checked+.checkbox>span,input[type=radio]:not(old):checked+.radio>span{background-color:#f0f0f0;}
+input[type=checkbox]:not(old):checked+.checkbox>span:before{content:"\f3ff";color:#000;font-size:2em;top:-.065em;left:.08em;}*/
+
+.checkbox{padding-left:1.5em;position:relative;cursor:pointer;margin-bottom:0;}
+.checkbox>span{position:absolute;left:0;top:.2em;width:1.1em;height:1.1em;margin:0 .5em .2em 0;border-radius:.25em;background:#e0e0e0;cursor:pointer;}
+.checkbox input[type=checkbox]:checked+span:before{font-family:"Ionicons";line-height:1;content:"\f3ff";color:#000;font-size:2em;position:absolute;z-index:4;top:-.21em;left:.08em;}

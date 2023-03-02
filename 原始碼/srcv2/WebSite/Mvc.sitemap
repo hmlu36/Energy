@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+  <mvcSiteMapNode title="總覽" controller="Account" action="Info" roles="sa">
+    <!--帳號管理 Start-->
+    <mvcSiteMapNode title="後台人員管理" clickable="false" roles="sa"></mvcSiteMapNode>
+    <mvcSiteMapNode title="帳號維護" controller="Account" action="List" roles="sa">
+      <mvcSiteMapNode title="新增" controller="Account" action="Add"/>
+      <mvcSiteMapNode title="修改" controller="Account" action="Edit"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="角色清單" controller="Role" action="List" roles="sa">
+      <mvcSiteMapNode title="角色維護新增" controller="Role" action="Add"/>
+      <mvcSiteMapNode title="角色維護修改" controller="Role" action="Edit"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="系統設定" controller="System" action="List" roles="sa">
+      <mvcSiteMapNode title="新增" controller="System" action="Add"/>
+      <mvcSiteMapNode title="修改" controller="System" action="Edit"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="網站管理" clickable="false" roles="sa"></mvcSiteMapNode>
+    <mvcSiteMapNode title="電子刊物大類" controller="Tpublication" action="List" roles="sa">
+      <mvcSiteMapNode title="新增" controller="Tpublication" action="Add"/>
+      <mvcSiteMapNode title="修改" controller="Tpublication" action="Edit"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="電子刊物中類" controller="PublicationLevel1" action="List" roles="sa">
+      <mvcSiteMapNode title="新增" controller="PublicationLevel1" action="Add"/>
+      <mvcSiteMapNode title="修改" controller="PublicationLevel1" action="Edit"/>
+    </mvcSiteMapNode>
+    <!--
+    <mvcSiteMapNode title="電子刊物子類" controller="PublicationLevel2" action="List" roles="sa">
+      <mvcSiteMapNode title="新增" controller="PublicationLevel2" action="Add"/>
+      <mvcSiteMapNode title="修改" controller="PublicationLevel2" action="Edit"/>
+    </mvcSiteMapNode>
+    -->
+    <mvcSiteMapNode title="電子刊物檔案下載" controller="PublicationLevel3" action="List" roles="sa">
+      <mvcSiteMapNode title="新增" controller="PublicationLevel3" action="Add"/>
+      <mvcSiteMapNode title="修改" controller="PublicationLevel3" action="Edit"/>
+    </mvcSiteMapNode>
+    <!--
+    <mvcSiteMapNode title="主題式圖表" controller="Tthematic" action="List" roles="sa">
+      <mvcSiteMapNode title="新增" controller="Tthematic" action="Add"/>
+      <mvcSiteMapNode title="修改" controller="Tthematic" action="Edit"/>
+    </mvcSiteMapNode>-->
+    <mvcSiteMapNode title="首頁banner" controller="Banner" action="List" roles="sa">
+      <mvcSiteMapNode title="新增" controller="Banner" action="Add"/>
+      <mvcSiteMapNode title="修改" controller="TthBannerematic" action="Edit"/>
+    </mvcSiteMapNode>
+  </mvcSiteMapNode>
+
+</mvcSiteMap>

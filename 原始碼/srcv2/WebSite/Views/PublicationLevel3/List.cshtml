@@ -1,0 +1,121 @@
+﻿@model JamZoo.Project.WebSite.Models.PublicationLevel3ListModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string CurrentController = string.Empty;
+    if (ViewContext.RouteData.Values["Controller"] != null)
+    {
+        CurrentController = ViewContext.RouteData.Values["Controller"].ToString();
+    }
+}
+@Html.Partial("_ErrorMsg", ViewContext.ViewData)
+<p></p>
+@using (Html.BeginForm("List", CurrentController, FormMethod.Get, new { @class = "pure-form" }))
+{ 
+    <div class="pure-u-1-1" style="text-align:right">
+        @Html.TextBoxFor(p => p.Search, new { placeholder = "搜尋文字" })
+        <input type="submit" class="pure-button" value="查詢" />
+    </div>
+}
+<p></p>
+@Html.ActionLink("新增", "add", new { page = Model.Page }, new { @class = "pure-button" })
+<p></p>
+<table class="pure-table pure-table-bordered" style="width: 100%">
+    <thead>
+        <tr>
+            <th>子類</th>
+            <th>名稱</th>
+            <th>英文</th>
+            <th>排序</th>
+            <th>Ods</th>
+            <th>Pdf</th>
+            <th>Word</th>
+            <th>Meta</th>
+            <th>Excel</th>
+            <th>PNG</th>
+            <th>JSON</th>
+            <th style="width:82px"></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model.Data != null)
+        {
+            if (Model.Data.Count == 0)
+            {
+            <tr class="info">
+                <td colspan="8">暫無資料 </td>
+            </tr>
+            }
+            foreach (var Row in Model.Data)
+            {
+    <tr>
+        <td nowrap> @Row.ParentName </td>
+        <td nowrap> @Row.Title </td>
+        <td> @Row.ENTitle</td>
+
+        <td> @Row.Iorder </td>
+        <td>
+            @if (Row.Ods != null)
+            {
+                <a herf="@Url.Content("~/Upload/" + Row.Ods)">@Row.Ods</a>
+            }
+        </td>
+        <td>
+            @if (Row.Pdf != null)
+            {
+                <a herf="@Url.Content("~/Upload/" + Row.Pdf)">@Row.Pdf</a>
+            }
+        </td>
+
+        <td>
+            @if (Row.Word != null)
+            {
+                <a herf="@Url.Content("~/Upload/" + Row.Word)">@Row.Word</a>
+            }
+        </td>
+
+        <td>
+            @if (Row.Meta != null)
+            {
+                <a herf="@Url.Content("~/Upload/" + Row.Meta)">@Row.Meta</a>
+            }
+        </td>
+
+        <td>
+            @if (Row.Excel != null)
+            {
+                <a herf="@Url.Content("~/Upload/" + Row.Excel)">@Row.Excel</a>
+            }
+        </td>
+        <td>
+            @if (Row.PNG != null)
+            {
+                <a herf="@Url.Content("~/Upload/" + Row.PNG)">@Row.PNG</a>
+            }
+        </td>
+        <td>
+            @if (Row.JSON != null)
+            {
+                <a herf="@Url.Content("~/Upload/" + Row.JSON)">@Row.JSON</a>
+            }
+        </td>
+        <td>
+            @Html.ActionLink("編輯", "Edit", new { id = Row.Id, page = Model.Page }, new { })
+            @Html.ActionLink("刪除", "delete", new { id = Row.Id, page = Model.Page }, new { onclick = "return confirm('確定刪除?');" })
+        </td>
+    </tr>
+            }
+        }
+        else
+        {
+            <tr class="info">
+                <td colspan="8">暫無資料 </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p></p>
+@{
+    Request.RequestContext.RouteData.Values.Add("Search", Model.Search);
+    @Html.Partial("_Pager", (JamZoo.Project.WebSite.Models.PagerModel)Model)
+}

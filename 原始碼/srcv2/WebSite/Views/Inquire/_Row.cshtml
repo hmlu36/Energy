@@ -1,0 +1,6 @@
+﻿@using JamZoo.Project.WebSite.Models;
+@model ChildModel
+<th class="@Model.IndentName">
+    <input type="checkbox" id="check@(Model.CheckBoxIdx) " class="chart_checkbox table_check@(Model.CheckBoxIdx)" checked />
+    <label for="check@(Model.CheckBoxIdx)">@Model.Name</label>
+</th>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:sch="http://webServices.jcs/beans/session" xmlns:tns="http://webServices.jcs/beans/session" targetNamespace="http://webServices.jcs/beans/session" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://webServices.jcs/beans/session" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="getSessionRequest">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="appid" type="xs:string" />
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getSessionResponse">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="encryptedToken" type="xs:string" />
+            <xs:element name="expiredTime" type="xs:string" />
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cleanSessionRequest">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="appid" type="xs:string" />
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cleanSessionResponse">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="success" type="xs:boolean" />
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getSessionResponse">
+    <wsdl:part name="getSessionResponse" element="tns:getSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="cleanSessionRequest">
+    <wsdl:part name="cleanSessionRequest" element="tns:cleanSessionRequest" />
+  </wsdl:message>
+  <wsdl:message name="cleanSessionResponse">
+    <wsdl:part name="cleanSessionResponse" element="tns:cleanSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="getSessionRequest">
+    <wsdl:part name="getSessionRequest" element="tns:getSessionRequest" />
+  </wsdl:message>
+  <wsdl:portType name="SessionServicePort">
+    <wsdl:operation name="getSession">
+      <wsdl:input name="getSessionRequest" message="tns:getSessionRequest" />
+      <wsdl:output name="getSessionResponse" message="tns:getSessionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="cleanSession">
+      <wsdl:input name="cleanSessionRequest" message="tns:cleanSessionRequest" />
+      <wsdl:output name="cleanSessionResponse" message="tns:cleanSessionResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SessionServicePortSoap11" type="tns:SessionServicePort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getSession">
+      <soap:operation soapAction="" />
+      <wsdl:input name="getSessionRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getSessionResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cleanSession">
+      <soap:operation soapAction="" />
+      <wsdl:input name="cleanSessionRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="cleanSessionResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SessionServicePortService">
+    <wsdl:port name="SessionServicePortSoap11" binding="tns:SessionServicePortSoap11">
+      <soap:address location="https://iedrp.org.tw:443/wsdl" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

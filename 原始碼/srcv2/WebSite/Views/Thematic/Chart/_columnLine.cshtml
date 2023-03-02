@@ -1,0 +1,28 @@
+﻿@using JamZoo.Project.WebSite.ViewModels;
+@using Newtonsoft.Json;
+@model ChartViewModel
+@{
+    string[] colors = new string[2]
+    {
+        "70aceb",
+        "b22222"
+    };
+    string strCategories = JsonConvert.SerializeObject(Model.CategoriesOfColumnData);
+    string strColAData = JsonConvert.SerializeObject(Model.ColumnAData);
+    string strColBData = JsonConvert.SerializeObject(Model.ColumnBData);
+    Model.Title = Model.Title.Replace("(圓餅圖)", string.Empty);
+    Model.Title = Model.Title.Replace("(長條圖)", string.Empty);
+    Model.Title = Model.Title.Replace("(折線圖)", string.Empty);
+}
+<script>
+       //11.電力備用容量率(長條+折線圖)
+    Highcharts.setOptions({ lang: { thousandsSep: ',' } }); Highcharts.chart('@Model.Id', {
+        "credits": { "enabled": false }, title: { text: '@Model.Title' }, subtitle: { text: '@Model.SubTitle' }, xAxis: { categories:@Html.Raw(strCategories) }, yAxis: { title: { text: '' }, }, plotOptions: { series: { stacking: 'normal' } }, tooltip: { headerFormat: '<b>{point.x}</b><br/>', pointFormat: '{series.name}: {point.y:.1f}%' }, series: [{
+            type: 'column',
+            name: '@Model.ColumnAName', data: @(Html.Raw(strColAData)), color: '#70aceb'
+        }, {
+            type: 'spline',
+            name: '@Model.ColumnBName', data: @(Html.Raw(strColBData)), color: "#b22222", marker: { lineWidth: 1, lineColor: '#ffffff', fillColor: '#ffb431' }
+        }]
+    });
+</script>

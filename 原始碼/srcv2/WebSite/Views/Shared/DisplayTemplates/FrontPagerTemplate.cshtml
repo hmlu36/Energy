@@ -1,0 +1,86 @@
+﻿@model PaginationModel
+
+@BuildFirstLink()
+
+
+@foreach (var link in Model.PaginationLinks)
+{
+    @BuildLink(link)
+}
+
+@BuilderLastLink()
+
+@helper BuildFirstLink()
+{
+    if (Model.PaginationLinks.Count > 0)
+    {
+        //<li><a href="1">First Page</a></li>
+    }
+}
+
+@helper BuilderLastLink()
+{
+    if (Model.PaginationLinks.Count > 0)
+    {
+        //<li><a href="@Html.Raw(Model.PaginationLinks.Count.ToString())">Last Page</a> </li>
+    }
+}
+
+@*<li><a href="#">&laquo;</a></li>
+    <li class="current"><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">6</a></li>
+    <li><a href="#">7</a></li>
+    <li>...</li>
+    <li><a href="#">35</a></li>
+    <li><a href="#">&raquo;</a></li>*@
+
+@helper BuildLink(PaginationLink link)
+{
+    var rootBuilder = new TagBuilder("li");
+    var aBuilder = new TagBuilder("a");
+    if (link.Url == null)
+    {
+        aBuilder.MergeAttribute("href", "javascript:;");
+    }
+    else
+    {
+        aBuilder.MergeAttribute("href", link.Url);
+    }
+
+    if (link.IsCurrent)
+    {
+        aBuilder.SetInnerText(link.DisplayText);
+        rootBuilder.MergeAttribute("class", "current");
+        rootBuilder.InnerHtml = aBuilder.ToString();
+        @Html.Raw(rootBuilder.ToString())
+        return;
+    }
+
+    if (link.DisplayText == "«")
+    {
+        aBuilder.SetInnerText("«");
+        rootBuilder.InnerHtml = (aBuilder.ToString());
+        @Html.Raw(rootBuilder.ToString())
+    }
+    else if (link.DisplayText == "»")
+    {
+        aBuilder.SetInnerText("»");
+        rootBuilder.InnerHtml = (aBuilder.ToString());
+        @Html.Raw(rootBuilder.ToString())
+    }
+    else if (link.DisplayText == "...")
+    {
+        aBuilder.SetInnerText("...");
+        rootBuilder.InnerHtml = (aBuilder.ToString());
+        @Html.Raw(rootBuilder.ToString())
+    }
+    else
+    {
+        aBuilder.SetInnerText(link.DisplayText);
+        rootBuilder.InnerHtml = (aBuilder.ToString());
+        @Html.Raw(rootBuilder.ToString())
+    }
+}

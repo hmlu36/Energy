@@ -1,0 +1,7 @@
+//Roni 2019/06/06
+//首頁觸控跑馬
+
+$(".swiper-slide img").on("click",function(d){var c=$($(this).attr("href"));if(c.length){d.preventDefault();$("html,body").animate({scrollTop:c.offset().top},1000)}});var swiper=new Swiper(".swiper-container",{/*pagination:".swiper-pagination",nextButton:".swiper-button-next",prevButton:".swiper-button-prev",paginationClickable:true,*/centeredSlides:true,autoplay:3500,speed:1500,loop:true,autoplayDisableOnInteraction:false});
+
+//ScrollPos-Styler v0.6
+var ScrollPosStyler=(function(j,f){var b=0,g=false,e=true,h=1,a=j.getElementsByClassName("sps");function i(){if(!g){b=f.pageYOffset;if(e&&b>h){g=true;e=false;f.requestAnimationFrame(k)}else{if(!e&&b<=h){g=true;e=true;f.requestAnimationFrame(d)}}}}function d(){for(var l=0;a[l];++l){a[l].classList.add("sps--abv");a[l].classList.remove("sps--blw")}g=false}function k(){for(var l=0;a[l];++l){a[l].classList.add("sps--blw");a[l].classList.remove("sps--abv")}g=false}var c={init:function(){g=true;b=f.pageYOffset;if(b>h){e=false;f.requestAnimationFrame(k)}else{e=true;f.requestAnimationFrame(d)}}};j.addEventListener("DOMContentLoaded",function(){f.setTimeout(c.init,1)});f.addEventListener("scroll",i);return c})(document,window);

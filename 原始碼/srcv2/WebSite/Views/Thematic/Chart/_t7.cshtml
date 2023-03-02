@@ -1,0 +1,41 @@
+﻿@using JamZoo.Project.WebSite.ViewModels
+@model JamZoo.Project.WebSite.ViewModels.PageOfChartViewModel
+<section class="row p">
+    <div class="col-lg-11 f_c">
+        <h4 class="text-center">能源生產力與密集度</h4>
+        <hgroup class="t7_hgoup">
+            <h5>能源生產力(元/公升油當量)</h5>
+            <h5>能源密集度(公升油當量/千元)</h5>
+        </hgroup>
+        <div id="chart1"></div>
+    </div>
+    <div class="col-lg-11 f_c">
+        <h4 class="text-center">人均能源消費量與每人實質GDP</h4>
+        <hgroup class="t7_hgoup">
+            <h5>平均每人能源消費量(公升油當量/人)</h5>
+            <h5>平均每人GDP(千元/人)</h5>
+        </hgroup>
+        <div id="chart2"></div>
+    </div>
+    <div class="col-lg-11 f_c">
+        <h4 class="text-center">人均能源消費量與用電量</h4>
+        <hgroup class="t7_hgoup">
+            <h5>平均每人能源消費量(公升油當量/人)</h5>
+            <h5>平均每人用電量(度/人)</h5>
+        </hgroup>
+        <div id="chart3"></div>
+    </div>
+    <div class="col-lg-11 f_c">
+        <div id="chart4"></div>
+    </div>
+    <div class="col-lg-11 f_c">
+        <div id="chart5"></div>
+    </div>
+    <div class="col-lg-11 f_c">
+        <div id="chart6"></div>
+    </div>
+    <div class="col-lg-11 f_c">
+        <div id="chart7"></div>
+    </div>
+</section>
+@Html.Partial("Chart/_rendChart", Model.ChartList)

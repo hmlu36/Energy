@@ -1,0 +1,79 @@
+﻿@using JamZoo.Project.WebSite.ViewModels;
+@model IndexPage
+@{
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@section js {
+}
+<script src="~/Content/aos.js"></script>
+<link rel="stylesheet" href="/css/aos.css">
+<link rel="stylesheet" href="/css/about.css">
+<div class="boe_bg">
+    <div class="maintop">
+        <div class="container">
+
+            <!-- SOLUTIONS -->
+            <div class="index-about">
+                <!-- PAGE-TITLE -->
+                <div class="page-title text-center aos-init aos-animate" data-aos="zoom-in">
+
+                    <h1 class="index-about-h1">能源統計專區隱私權保護、使用及資訊安全政策</h1>
+                    <hr>
+                    <p style="text-align:left">
+                        能源局為推廣能源資料，提供能源統計專區（以下簡稱本專區）作為民眾查詢窗口，基於尊重及保護用戶的個人隱私權，為協助您清楚地瞭解本專區如何蒐集、應用及保護您所提供的個人資料，請詳細閱讀本專區隱私權保護及資訊安全政策。
+                    </p><br />
+                    <h2 style="text-align:left">適用範圍</h2>
+                    <p style="text-align:left">
+                        以下政策內容，適用於您在本專區活動時，所涉及之個人資料蒐集、處理及利用，但不適用於與本專區資料集連結與介接至各政府機關網站或其他網站。凡經由本專區連結與介接至其他網站，均適用各該網站專屬之隱私權保護與資訊安全政策，本專區不負任何連帶責任
+                    </p><br />
+                    <h2 style="text-align:left">個人資料的蒐集、處理及利用 </h2>
+
+                    <ul style="text-align:left">
+                        <li>
+                            單純在本專區的瀏覽及檔案下載行為，專區會保留您在瀏覽或查詢時，伺服器產生的相關紀錄，包括您使用連線設備的IP位址、時間、瀏覽及訂閱資料紀錄等，這些資料係供本專區管理單位內部作流量和網路行為調查的總量分析，以利於提升本專區的服務品質。若基於公共利益為統計或學術研究之必要，資料亦將經過處理，使其揭露方式無從識別特定之當事人。
+                        </li>
+                        <li>如您透過電子郵件或服務信箱反映您的意見或詢問相關業務問題時，我們會保存您的通訊紀錄，僅作為與您聯絡之用。</li>
+                        <li>本專區絕不會任意出售、交換、或出租任何您的個人資料給其他團體、個人或私人企業，於利用您的個人資料時，均與蒐集之特定目的相符，但有下列情形之一者，得為特定目的外之利用：</li>
+                    </ul>
+                    <ol style="text-align:left">
+                        <li>法律明文規定。</li>
+                        <li>為維護國家安全或增進公共利益。</li>
+                        <li>為免除當事人之生命、身體、自由或財產上之危險。</li>
+                        <li>為防止他人權益之重大危害。</li>
+                        <li>公務機關或學術研究機構基於公共利益為統計或學術研究而有必要，且資料經過提供者處理後或蒐集者依其揭露方式無從識別特定之當事人。</li>
+                        <li>有利於當事人權益。</li>
+                        <li>經當事人書面同意。</li>
+                    </ol>
+                    <ul style="text-align:left">
+                        <li>
+                            依個人資料保護法第 3 條規定，您就您所提供之個人資料享有查詢或請求閱覽、請求製給複製本、請求補充或更正、請求停止蒐集處理或利用 (包含撤回同意、反對本公司繼續處理您的資料)、請求刪除的權利，若您有以上需求請與政府資料開放平臺聯絡，信箱：ecstat@moea.gov.tw
+                        </li>
+                    </ul>
+
+                    <br />
+                    <h2 style="text-align:left">Cookie運用</h2>
+                    <p style="text-align:left">
+                        Cookie是伺服端為區別使用者喜好，經由瀏覽器寫入使用者硬碟的一些簡短資訊。<br />
+                        本專區會在您瀏覽器中寫入並讀取Cookie，您可以在瀏覽器設定項目中，拒絕Cookie的執行，並不會影響您使用本專區之服務。上述之Cookie僅會對個別連線者的瀏覽器予以標示，記錄瀏覽器在本服務內部所瀏覽的網頁，進行瀏覽人數統計及瀏覽模式分析，做為本專區改善服務的參考，但不會識別特定當事人，若有基於公共利益為統計或學術研究而有必要，資料亦將經過處理，使其揭露方式無從識別特定之當事人。
+                    </p><br />
+                    <h2 style="text-align:left">專區使用聲明</h2>
+                    <p style="text-align:left">
+                        使用者應遵守本專區公告事項之下載及連線方式等取用方式，以確保本專區資訊系統穩定及其他使用者得以公平使用。 本專區管理機關及各機關如因網路線路或設備故障、檢修、保養、停電或其他天災事變等不可抗力情事，致無法提供使用者資料時，將於事先或事後於本專區公告相關訊息。使用者因此所產生損害或損失，本專區管理機關及各機關不負任何賠償或補償之責。
+                    </p>
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        //AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+    });
+
+</script>

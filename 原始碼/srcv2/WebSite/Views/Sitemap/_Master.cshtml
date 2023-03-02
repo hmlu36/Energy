@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "~/Views/Shared/_Master.cshtml";
+    var actionName = this.ViewContext.RouteData.Values["action"].ToString().ToLower();
+}
+<div class="boe_bg">
+
+    <div class="maintop">
+      
+            @RenderBody()
+
+
+    </div>
+</div>
+
+

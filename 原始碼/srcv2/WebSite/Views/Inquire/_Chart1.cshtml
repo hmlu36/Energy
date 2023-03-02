@@ -1,0 +1,37 @@
+﻿@using JamZoo.Project.WebSite.ViewModels;
+@model InquireDetailPage
+@{ 
+    string strColor = "['#47bbf7','#ffcc66','#b18cc4','#a5a5a5','#ca5c3b','#009b62','#71ad3c','#d88098','#fc0','#cccccc','#ce0000','#339933','#3399cc','#0066cc','#ff33cc','#99cc00','#ff6600','#339999','#cc33cc','#ffcc00','#00ccff','#cc3366','#66cccc','#6699cc']";
+    if (Model.Parent != null && Model.Parent.ColorArray.Count() > 0)
+    {
+        strColor = Model.Parent.ColorJsonString;
+    }
+    
+}
+
+<script>
+ var hideAry = @Html.Raw(Model.Parent.HiddenChartListJsonString);
+    $(function () {
+        $(document).ready(function () {
+            Highcharts.setOptions({ lang: { numericSymbols: null } });
+            Highcharts.visualize = function (e, c) { c.xAxis.categories = []; $("thead th", e).each(function (f) { var g = $(this).text(); c.xAxis.categories.push(g) });/*console.log(c.xAxis.categories);*/c.series = []; $("tbody tr", e).each(function (f) { var h = this; var g = {}; g.name = $("th", h).text(); g.data = []; $("td", h).each(function (i) { g.data.push(parseFloat(this.innerHTML)); console.log(this.outerHTML); }); c.series.push(g) }); var d = new Highcharts.Chart(c) }; var b = document.getElementById("datatable"), a = {
+                chart: {
+                    events: {
+        		load: function() {
+            		var myChart = this;
+					$.each(myChart.series, function(index, serie) {
+					    if (hideAry.indexOf(index + '') != -1) {
+					        serie.hide();
+					    }
+					//if(index === 5 ) {serie.hide();}//預設隱藏項目排序
+                    //if(index === 7 ) {serie.hide();}
+								});
+            }},renderTo:"chart_inner"/*,type:"spline",*/},legend:{enabled:true,},navigation:{buttonOptions:{enabled:false}},colors:@(Html.Raw(strColor)),title:{text:null},/*subtitle:{text:"單位：千立方公尺",align:"right",style:{fontSize:".9rem",fontFamily:'"\5Fae\8Edf\6B63\9ed1\9ad4","Gulim",sans-serif'}},*/credits:{enabled:false},xAxis:{},yAxis:{opposite: false,allowDecimals:false,title:{enabled:false,style:{fontWeight:"normal"}}},plotOptions:{series:{states:{inactive:{opacity:1}},marker:{enabled:false}}},tooltip:{shadow:false,shared:false,useHTML:true,pointFormat:'<h4 class="inquire3_tip_caption1" style="color:{series.color}">{point.series.name}</h4><h4 class="inquire3_tip_caption">值 :{point.y:.2f}</h4>'},};Highcharts.visualize(b,a)
+																																																																																																																																																																																																																																																																																																																																																					//Table核取顯示
+var chart=$("#chart_inner").highcharts();$(".chart_checkbox").on("change",function(){for(var b=0;b<$("input[type=checkbox]").length;b++){var a=chart.series[b];if($(".table_check"+b).is(":checked")){a.show()}else{a.hide()}}});
+//下載圖/pdf/列印此圖
+$(".chart_nav>li>a>.icon7").click(function(){chart.exportChart(null,{chart:{backgroundColor:"#fff"}})});
+$(".chart_nav>li>a>.icon8").click(function(){chart.exportChart({type:"application/pdf",filename:"my-pdf"})});
+$(".chart_nav>li>a>.icon9").on("click",function(){$("#chart_inner").printThis({})});
+})});
+</script>
