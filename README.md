@@ -17,3 +17,10 @@ IP：218.161.27.200
 密碼：iZ7W9Up5fd23TS6u7ih2v
 
 Server=localhost;Database=master;Trusted_Connection=True;
+
+dotnet ef dbcontext scaffold "Server=localhost;Database=vvspor-energy_v2;Trusted_Connection=True;Trusted_Connection=True;TrustServerCertificate=true;MultipleActiveResultSets=true" "Microsoft.EntityFrameworkCore.SqlServer" -o ./Models -c EnergyDbContext -f
+
+
+dotnet user-secrets init
+dotnet user-secrets set DbConnectonString "Server=localhost;Database=vvspor-energy_v2;Trusted_Connection=True;Trusted_Connection=True;TrustServerCertificate=true;MultipleActiveResultSets=true" 
+dotnet ef dbcontext scaffold Name=DbConnectonString Microsoft.EntityFrameworkCore.SqlServer -o ./Models/DB -c EnergyDbContext -f
