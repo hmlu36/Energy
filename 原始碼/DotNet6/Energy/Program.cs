@@ -9,6 +9,10 @@ using Energy.Models.DB;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Serilog;
+using Autofac.Core;
+using Newtonsoft.Json.Converters;
+using Energy.Utils;
+using System.Xml.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,17 +32,12 @@ try
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
     builder.Services.AddDbContext<EnergyDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnectonString")));
-    builder.Services.AddMvc()
-            .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
-                options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
-                options.JsonSerializerOptions.WriteIndented = true;
-            }); ;
+    builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(options =>
     {
+        //options.AddEnumsWithDescriptions();
         options.SwaggerDoc("v1", new OpenApiInfo
         {
             Version = "v1",
@@ -48,7 +47,10 @@ try
 
         // using System.Reflection;
         var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-        options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+        var docPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
+        var doc = XDocument.Load(docPath);
+        options.IncludeXmlComments(docPath);
+        options.SchemaFilter<DescribeEnumMembers>(doc);
     });
 
     //controller可以使用ILogger介面來寫入log紀錄

@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
 using Energy.Models.Constants;
 using Energy.Models.DB;
+using Energy.Models.Enums;
 using Energy.Models.ViewModels;
+using Energy.Utils;
+using Microsoft.IdentityModel.Tokens;
+using System.Globalization;
 
 namespace Energy.Services
 {
@@ -58,8 +62,11 @@ namespace Energy.Services
             {
                 e.EnergyDropDownList = allEnergyItems.Where(a => a.PageName == e.Name);
                 e.FlowDropDownList = allFlowItems.Where(a => a.PageName == e.Name);
-                e.LastUpdate = _context.TSystems.FirstOrDefault(e => e.Mk == SystemConstant.DatabaseLastUpdateTime).Mv;
-                e.DdlLastDate = _context.TSystems.FirstOrDefault(e => e.Mk == SystemConstant.DatabaseDdlLastDay).Mv;
+                e.YearTypes = Enum.GetValues(typeof(YearType)).Cast<YearType>();
+                e.PeriodTypes = Enum.GetValues(typeof(PeriodType)).Cast<PeriodType>();
+                e.StartDate = new DateTime(1982, 1, 1);
+                e.LastUpdate = DateUtil.ToAD(_context.TSystems.FirstOrDefault(e => e.Mk == SystemConstant.DatabaseLastUpdateTime).Mv);
+                e.DdlLastDate = DateUtil.ToAD(_context.TSystems.FirstOrDefault(e => e.Mk == SystemConstant.DatabaseDdlLastDay).Mv);
             });
 
             return data;

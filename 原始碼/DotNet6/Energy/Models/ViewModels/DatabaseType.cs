@@ -1,4 +1,6 @@
-﻿namespace Energy.Models.ViewModels
+﻿using Energy.Models.Enums;
+
+namespace Energy.Models.ViewModels
 {
     /// <summary>
     /// 資料庫查詢類型
@@ -46,14 +48,28 @@
         public IEnumerable<DropItem> FlowDropDownList { get; set; }
 
         /// <summary>
-        /// 更新日期
+        /// 起始日期
         /// </summary>
-        public string LastUpdate { get; set; }
+        public DateTime StartDate { get; set; }
+
+        /// <summary>
+        /// 最後更新日期
+        /// </summary>
+        public DateTime LastUpdate { get; set; }
 
         /// <summary>
         /// 下拉選單最新時間
         /// </summary>
-        public string DdlLastDate { get; set; }
+        public DateTime DdlLastDate { get; set; }
 
+        /// <summary>
+        /// 年分別
+        /// </summary>
+        public IEnumerable<YearType> YearTypes { get; set; }
+
+        /// <summary>
+        /// 季節別
+        /// </summary>
+        public IEnumerable<PeriodType> PeriodTypes { get; set; }
     }
 }

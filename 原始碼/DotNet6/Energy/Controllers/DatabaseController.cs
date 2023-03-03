@@ -17,9 +17,9 @@ namespace Energy.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("SearchPageSetting")]
-        public ResultModel GetDatabaseTypeList()
+        public ResultModel<List<DatabaseType>> GetDatabaseTypeList()
         {
-            ResultModel result = new ResultModel();
+            ResultModel<List<DatabaseType>> result = new ResultModel<List<DatabaseType>>();
             try
             {
                 result.Success = true;
@@ -39,9 +39,9 @@ namespace Energy.Controllers
         /// <param name="criteria"></param>
         /// <returns></returns>
         [HttpGet("Query")]
-        public ResultModel Query(DatabaseCriteria criteria)
+        public ResultModel<List<DatabaseType>> Query(DatabaseCriteria criteria)
         {
-            ResultModel result = new ResultModel();
+            ResultModel<List<DatabaseType>> result = new ResultModel<List<DatabaseType>>();
             if (int.Parse(criteria.End) < int.Parse(criteria.Start))
             {
                 result.Message = "搜尋的結束日期必需大於開始日期";

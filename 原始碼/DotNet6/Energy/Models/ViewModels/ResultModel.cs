@@ -1,6 +1,6 @@
 ﻿namespace Energy.Models.ViewModels
 {
-    public class ResultModel
+    public class ResultModel<T>
     {
         /// <summary>
         /// 執行成功或失敗
@@ -15,6 +15,6 @@
         /// <summary>
         /// 回傳資料
         /// </summary>
-        public object? Data { get; set; }
+        public T Data { get; set; }
     }
 }
