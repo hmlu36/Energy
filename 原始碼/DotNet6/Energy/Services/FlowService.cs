@@ -1,20 +1,32 @@
 ﻿using AutoMapper;
 using Energy.Models.DB;
-using Energy.Models.ViewModels;
+using Energy.Models.ViewModels.Database;
+using Energy.Models.ViewModels.Flow;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Energy.Services
 {
 
     public interface IFlowService
     {
-
+        /// <summary>
+        /// 建置Flow
+        /// </summary>
+        /// <returns></returns>
         public List<DropItem> GetFlowTree();
+
+        /// <summary>
+        /// 取得Flow資料
+        /// </summary>
+        /// <param name="flowSelectedValues"></param>
+        /// <returns></returns>
+        public IEnumerable<TFlow> GetList(List<string> flowSelectedValues);
     }
 
     public class FlowService : GenericService, IFlowService
     {
-        public FlowService(EnergyDbContext context, IMapper mapper) : base(context, mapper)
+        public FlowService(EnergyDbContext context, IMapper mapper, ILogger<GenericService> logger) : base(context, mapper, logger)
         {
         }
 
@@ -32,6 +44,12 @@ namespace Energy.Services
                                return e;
                            }).OrderBy(e => e.Iorder)
                            .ToList();
+        }
+
+
+        public IEnumerable<TFlow> GetList(List<string> flowSelectedValues)
+        {
+            return _context.TFlows.Where(e => flowSelectedValues.Contains(e.Id)).OrderBy(e => e.Iorder);
         }
     }
 }

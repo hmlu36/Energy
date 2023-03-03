@@ -1,7 +1,6 @@
 ﻿using AutoMapper.Configuration.Annotations;
-using Energy.Models;
 
-namespace Energy.Models.ViewModels
+namespace Energy.Models.ViewModels.Database
 {
     /// <summary>
     /// 下拉選單

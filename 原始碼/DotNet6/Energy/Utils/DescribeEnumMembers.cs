@@ -34,9 +34,9 @@ namespace Energy.Utils
         public static string Prefix { get; set; } = "<p>Possible values:</p>";
 
         /// <summary>
-        /// Format to use, 0 : value, 1: Name, 2: Description
+        /// Format to use, 0: Name, 0: Description
         /// </summary>
-        public static string Format { get; set; } = "<b>{0} - {1}</b>: {2}";
+        public static string Format { get; set; } = "<b>{0}</b>: {1}";
 
         /// <summary>
         /// Apply this schema filter.
@@ -70,9 +70,6 @@ namespace Energy.Utils
             // TODO: Handle flags better e.g. Hex formatting
             foreach (var name in Enum.GetValues(type))
             {
-                // Allows for large enums
-                var value = Convert.ToInt64(name);
-
                 // 取得 enum 的 field
                 FieldInfo fieldInfo = type.GetField(name.ToString());
 
@@ -82,7 +79,7 @@ namespace Energy.Utils
                 // 取得 Description 屬性的值
                 string description = descriptionAttribute?.Description;
 
-                sb.AppendLine(string.Format("<li>" + Format + "</li>", value, name, description));
+                sb.AppendLine(string.Format("<li>" + Format + "</li>", name, description));
             }
 
             sb.AppendLine("</ul>");

@@ -2,17 +2,13 @@ using Autofac.Extensions.DependencyInjection;
 using Autofac;
 using Energy;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Encodings.Web;
-using System.Text.Unicode;
-using System.Text.Json;
 using Energy.Models.DB;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Serilog;
-using Autofac.Core;
-using Newtonsoft.Json.Converters;
 using Energy.Utils;
 using System.Xml.Linq;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +28,13 @@ try
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
     builder.Services.AddDbContext<EnergyDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnectonString")));
-    builder.Services.AddControllers();
+    builder.Services.AddControllers()
+        .AddJsonOptions(
+        opts =>
+        {
+            var enumConverter = new JsonStringEnumConverter();
+            opts.JsonSerializerOptions.Converters.Add(enumConverter);
+        });
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(options =>

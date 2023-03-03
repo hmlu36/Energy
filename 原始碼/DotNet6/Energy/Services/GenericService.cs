@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Energy.Models.DB;
+using ILogger = Serilog.Log;
 
 namespace Energy.Services
 {
@@ -9,10 +10,13 @@ namespace Energy.Services
 
         protected readonly IMapper _mapper;
 
-        public GenericService(EnergyDbContext context, IMapper mapper)
+        protected readonly ILogger<GenericService> _logger;
+
+        public GenericService(EnergyDbContext context, IMapper mapper, ILogger<GenericService> logger)
         {
             _context = context;
             _mapper = mapper;
+            _logger = logger;
         }
     }
 }

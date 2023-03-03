@@ -1,4 +1,5 @@
 ﻿using Energy.Models.ViewModels;
+using Energy.Models.ViewModels.Database;
 using Energy.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,13 +40,27 @@ namespace Energy.Controllers
         /// <param name="criteria"></param>
         /// <returns></returns>
         [HttpGet("Query")]
-        public ResultModel<List<DatabaseType>> Query(DatabaseCriteria criteria)
+        public ResultModel<List<DatabaseQueryResult>> Query(DatabaseCriteria criteria)
         {
-            ResultModel<List<DatabaseType>> result = new ResultModel<List<DatabaseType>>();
-            if (int.Parse(criteria.End) < int.Parse(criteria.Start))
+            ResultModel<List<DatabaseQueryResult>> result = new ResultModel<List<DatabaseQueryResult>>();
+           /* if (int.Parse(criteria.End) < int.Parse(criteria.Start))
             {
                 result.Message = "搜尋的結束日期必需大於開始日期";
             }
+            else
+            {
+                */
+                try
+                {
+                    result.Success = true;
+                    result.Data = _databaseService.Query(criteria);
+                }
+                catch (Exception ex)
+                {
+                    result.Message = ex.Message + ex.StackTrace;
+                    _logger.LogError(ex.Message + ex.StackTrace);
+                }
+            //}
             return result;
         }
     }

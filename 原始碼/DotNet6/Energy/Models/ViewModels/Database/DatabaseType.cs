@@ -1,6 +1,6 @@
 ﻿using Energy.Models.Enums;
 
-namespace Energy.Models.ViewModels
+namespace Energy.Models.ViewModels.Database
 {
     /// <summary>
     /// 資料庫查詢類型
@@ -36,7 +36,7 @@ namespace Energy.Models.ViewModels
         /// 單位
         /// </summary>
         public List<string> UnitList { get; set; } = new List<string>();
-        
+
         /// <summary>
         /// 能源別下拉選單
         /// </summary>

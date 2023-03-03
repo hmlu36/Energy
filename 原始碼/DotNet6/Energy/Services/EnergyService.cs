@@ -1,20 +1,26 @@
 ﻿using AutoMapper;
 using Energy.Models.DB;
-using Energy.Models.ViewModels;
+using Energy.Models.ViewModels.Database;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Energy.Services
 {
     public interface IEnergyService
     {
-        public string GetName(string id);
 
         public List<DropItem> GetEnergyTree();
+
+        /// <summary>
+        /// 取得能源資料
+        /// </summary>
+        /// <param name="energySelectedValues"></param>
+        /// <returns></returns>
+        public IEnumerable<TEnergy> GetList(List<string> energySelectedValues);
     }
 
     public class EnergyService : GenericService, IEnergyService
     {
-        public EnergyService(EnergyDbContext context, IMapper mapper) : base(context, mapper)
+        public EnergyService(EnergyDbContext context, IMapper mapper, ILogger<GenericService> logger) : base(context, mapper, logger)
         {
         }
 
@@ -35,9 +41,9 @@ namespace Energy.Services
                            .ToList();
         }
 
-        public string GetName(string id)
+        public IEnumerable<TEnergy> GetList(List<string> energySelectedValues)
         {
-            return $"{id}:Bill";
+            throw new NotImplementedException();
         }
     }
 }
