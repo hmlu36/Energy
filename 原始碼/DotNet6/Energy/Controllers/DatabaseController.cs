@@ -1,14 +1,13 @@
 ﻿using Energy.Models.ViewModels;
 using Energy.Services;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Energy.Controllers
 {
-    public class DatabaseController : ControllerBase
+    public class DatabaseController : GenericController
     {
         private readonly IDatabaseService _databaseService;
-        public DatabaseController(IDatabaseService databaseService)
+        public DatabaseController(ILogger<GenericController> logger, IDatabaseService databaseService) : base(logger)
         {
             _databaseService = databaseService;
         }
@@ -18,18 +17,36 @@ namespace Energy.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("SearchPageSetting")]
-        public List<DatabaseType> GetDatabaseTypeList()
+        public ResultModel GetDatabaseTypeList()
         {
-            return _databaseService.GetSearchPageSetting();
+            ResultModel result = new ResultModel();
+            try
+            {
+                result.Success = true;
+                result.Data = _databaseService.GetSearchPageSetting();
+            }
+            catch (Exception ex)
+            {
+                result.Message = ex.Message + ex.StackTrace;
+                _logger.LogError(ex.Message + ex.StackTrace);
+            }
+            return result;
         }
 
         /// <summary>
         /// 查詢
         /// </summary>
+        /// <param name="criteria"></param>
         /// <returns></returns>
         [HttpGet("Query")]
-        public string Query() { 
-            return null;
+        public ResultModel Query(DatabaseCriteria criteria)
+        {
+            ResultModel result = new ResultModel();
+            if (int.Parse(criteria.End) < int.Parse(criteria.Start))
+            {
+                result.Message = "搜尋的結束日期必需大於開始日期";
+            }
+            return result;
         }
     }
 }
