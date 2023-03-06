@@ -6,8 +6,10 @@ using Energy.Models.Enums;
 using Energy.Models.ViewModels.Database;
 using Energy.Utils;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace Energy.Services
@@ -143,6 +145,11 @@ namespace Energy.Services
                 // 能源供需
                 case (int)EnergyIssue.EnergySupplyDemand:
                     return GetByEnergyAndFlowSetting(criteria, dbEnergy);
+
+                // 能源進口來源
+                case (int)EnergyIssue.EnergyImportSource:
+                    return GetByEnergySetting(criteria, dbEnergy);
+                    
                 default:
                     return null;
             }
@@ -210,27 +217,41 @@ namespace Energy.Services
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("startDate", criteria.StartDate);
             parameters.Add("endDate", criteria.EndDate);
-            var sql =
-              $"select yr_mnth yearMonth                                                   " + newline +
-              $"     , {dbEnergy.ColIdList.TrimEnd(',')} " + newline +
-              $"  from {dbEnergy.TableName}                                                " + newline +
-              $" where yr_mnth >= @startDate                                               " + newline +
-              $"   and yr_mnth <= @endDate                                                 " + newline +
-              $" group by yr_mnth";
+            var sql = string.Empty;
+            var countryCodes = dbEnergy.ColIdList.Split(',').Where(s => !string.IsNullOrEmpty(s.Trim())).ToList();
+            _logger.LogInformation($"countryCodes:{JsonConvert.SerializeObject(countryCodes)}");
 
+            foreach (var countryCode in countryCodes)
+            {
+                var randomValue = RandomUtil.GetRandomValue();
+                sql += (string.IsNullOrEmpty(sql) ? "" : newline + " union ") + newline +
+                $"select '{CountryCode.CountryCodeNameMapping[countryCode]}' name" + newline +
+                $"     , yr_mnth yearMonth       " + newline +
+                $"     , sum({countryCode}) data      " + newline +
+                $"  from {dbEnergy.TableName}    " + newline +
+                $" where yr_mnth >= @startDate   " + newline +
+                $"   and yr_mnth <= @endDate     " + newline +
+                $" group by yr_mnth";
+            }
+
+            _logger.LogInformation(sql);
+            foreach (string name in parameters.ParameterNames)
+            {
+                _logger.LogInformation(name + ":" + JsonConvert.SerializeObject(parameters.Get<object>(name)));
+            }
             using (var conn = _dapperContext.CreateConnection())
             {
                 var energyEntry = conn.Query(sql, parameters);
                 return new DatabaseQueryResult()
                 {
                     Title = dbEnergy.Name ?? string.Empty,
-                    Header = energyEntry.Where(e => e.name == dbFlows?.FirstOrDefault().Name)
-                                            .Select(e => e.yearMonth.ToString().Substring(0, e.yearMonth.ToString().Length - 2) + "年" +
-                                                         e.yearMonth.ToString().Substring(e.yearMonth.ToString().Length - 2))
-                                            .Prepend("日期"),
+                    Header = energyEntry.Where(e => e.name == CountryCode.CountryCodeNameMapping[countryCodes.FirstOrDefault()])
+                                        .Select(e => e.yearMonth.ToString().Substring(0, e.yearMonth.ToString().Length - 2) + "年" +
+                                                     e.yearMonth.ToString().Substring(e.yearMonth.ToString().Length - 2))
+                                        .Prepend("日期"),
                     Content = energyEntry.GroupBy(e => e.name)
-                                             .Select(group => new object[] { group.Key }.Concat(group.Select(g => g.data)).ToArray())
-                                             .ToArray()
+                                        .Select(group => new object[] { group.Key }.Concat(group.Select(g => g.data)).ToArray())
+                                        .ToArray()
                 };
             }
         }
