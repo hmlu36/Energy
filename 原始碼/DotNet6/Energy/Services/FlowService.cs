@@ -16,13 +16,6 @@ namespace Energy.Services
         /// </summary>
         /// <returns></returns>
         public List<DropItem> GetFlowTree();
-
-        /// <summary>
-        /// 取得Flow資料
-        /// </summary>
-        /// <param name="flowSelectedValues"></param>
-        /// <returns></returns>
-        public IEnumerable<TFlow> GetList(List<string> flowSelectedValues);
     }
 
     public class FlowService : GenericService, IFlowService
@@ -30,7 +23,7 @@ namespace Energy.Services
         public FlowService(
             EnergyDbContext context,
             DapperContext dapperContext,
-            IMapper mapper, 
+            IMapper mapper,
             ILogger<GenericService> logger
         ) : base(context, dapperContext, mapper, logger)
         {
@@ -52,10 +45,5 @@ namespace Energy.Services
                            .ToList();
         }
 
-
-        public IEnumerable<TFlow> GetList(List<string> flowSelectedValues)
-        {
-            return _context.TFlows.Where(e => flowSelectedValues.Contains(e.Id)).OrderBy(e => e.Iorder);
-        }
     }
 }

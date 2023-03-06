@@ -10,13 +10,6 @@ namespace Energy.Services
     {
 
         public List<DropItem> GetEnergyTree();
-
-        /// <summary>
-        /// 取得能源資料
-        /// </summary>
-        /// <param name="energySelectedValues"></param>
-        /// <returns></returns>
-        public IEnumerable<TEnergy> GetList(List<string> energySelectedValues);
     }
 
     public class EnergyService : GenericService, IEnergyService
@@ -45,11 +38,6 @@ namespace Energy.Services
                                return e;
                            }).OrderBy(e => e.Iorder)
                            .ToList();
-        }
-
-        public IEnumerable<TEnergy> GetList(List<string> energySelectedValues)
-        {
-            throw new NotImplementedException();
         }
     }
 }
