@@ -11,6 +11,10 @@ namespace Energy.Utils
         /// <returns></returns>
         public static DateTime ToAD(string dateStr)
         {
+            if (string.IsNullOrEmpty(dateStr))
+            {
+                return DateTime.MinValue;
+            }
             return DateTime.Parse(dateStr, GetRocCulture());
         }
 

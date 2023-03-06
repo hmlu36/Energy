@@ -1,10 +1,9 @@
-﻿using Energy.Models.DB;
-
-namespace Energy.Models.ViewModels.Database
+﻿namespace Energy.Models.ViewModels.Database
 {
     public class DatabaseQueryResult
     {
-        public string Title { get; set; }
-        public object Data { get; set; }
+        public string Title { get; set; } = null!;
+        public IEnumerable<dynamic> Header { get; set; } = null!;
+        public IEnumerable<dynamic> Content { get;set; } = null!;
     }
 }

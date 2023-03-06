@@ -9,6 +9,7 @@ using Serilog;
 using Energy.Utils;
 using System.Xml.Linq;
 using System.Text.Json.Serialization;
+using Autofac.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,14 +21,20 @@ try
 {
     Log.Information("Starting web host");
 
-    //註冊autofac
+    //Autofac
     builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
     builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacModuleRegister()));
 
-    //找到所有繼承profile
+    //AutoMapper
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+    // Dapper
+    builder.Services.AddSingleton<DapperContext>();
+
+    // Context
     builder.Services.AddDbContext<EnergyDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnectonString")));
+
+    // WebApi中Enum轉換
     builder.Services.AddControllers()
         .AddJsonOptions(
         opts =>
@@ -35,8 +42,10 @@ try
             var enumConverter = new JsonStringEnumConverter();
             opts.JsonSerializerOptions.Converters.Add(enumConverter);
         });
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
     builder.Services.AddEndpointsApiExplorer();
+
+    // Swagger
     builder.Services.AddSwaggerGen(options =>
     {
         //options.AddEnumsWithDescriptions();

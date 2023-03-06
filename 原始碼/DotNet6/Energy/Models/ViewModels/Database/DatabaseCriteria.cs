@@ -10,27 +10,27 @@ namespace Energy.Models.ViewModels.Database
         /// <summary>
         /// 年度
         /// </summary>
-        public YearType YearType { get; set; }
+        public YearType? YearType { get; set; }
 
         /// <summary>
         /// 週期
         /// </summary>
-        public PeriodType PeriodType { get; set; }
+        public PeriodType? PeriodType { get; set; }
 
         /// <summary>
         /// 起始日
         /// </summary>
-        public string Start { get; set; }
+        public string StartDate { get; set; } = null!;
 
         /// <summary>
         /// 結束日
         /// </summary>
-        public string End { get; set; }
+        public string EndDate { get; set; } = null!;
 
         /// <summary>
         /// 單位
         /// </summary>
-        public string UnitType { get; set; }
+        public int? UnitType { get; set; }
 
         /// <summary>
         /// 選取能源別類型

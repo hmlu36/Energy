@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Energy.Models.DB;
 using Energy.Models.ViewModels.Database;
+using Energy.Utils;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Energy.Services
@@ -20,7 +21,12 @@ namespace Energy.Services
 
     public class EnergyService : GenericService, IEnergyService
     {
-        public EnergyService(EnergyDbContext context, IMapper mapper, ILogger<GenericService> logger) : base(context, mapper, logger)
+        public EnergyService(
+            EnergyDbContext context,
+            DapperContext dapperContext, 
+            IMapper mapper, 
+            ILogger<GenericService> logger
+        ) : base(context, dapperContext, mapper, logger)
         {
         }
 

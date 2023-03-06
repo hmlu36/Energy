@@ -15,6 +15,6 @@
         /// <summary>
         /// 回傳資料
         /// </summary>
-        public T Data { get; set; }
+        public T? Data { get; set; }
     }
 }

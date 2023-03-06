@@ -2,6 +2,7 @@
 using Energy.Models.DB;
 using Energy.Models.ViewModels.Database;
 using Energy.Models.ViewModels.Flow;
+using Energy.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -26,7 +27,12 @@ namespace Energy.Services
 
     public class FlowService : GenericService, IFlowService
     {
-        public FlowService(EnergyDbContext context, IMapper mapper, ILogger<GenericService> logger) : base(context, mapper, logger)
+        public FlowService(
+            EnergyDbContext context,
+            DapperContext dapperContext,
+            IMapper mapper, 
+            ILogger<GenericService> logger
+        ) : base(context, dapperContext, mapper, logger)
         {
         }
 
