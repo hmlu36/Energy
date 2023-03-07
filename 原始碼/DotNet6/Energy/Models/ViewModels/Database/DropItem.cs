@@ -10,12 +10,12 @@ namespace Energy.Models.ViewModels.Database
         /// <summary>
         /// Id
         /// </summary>
-        public string Id { get; set; }
+        public string Id { get; set; } = null!;
 
         /// <summary>
         /// 子項目名稱
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         /// <summary>
         /// 深度(0時, 代表第一層)
@@ -27,12 +27,12 @@ namespace Energy.Models.ViewModels.Database
         /// 父節點Id
         /// </summary>
         [Ignore]
-        public string ParentId { get; set; }
+        public string ParentId { get; set; } = null!;
 
         /// <summary>
         /// 項目名稱
         /// </summary>
-        public string PageName { get; set; }
+        public string PageName { get; set; } = null!;
 
         /// <summary>
         /// 是否顯示CheckBox
@@ -48,6 +48,6 @@ namespace Energy.Models.ViewModels.Database
         /// <summary>
         /// 子項目
         /// </summary>
-        public List<DropItem> Children { get; set; }
+        public List<DropItem> Children { get; set; } = null!;
     }
 }

@@ -15,22 +15,22 @@ namespace Energy.Models.ViewModels.Database
         /// <summary>
         /// 顯示名稱
         /// </summary>
-        public string DisplayName { get; set; }
+        public string DisplayName { get; set; } = null!;
 
         /// <summary>
         /// 名稱
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         /// <summary>
         /// 左邊選單標題
         /// </summary>
-        public string Left { get; set; }
+        public string Left { get; set; } = null!;
 
         /// <summary>
         /// 右邊選單標題
         /// </summary>
-        public string Right { get; set; }
+        public string Right { get; set; } = null!;
 
         /// <summary>
         /// 單位
@@ -40,12 +40,12 @@ namespace Energy.Models.ViewModels.Database
         /// <summary>
         /// 能源別下拉選單
         /// </summary>
-        public IEnumerable<DropItem> EnergyDropDownList { get; set; }
+        public IEnumerable<DropItem> EnergyDropDownList { get; set; } = null!;
 
         /// <summary>
         /// 流程別下拉選單
         /// </summary>
-        public IEnumerable<DropItem> FlowDropDownList { get; set; }
+        public IEnumerable<DropItem> FlowDropDownList { get; set; } = null!;
 
         /// <summary>
         /// 起始日期
@@ -65,11 +65,11 @@ namespace Energy.Models.ViewModels.Database
         /// <summary>
         /// 年分別
         /// </summary>
-        public IEnumerable<YearType> YearTypes { get; set; }
+        public IEnumerable<YearType> YearTypes { get; set; } = null!;
 
         /// <summary>
         /// 季節別
         /// </summary>
-        public IEnumerable<PeriodType> PeriodTypes { get; set; }
+        public IEnumerable<PeriodType> PeriodTypes { get; set; } = null!;
     }
 }

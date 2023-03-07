@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Energy.Models.DB;
 using Energy.Models.ViewModels.Database;
-using Energy.Models.ViewModels.Flow;
 
 namespace Energy.Mappings
 {
@@ -11,7 +10,6 @@ namespace Energy.Mappings
         public FlowMapping()
         {
             CreateMap<TFlow, DropItem>();
-            CreateMap<TFlow, FlowModel>();
         }
     }
 }

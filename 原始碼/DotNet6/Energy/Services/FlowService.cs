@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Energy.Models.DB;
 using Energy.Models.ViewModels.Database;
-using Energy.Models.ViewModels.Flow;
 using Energy.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

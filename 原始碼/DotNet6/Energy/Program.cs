@@ -10,6 +10,8 @@ using Energy.Utils;
 using System.Xml.Linq;
 using System.Text.Json.Serialization;
 using Autofac.Core;
+using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,10 +39,12 @@ try
     // WebApi¤¤EnumÂà´«
     builder.Services.AddControllers()
         .AddJsonOptions(
-        opts =>
+        options =>
         {
             var enumConverter = new JsonStringEnumConverter();
-            opts.JsonSerializerOptions.Converters.Add(enumConverter);
+            options.JsonSerializerOptions.Converters.Add(enumConverter);
+
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         });
 
     builder.Services.AddEndpointsApiExplorer();
