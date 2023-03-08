@@ -149,6 +149,10 @@ namespace Energy.Services
                 case EnergyIssue.EnergySupplyDemand:
                 // 發電量
                 case EnergyIssue.PowerGeneration:
+                // 發電裝置容量
+                case EnergyIssue.PowerCapacity:
+                // 發電燃料投入
+                case EnergyIssue.PowerFuelInput:
                     return GetByEnergyAndFlowSetting(criteria, dbEnergy, energyIssue);
 
                 // 能源進口來源
@@ -173,30 +177,40 @@ namespace Energy.Services
             parameters.Add("startDate", criteria.StartDate);
             parameters.Add("endDate", criteria.EndDate);
 
-            var dbFlows = _context.TFlows.Where(e => criteria.FlowSelectedValue.Contains(e.Id));
+            var dbFlows = _context.TFlows.Where(e => criteria.FlowSelectedValue.Contains(e.Id)).ToList();
 
             var sql = string.Empty;
             foreach (var dbFlow in dbFlows)
             {
                 var randomValue = RandomUtil.GetRandomValue();
                 sql += (string.IsNullOrEmpty(sql) ? "" : newline + " union ") + newline +
-                $"select '{dbFlow.Name}' name                  " + newline +
+                $"select '{dbFlow.Id}' id                      " + newline +
+                $"     , '{dbFlow.Name}' name                  " + newline +
                 $"     , yr_mnth yearMonth                     " + newline +
-                $"     , sum({GetSummationColumn(energyIssue, dbEnergy, dbFlow, criteria.UnitType ?? 0)}) data " + newline +
-                $"  from {dbEnergy.TableName}                  " + newline +
+                $"     , round(sum(" +
+                            GetSummationColumn(energyIssue, dbEnergy, dbFlow, criteria.UnitType ?? 0) +
+                       $" ), {dbFlow.DecimalPlaces}) data      " + newline +
+                $"  from {GetEnergyDataSource(energyIssue)}    " + newline +
                 $" where row_no1 in @rowNo1s{randomValue}      " + newline +
                 $"   and yr_mnth >= @startDate                 " + newline +
                 $"   and yr_mnth <= @endDate                   " + newline +
                 $" group by yr_mnth";
 
-                parameters.Add($"rowNo1s{randomValue}", dbFlow.RowNo1.Split(',')
-                                                                   .DefaultIfEmpty()
-                                                                   .Distinct());
+                parameters.Add($"rowNo1s{randomValue}", 
+                                (string.IsNullOrEmpty(dbEnergy.RowNo1) ? dbFlow.RowNo1 : dbEnergy.RowNo1)
+                                .Split(',')
+                                .DefaultIfEmpty()
+                                .Distinct());
             }
 
+            sql = newline + 
+                  "select name, yearMonth, data from ( " +
+                    sql + newline +
+                  " ) temp " + newline +
+                  " order by id";
             using (var conn = _dapperContext.CreateConnection())
             {
-                _logger.LogDebug(sql);
+                _logger.LogDebug($"sql:{sql}");
 
                 foreach (string name in parameters.ParameterNames)
                 {
@@ -219,29 +233,90 @@ namespace Energy.Services
             }
         }
 
-        private string GetSummationColumn(EnergyIssue energyIssue, TEnergy dbEnergy, TFlow dbFlow, int unitType)
+        // 取得Energy對應來源資料表, 因為資料庫與實際資料不符
+        private string GetEnergyDataSource(EnergyIssue energyIssue)
         {
             switch (energyIssue)
             {
                 // 能源供需
                 case EnergyIssue.EnergySupplyDemand:
-                    return dbEnergy.ColIdList?.Split(',')[unitType] ?? string.Empty;
+                    return "wesdes50_db";
                 // 發電量
                 case EnergyIssue.PowerGeneration:
-                    var energyColumn = dbEnergy.ColIdList?[0];
-                    var flowColumns = dbFlow.ColIdList?.TrimEnd(new char[] { ',' }).Split(',');
-                    var summationColumns = flowColumns?.Select(c => $"{energyColumn}{c}");
-                    var power50DbColumns = new Power50Db().GetType().GetProperties().Select(p => p.Name.ToLower());
-                    _logger.LogDebug("Power50Dbs Columns:" + JsonConvert.SerializeObject(power50DbColumns));
-                    _logger.LogDebug("summationColumn:" + JsonConvert.SerializeObject(summationColumns?.Where(c => power50DbColumns.Contains(c))));
-                    // 只有一個欄位時, 判斷是否存在, 不存在回傳NULLIF(0, 0), 加總完為null
-                    if (summationColumns?.Count() == 1) { 
-                        return power50DbColumns.Contains(summationColumns.FirstOrDefault()) ? summationColumns?.FirstOrDefault() ?? string.Empty : "NULLIF(0, 0)";
-                    } else {
-                        return string.Join(" + ", summationColumns.Where(c => power50DbColumns.Contains(c)));
-                    }
+                    return "power50_db";
+                // 發電裝置容量
+                case EnergyIssue.PowerCapacity:
+                    return "power50";
+                // 發電燃料投入
+                case EnergyIssue.PowerFuelInput:
+                    return "fuel50_db";
+                // 能源進口來源
+                case EnergyIssue.EnergyImportSource:
+                    return "coal50";
+                // 常用能源指標
+                case EnergyIssue.CommonEnergyIndicators:
+                    return "energy50_db";
                 default:
                     return string.Empty;
+            }
+        }
+
+        // 根據資料庫table取得對應class名稱
+        private string GetEnergyDataSourceClassName(EnergyIssue energyIssue)
+        {
+            var energyDataSource = GetEnergyDataSource(energyIssue);
+
+            return string.Concat(
+                        energyDataSource.Split('_').Select((s, i) => i == 0 ?
+                                                                     s.Substring(0, 1).ToUpper() + s.Substring(1).ToLower() :
+                                                                     s.Substring(0, 1).ToUpper() + s.Substring(1).ToLower())
+                    );
+        }
+
+        // 取得查詢欄位(可能多個加總)
+        private string GetSummationColumn(EnergyIssue energyIssue, TEnergy dbEnergy, TFlow dbFlow, int unitType)
+        {
+            var energyColumn = dbEnergy.ColIdList?.Split(',')[unitType] ?? string.Empty;
+            var flowColumns = dbFlow.ColIdList?.TrimEnd(new char[] { ',' }).Split(',');
+            var summationColumns = new List<string>();
+
+            switch (energyIssue)
+            {
+                // 能源供需
+                case EnergyIssue.EnergySupplyDemand:
+                    return energyColumn;
+                // 發電量
+                case EnergyIssue.PowerGeneration:
+                // 發電裝置容量
+                case EnergyIssue.PowerCapacity:
+                    summationColumns = flowColumns?.Select(c => $"{energyColumn}{c}").ToList();
+                    break;
+                // 發電燃料投入
+                case EnergyIssue.PowerFuelInput:
+                    summationColumns = flowColumns?.Select(c => $"{c}{energyColumn}").ToList();
+                    break;
+                default:
+                    return string.Empty;
+            }
+
+            _logger.LogDebug($"summationColumns:{JsonConvert.SerializeObject(summationColumns)}");
+            var energyDataSource = GetEnergyDataSourceClassName(energyIssue);
+            _logger.LogDebug($"energyDataSource:{energyDataSource}");
+            var memeberNames = ObjectUtil.GetClassDbMemeberNames($"Energy.Models.DB.{energyDataSource}");
+            _logger.LogDebug($"memeberNames:{JsonConvert.SerializeObject(memeberNames)}");
+
+            if (summationColumns == null || summationColumns.Count() == 0)
+            {
+                return string.Empty;
+            }
+            // 只有一個欄位時, 判斷是否存在, 不存在回傳NULLIF(0, 0), 加總完為null
+            else if (summationColumns?.Count() == 1)
+            {
+                return summationColumns?.FirstOrDefault(c => memeberNames.Contains(c)) ?? "NULLIF(0, 0)";
+            }
+            else
+            {
+                return string.Join(" + ", summationColumns?.Intersect(memeberNames));
             }
         }
 
@@ -259,12 +334,12 @@ namespace Energy.Services
                 var randomValue = RandomUtil.GetRandomValue();
                 sql += (string.IsNullOrEmpty(sql) ? "" : newline + " union ") + newline +
                 $"select '{GetColumnMapping(energyIssue, dbEnergy, code)}' name" + newline +
-                $"     , yr_mnth yearMonth               " + newline +
-                $"     , sum({code}) data         " + newline +
-                $"  from {dbEnergy.TableName}            " + newline +
-                $" where row_no1 in @rowNo1s{randomValue}" + newline +
-                $"   and yr_mnth >= @startDate           " + newline +
-                $"   and yr_mnth <= @endDate             " + newline +
+                $"     , yr_mnth yearMonth                  " + newline +
+                $"     , sum({code}) data                   " + newline +
+                $"  from {GetEnergyDataSource(energyIssue)} " + newline +
+                $" where row_no1 in @rowNo1s{randomValue}   " + newline +
+                $"   and yr_mnth >= @startDate              " + newline +
+                $"   and yr_mnth <= @endDate                " + newline +
                 $" group by yr_mnth";
 
                 parameters.Add($"rowNo1s{randomValue}", dbEnergy.RowNo1?.Split(',')
