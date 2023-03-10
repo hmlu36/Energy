@@ -92,18 +92,11 @@ namespace Energy.Services
 
             // 初始預設值
             var now = DateTime.Now;
-
-            var yearType = YearType.AD;
             var yearOffset = 0;
 
             // 西元/民國
-            if (!criteria.YearType.HasValue)
-            {
-                criteria.YearType = YearType.AD;
-            }
-
             // 西元年減去1911
-            if (YearType.AD == yearType)
+            if (YearType.ROC == (criteria.YearType ?? YearType.ROC))
             {
                 yearOffset = 1911;
             }
@@ -184,30 +177,35 @@ namespace Energy.Services
             {
                 var randomValue = RandomUtil.GetRandomValue();
                 sql += (string.IsNullOrEmpty(sql) ? "" : newline + " union ") + newline +
-                $"select '{dbFlow.Id}' id                      " + newline +
-                $"     , '{dbFlow.Name}' name                  " + newline +
-                $"     , yr_mnth yearMonth                     " + newline +
-                $"     , round(sum(" +
-                            GetSummationColumn(energyIssue, dbEnergy, dbFlow, criteria.UnitType ?? 0) +
-                       $" ), {dbFlow.DecimalPlaces}) data      " + newline +
-                $"  from {GetEnergyDataSource(energyIssue)}    " + newline +
-                $" where row_no1 in @rowNo1s{randomValue}      " + newline +
-                $"   and yr_mnth >= @startDate                 " + newline +
-                $"   and yr_mnth <= @endDate                   " + newline +
-                $" group by yr_mnth";
+                $@"select '{dbFlow.Id}' id              
+                        , '{dbFlow.Name}' name           
+                        , yr_mnth                        
+                        , round(sum({GetSummationColumn(energyIssue, dbEnergy, dbFlow, criteria.UnitType ?? 0)}), {dbFlow.DecimalPlaces}) data  
+                     from {GetEnergyDataSource(energyIssue)}
+                    where row_no1 in @rowNo1s{randomValue}  
+                      and yr_mnth >= @startDate             
+                      and yr_mnth <= @endDate               
+                    group by yr_mnth";
 
-                parameters.Add($"rowNo1s{randomValue}", 
+                parameters.Add($"rowNo1s{randomValue}",
                                 (string.IsNullOrEmpty(dbEnergy.RowNo1) ? dbFlow.RowNo1 : dbEnergy.RowNo1)
                                 .Split(',')
                                 .DefaultIfEmpty()
                                 .Distinct());
             }
 
-            sql = newline + 
-                  "select name, yearMonth, data from ( " +
-                    sql + newline +
-                  " ) temp " + newline +
-                  " order by id";
+            string sqlPeriodSummationColumn = GetPeriodSummationColumn(criteria);
+            sql = newline +
+                  $@"select 
+                            id, 
+                            name,
+                            {sqlPeriodSummationColumn} period, 
+                            sum(data) data
+                       from ( 
+                        {sql}
+                       ) temp 
+                     group by id, name, {sqlPeriodSummationColumn}
+                     order by id";
             using (var conn = _dapperContext.CreateConnection())
             {
                 _logger.LogDebug($"sql:{sql}");
@@ -223,13 +221,31 @@ namespace Energy.Services
                 {
                     Title = dbEnergy.Name ?? string.Empty,
                     Header = flowEntry.Where(e => e.name == dbFlows?.FirstOrDefault()?.Name)
-                                        .Select(e => e.yearMonth.ToString().Substring(0, e.yearMonth.ToString().Length - 2) + "年" +
-                                                     e.yearMonth.ToString().Substring(e.yearMonth.ToString().Length - 2))
+                                        .Select(e => e.period)
                                         .Prepend("日期"),
                     Content = flowEntry.GroupBy(e => e.name)
                                          .Select(group => new object[] { group.Key }.Concat(group.Select(g => g.data)).ToArray())
                                          .ToArray()
                 };
+            }
+        }
+
+        private string GetPeriodSummationColumn(DatabaseCriteria criteria)
+        {
+            _logger.LogDebug($"YearType:{criteria.YearType}");
+            // 西元年須加上1911
+            var yearColumn = $"CAST((yr_mnth / 100) + {(YearType.ROC == (criteria.YearType ?? YearType.ROC) ? 0 : 1911) } as varchar) + '年'";
+            switch (criteria.PeriodType)
+            {
+                case null:
+                case PeriodType.M:
+                    return $"{yearColumn} + FORMAT(yr_mnth%100, '00') + '月'";
+                case PeriodType.Q:
+                    return $"{yearColumn} + '第' + TRANSLATE(CAST(CEILING(CAST(RIGHT(yr_mnth, 2) AS int) / 3.0) as varchar), '1234', '一二三四') + '季'";
+                case PeriodType.Y:
+                    return yearColumn;
+                default:
+                    return $"{yearColumn} + FORMAT(yr_mnth%100, '00') + '月'";
             }
         }
 
@@ -332,21 +348,35 @@ namespace Energy.Services
             foreach (var code in codes)
             {
                 var randomValue = RandomUtil.GetRandomValue();
-                sql += (string.IsNullOrEmpty(sql) ? "" : newline + " union ") + newline +
-                $"select '{GetColumnMapping(energyIssue, dbEnergy, code)}' name" + newline +
-                $"     , yr_mnth yearMonth                  " + newline +
-                $"     , sum({code}) data                   " + newline +
-                $"  from {GetEnergyDataSource(energyIssue)} " + newline +
-                $" where row_no1 in @rowNo1s{randomValue}   " + newline +
-                $"   and yr_mnth >= @startDate              " + newline +
-                $"   and yr_mnth <= @endDate                " + newline +
-                $" group by yr_mnth";
+                sql +=
+                $@"{(string.IsNullOrEmpty(sql) ? "" : newline + " union ")}
+                    select '{dbEnergy.Id}' id   
+                        , '{GetColumnMapping(energyIssue, dbEnergy, code)}' name
+                        , yr_mnth                  
+                        , sum({code}) data                   
+                     from {GetEnergyDataSource(energyIssue)} 
+                    where row_no1 in @rowNo1s{randomValue}   
+                      and yr_mnth >= @startDate              
+                      and yr_mnth <= @endDate                
+                    group by yr_mnth";
 
                 parameters.Add($"rowNo1s{randomValue}", dbEnergy.RowNo1?.Split(',')
                                                                        .DefaultIfEmpty()
                                                                        .Distinct());
             }
 
+            string sqlPeriodSummationColumn = GetPeriodSummationColumn(criteria);
+            sql = newline +
+                  $@"select 
+                            id, 
+                            name,
+                            {sqlPeriodSummationColumn} period, 
+                            sum(data) data
+                       from ( 
+                        {sql}
+                       ) temp 
+                     group by id, name, {sqlPeriodSummationColumn}
+                     order by id";
             _logger.LogDebug(sql);
             foreach (string name in parameters.ParameterNames)
             {
@@ -355,12 +385,13 @@ namespace Energy.Services
             using (var conn = _dapperContext.CreateConnection())
             {
                 var energyEntry = conn.Query(sql, parameters);
+
+                _logger.LogDebug($"energyEntry:{JsonConvert.SerializeObject(energyEntry)}");
                 return new DatabaseQueryResult()
                 {
                     Title = dbEnergy.Name ?? string.Empty,
                     Header = energyEntry.Where(e => e.name == GetColumnMapping(energyIssue, dbEnergy, codes.FirstOrDefault() ?? string.Empty))
-                                        .Select(e => e.yearMonth.ToString().Substring(0, e.yearMonth.ToString().Length - 2) + "年" +
-                                                     e.yearMonth.ToString().Substring(e.yearMonth.ToString().Length - 2))
+                                        .Select(e => e.period)
                                         .Prepend("日期"),
                     Content = energyEntry.GroupBy(e => e.name)
                                         .Select(group => new object[] { group.Key }.Concat(group.Select(g => g.data)).ToArray())
