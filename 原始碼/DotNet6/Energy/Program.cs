@@ -1,4 +1,4 @@
-using Autofac.Extensions.DependencyInjection;
+Ôªøusing Autofac.Extensions.DependencyInjection;
 using Autofac;
 using Energy;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +9,7 @@ using Serilog;
 using Energy.Utils;
 using System.Xml.Linq;
 using System.Text.Json.Serialization;
-using Autofac.Core;
-using Newtonsoft.Json;
-using Microsoft.Extensions.Options;
+using Energy.Models.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +34,7 @@ try
     // Context
     builder.Services.AddDbContext<EnergyDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnectonString")));
 
-    // WebApi§§Enum¬‡¥´
+    // WebApi‰∏≠EnumËΩâÊèõ
     builder.Services.AddControllers()
         .AddJsonOptions(
         options =>
@@ -56,11 +54,38 @@ try
         options.SwaggerDoc("v1", new OpenApiInfo
         {
             Version = "v1",
-            Title = "Ø‡∑ΩßΩ API",
-            Description = "An ASP.NET Core Web API for managing",
+            Title = "ËÉΩÊ∫êÂ±Ä API",
+            Description = "An ASP.NET Core Web API for managing <br/> È©óË≠âapiKeyÁÇ∫ test123!",
         });
 
+        options.AddSecurityDefinition(ApiKeyAuthenticationConst.AuthenticationScheme,
+            new OpenApiSecurityScheme
+            {
+                Description = "API key used in the Authorization header.",
+                Type = SecuritySchemeType.ApiKey,
+                In = ParameterLocation.Header,
+                Name = ApiKeyAuthenticationConst.AuthenticationScheme,
+                //Scheme = ApiKeyAuthenticationConst.AuthenticationScheme,
+            });
+
+        options.AddSecurityRequirement(
+            new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = ApiKeyAuthenticationConst.AuthenticationScheme
+                        }
+                    },
+                    new string[] {}
+                }
+            });
+
         // using System.Reflection;
+        
         var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
         var docPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
         var doc = XDocument.Load(docPath);
@@ -68,32 +93,53 @@ try
         options.SchemaFilter<DescribeEnumMembers>(doc);
     });
 
-    //controller•i•H®œ•ŒILogger§∂≠±®”ºg§Jlog¨ˆø˝
+    //controllerÂèØ‰ª•‰ΩøÁî®ILogger‰ªãÈù¢‰æÜÂØ´ÂÖ•logÁ¥ÄÈåÑ
     builder.Host.UseSerilog();
 
     var app = builder.Build();
 
-    // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
+    var apiKey = builder.Configuration.GetValue<string>("ApiKey");
+
+    app.Use(async (context, next) =>
     {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
+        var found = context.Request.Headers.TryGetValue(ApiKeyAuthenticationConst.AuthenticationScheme, out var key);
+
+        if (context.Request.Path.StartsWithSegments("/swagger") || (found && key == apiKey))
+        {
+            await next(context);
+        }
+        else
+        {
+            context.Response.StatusCode = 401;
+            await context.Response.WriteAsync("ÊéàÊ¨äÂ§±Êïó");
+            return;
+        }
+    });
+
+
+
+
+    // Configure the HTTP request pipeline.
+    //if (app.Environment.IsDevelopment())
+    //{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    //}
 
     app.UseAuthorization();
 
     app.MapControllers();
 
-    // ®C§@≠” Request ®œ•Œ Serilog ∞Oø˝§U®”
+    // ÊØè‰∏ÄÂÄã Request ‰ΩøÁî® Serilog Ë®òÈåÑ‰∏ã‰æÜ
     app.UseSerilogRequestLogging(options =>
     {
-        // ¶p™G≠n¶€≠q∞TÆß™∫Ωd•ªÆÊ¶°°A•i•H≠◊ßÔ≥o∏Ã°A¶˝≠◊ßÔ´·®√§£∑|ºv≈Tµ≤∫c§∆∞Oø˝™∫ƒ›© 
+        // Â¶ÇÊûúË¶ÅËá™Ë®ÇË®äÊÅØÁöÑÁØÑÊú¨Ê†ºÂºèÔºåÂèØ‰ª•‰øÆÊîπÈÄôË£°Ôºå‰ΩÜ‰øÆÊîπÂæå‰∏¶‰∏çÊúÉÂΩ±ÈüøÁµêÊßãÂåñË®òÈåÑÁöÑÂ±¨ÊÄß
         options.MessageTemplate = "Handled {RequestPath}";
 
-        // πw≥]øÈ•X™∫¨ˆø˝µ•Ø≈¨∞ Information°AßA•i•H¶b¶π≠◊ßÔ∞Oø˝µ•Ø≈
+        // È†êË®≠Ëº∏Âá∫ÁöÑÁ¥ÄÈåÑÁ≠âÁ¥öÁÇ∫ InformationÔºå‰Ω†ÂèØ‰ª•Âú®Ê≠§‰øÆÊîπË®òÈåÑÁ≠âÁ¥ö
         // options.GetLevel = (httpContext, elapsed, ex) => LogEventLevel.Debug;
 
-        // ßA•i•H±q httpContext ®˙±o HttpContext §U©“¶≥•i•H®˙±o™∫∏Í∞T°I
+        // ‰Ω†ÂèØ‰ª•Âæû httpContext ÂèñÂæó HttpContext ‰∏ãÊâÄÊúâÂèØ‰ª•ÂèñÂæóÁöÑË≥áË®äÔºÅ
         options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
         {
             diagnosticContext.Set("RequestHost", httpContext.Request.Host.Value);
